@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg aria-label="مكتب الفواكه" role="img" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+ <rect width="64" height="64" fill="none"/>
+ <!-- building -->
+ <path d="M4 27 32 10l28 17v5H4z" fill="#04722b"/>
+ <path d="M8 28 32 14l24 14v4H8z" fill="#f1c548"/>
+ <path d="M7 31h50v25H7z" fill="#04722b"/>
+ <path d="M11 35h42v21H11z" fill="#f1c548"/>
+ <!-- awning -->
+ <path d="M5 29h54v8H5z" fill="#04722b"/>
+ <path d="M7 29h8v8H7zm16 0h8v8h-8zm16 0h8v8h-8z" fill="#f60"/>
+ <!-- lights -->
+ <path d="m20 39v5m12-5v5m12-5v5" stroke="#f1c548" stroke-width="1.8"/>
+ <circle cx="20" cy="45" r="2" fill="#f1c548"/>
+ <circle cx="32" cy="45" r="2" fill="#f1c548"/>
+ <circle cx="44" cy="45" r="2" fill="#f1c548"/>
+ <!-- truck left -->
+ <path d="M9 46h15v9H9z" fill="#04722b"/>
+ <path d="m24 48h6v7h-6z" fill="#f60"/>
+ <path d="M24 46h7l4 4v5H24z" fill="#04722b"/>
+ <circle cx="16" cy="56" r="3" fill="#04722b"/>
+ <circle cx="29" cy="56" r="3" fill="#04722b"/>
+ <!-- pickup right -->
+ <path d="M35 48h12v7H35z" fill="#04722b"/>
+ <path d="M47 50h7l3 5H47z" fill="#f60"/>
+ <path d="M46 46h7l3 4H46z" fill="#04722b"/>
+ <circle cx="41" cy="56" r="3" fill="#04722b"/>
+ <circle cx="54" cy="56" r="3" fill="#04722b"/>
+ <!-- crates -->
+ <path d="m13 40h5v5h-5zm5 0h5v5h-5zm25 2h5v4h-5zm5 0h5v4h-5z" fill="#f60"/>
+ <!-- workers -->
+ <circle cx="27" cy="42" r="1.8" fill="#04722b"/>
+ <path d="m25.5 44h3v6h-3z" fill="#04722b"/>
+ <circle cx="39" cy="42" r="1.8" fill="#04722b"/>
+ <path d="m37.5 44h3v6h-3z" fill="#04722b"/>
+ <!-- ground -->
+ <path d="M5 58h54v2H5z" fill="#f1c548"/>
+</svg>
