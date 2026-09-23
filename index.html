@@ -142,7 +142,6 @@
 
         html {
             scroll-behavior: smooth;
-            /* ✅ إصلاح مشكلة 33% على الجوال في RTL */
             max-width: 100vw;
             overflow-x: clip;
         }
@@ -155,7 +154,6 @@
             font-family: 'Cairo', system-ui, -apple-system, "Segoe UI", Tahoma, sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            /* ✅ إصلاح إضافي */
             max-width: 100vw;
             overflow-x: clip;
             overflow-wrap: break-word;
@@ -489,22 +487,28 @@
 
         .how-col { text-align: center; }
 
+        /* ✅ أيقونات SVG مخصصة — نفس نمط أيقونات الحسابات */
         .how-icon {
-            width: 76px;
-            height: 76px;
+            width: 96px;
+            height: 96px;
             margin: 0 auto 1.2rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
-            color: var(--orange);
-            border: 2px solid var(--orange);
-            border-radius: 50%;
-            background: var(--white);
+            background: transparent;
+            border: none;
             transition: var(--transition);
         }
 
-        .how-col:hover .how-icon { background: var(--orange); color: var(--white); }
+        .how-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            background: transparent;
+        }
+
+        .how-col:hover .how-icon { transform: translateY(-4px); }
 
         .how-col h3 {
             font-size: 1.15rem;
@@ -652,8 +656,8 @@
         .account-card.primary2 { border-top-color: var(--primary-dark); }
 
         .account-logo {
-            width: 52px;
-            height: 52px;
+            width: 64px;
+            height: 64px;
             object-fit: contain;
             margin-bottom: 0.9rem;
             display: block;
@@ -727,6 +731,7 @@
             border-radius: var(--radius-md);
             padding: 1.7rem;
             transition: var(--transition);
+            text-align: center;
         }
 
         .feature-card:hover {
@@ -734,35 +739,28 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.06);
         }
 
+        /* ✅ أيقونات PNG مخصصة 256×256 — نفس نمط أيقونات الحسابات */
         .feature-icon {
-            width: 46px;
-            height: 46px;
-            color: var(--primary);
-            border: 1px solid var(--primary-line);
-            border-radius: var(--radius);
+            width: 72px;
+            height: 72px;
+            margin: 0 auto 1rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.25rem;
-            margin-bottom: 1rem;
-            background: var(--primary-soft);
+            background: transparent;
+            border: none;
+            transition: var(--transition);
         }
 
-        .feature-card:nth-child(2) .feature-icon,
-        .feature-card:nth-child(5) .feature-icon,
-        .feature-card:nth-child(8) .feature-icon {
-            color: var(--orange);
-            border-color: #ffd5b8;
-            background: var(--orange-soft);
+        .feature-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            background: transparent;
         }
 
-        .feature-card:nth-child(3) .feature-icon,
-        .feature-card:nth-child(6) .feature-icon,
-        .feature-card:nth-child(9) .feature-icon {
-            color: #8a6d00;
-            border-color: #f0e0b5;
-            background: var(--yellow-soft);
-        }
+        .feature-card:hover .feature-icon { transform: translateY(-4px); }
 
         .feature-card h3 { font-size: 1.05rem; font-weight: 700; color: var(--ink); margin-bottom: 0.5rem; }
         .feature-card p { font-size: 0.9rem; color: var(--ink-soft); line-height: 1.75; }
@@ -780,12 +778,34 @@
             border: 1px solid var(--primary-deep);
         }
 
+        /* ✅ شعار elaalwa داخل دائرة بيضاء مع رابط مخفي */
+        .elaalwa-logo-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 96px;
+            height: 96px;
+            background: #ffffff;
+            border-radius: 50%;
+            padding: 14px;
+            margin-bottom: 0.9rem;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+            transition: var(--transition);
+            overflow: hidden;
+        }
+
+        .elaalwa-logo-link:hover,
+        .elaalwa-logo-link:focus-visible {
+            transform: scale(1.05);
+            box-shadow: 0 6px 22px rgba(0,0,0,0.28);
+        }
+
         .elaalwa-logo {
             display: block;
-            height: 48px;
-            width: auto;
-            max-width: 200px;
-            margin-bottom: 0.8rem;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: transparent;
         }
 
         .elaalwa-domain {
@@ -997,11 +1017,29 @@
             padding: 3.5rem 0;
         }
 
-        .sponsor-sec img {
-            max-width: 120px;
+        /* ✅ شعار ريادة داخل رابط مخفي */
+        .riyada-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             margin: 0 auto 1.2rem;
+            transition: var(--transition);
+        }
+
+        .riyada-link:hover,
+        .riyada-link:focus-visible {
+            transform: scale(1.04);
+            opacity: 0.92;
+        }
+
+        .riyada-link img {
+            max-width: 120px;
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
             filter: brightness(0) invert(1);
             opacity: 0.95;
+            display: block;
         }
 
         .sponsor-sec h2 {
@@ -1253,7 +1291,6 @@
         }
 
         /* ============ SEO HIDDEN ============ */
-        /* ✅ إصلاح جذري لمشكلة 33% على الجوال: استخدام clip-path بدل left: -9999px */
         .seo-hidden {
             position: absolute !important;
             width: 1px !important;
@@ -1341,10 +1378,14 @@
             .how-section { padding: 3rem 0; }
             .footer-grid { grid-template-columns: 1fr; }
             .elaalwa-box h2 { font-size: 1.3rem; }
-            .elaalwa-logo { height: 40px; }
+            .elaalwa-logo-link { width: 80px; height: 80px; padding: 12px; }
             .banner { padding: 2.5rem 0; }
             .banner h2 { font-size: 1.35rem; }
             .market-icon { width: 72px; height: 72px; padding: 6px; }
+
+            .how-icon { width: 80px; height: 80px; }
+            .feature-icon { width: 64px; height: 64px; }
+            .account-logo { width: 56px; height: 56px; }
 
             .back-to-top {
                 inset-inline-start: 16px;
@@ -1358,9 +1399,10 @@
             .account-card, .feature-card, .policy-card { padding: 1.3rem; }
             .hero-pill { font-size: 0.82rem; padding: 8px 14px; }
             .elaalwa-box { padding: 1.5rem 1.2rem; }
-            .elaalwa-logo { height: 36px; }
+            .elaalwa-logo-link { width: 72px; height: 72px; padding: 10px; }
             .market-icon { width: 64px; height: 64px; padding: 5px; }
             .market-item { gap: 12px; }
+            .how-icon { width: 72px; height: 72px; }
         }
     </style>
 </head>
@@ -1415,7 +1457,6 @@
                     <button id="btnKu" type="button" aria-pressed="false">کوردی</button>
                 </div>
 
-                <!-- جوجل بلاي -->
                 <a class="store-mini" href="https://play.google.com/store/apps/details?id=com.alwaa.app"
                    rel="noopener noreferrer" onclick="safeConvert();">
                     <svg viewBox="0 0 512 512" fill="white" aria-hidden="true" focusable="false">
@@ -1425,7 +1466,6 @@
                     <div class="btn-text ku"><small>داگرتن لە</small><span>گووگڵ پلەی</span></div>
                 </a>
 
-                <!-- آب ستور -->
                 <a class="store-mini" href="https://apps.apple.com/us/app/%D8%B9%D9%84%D9%88%D8%A9/id6766648439" target="_blank"
                    rel="noopener noreferrer" onclick="safeConvert();">
                     <svg viewBox="0 0 24 24" fill="white" aria-hidden="true" focusable="false">
@@ -1517,7 +1557,9 @@
 
             <div class="how-grid">
                 <div class="how-col">
-                    <div class="how-icon" aria-hidden="true"><i class="fas fa-map-location-dot"></i></div>
+                    <div class="how-icon" aria-hidden="true">
+                        <img src="/how-location.svg" alt="" width="96" height="96" loading="lazy">
+                    </div>
                     <h3 class="ar">حدّد موقعك</h3>
                     <h3 class="ku">شوێنت دیاری بکە</h3>
                     <p class="ar">نعرض لك البقالين القريبين منك في منطقتك فقط — بدون وسطاء ولا اتصال عشوائي.</p>
@@ -1525,7 +1567,9 @@
                 </div>
 
                 <div class="how-col">
-                    <div class="how-icon" aria-hidden="true"><i class="fas fa-cart-shopping"></i></div>
+                    <div class="how-icon" aria-hidden="true">
+                        <img src="/how-choose.svg" alt="" width="96" height="96" loading="lazy">
+                    </div>
                     <h3 class="ar">اختر ما تريد</h3>
                     <h3 class="ku">هەڵبژێرە چی دەتەوێت</h3>
                     <p class="ar">تصفح المنتجات، حدّد الكميات بالكيلوغرام (الحد الأدنى 1 كغم)، وأضف ملاحظاتك الخاصة.</p>
@@ -1533,7 +1577,9 @@
                 </div>
 
                 <div class="how-col">
-                    <div class="how-icon" aria-hidden="true"><i class="fas fa-hand-holding-heart"></i></div>
+                    <div class="how-icon" aria-hidden="true">
+                        <img src="/how-offer.svg" alt="" width="96" height="96" loading="lazy">
+                    </div>
                     <h3 class="ar">اختر عرض واستلم</h3>
                     <h3 class="ku">پێشنیار هەڵبژێرە و وەریبگرە</h3>
                     <p class="ar">يصلك عرض كل بقال: السعر + وقت التوصيل. اختر الأنسب وسيصلك في الوقت المحدد.</p>
@@ -1617,7 +1663,7 @@
 
             <div class="accounts-grid">
                 <div class="account-card primary2">
-                    <img src="/icon-user.svg" alt="" class="account-logo" width="52" height="52" loading="lazy">
+                    <img src="/acc-user.svg" alt="" class="account-logo" width="64" height="64" loading="lazy">
                     <span class="account-badge">USER</span>
                     <h3 class="ar">مستخدم عادي</h3>
                     <h3 class="ku">بەکارهێنەری ئاسایی</h3>
@@ -1636,7 +1682,7 @@
                 </div>
 
                 <div class="account-card yellow">
-                    <img src="/icon-baqal.svg" alt="" class="account-logo" width="52" height="52" loading="lazy">
+                    <img src="/acc-baqal.svg" alt="" class="account-logo" width="64" height="64" loading="lazy">
                     <span class="account-badge">BAQAL</span>
                     <h3 class="ar">بقال / صاحب محل</h3>
                     <h3 class="ku">بەقال / خاوەن دوکان</h3>
@@ -1655,7 +1701,7 @@
                 </div>
 
                 <div class="account-card">
-                    <img src="/icon-office.svg" alt="" class="account-logo" width="52" height="52" loading="lazy">
+                    <img src="/acc-office.svg" alt="" class="account-logo" width="64" height="64" loading="lazy">
                     <span class="account-badge">OFFICE</span>
                     <h3 class="ar">مكتب داخل علوة</h3>
                     <h3 class="ku">ئۆفیس لە ناو عەلوە</h3>
@@ -1674,7 +1720,7 @@
                 </div>
 
                 <div class="account-card orange">
-                    <img src="/icon-company.svg" alt="" class="account-logo" width="52" height="52" loading="lazy">
+                    <img src="/acc-company.svg" alt="" class="account-logo" width="64" height="64" loading="lazy">
                     <span class="account-badge">COMPANY</span>
                     <h3 class="ar">شركة تجهيز / تصدير</h3>
                     <h3 class="ku">کۆمپانیای دابینکردن / هەناردەکردن</h3>
@@ -1710,7 +1756,9 @@
 
             <div class="features-grid">
                 <div class="feature-card">
-                    <div class="feature-icon" aria-hidden="true"><i class="fas fa-truck-fast"></i></div>
+                    <div class="feature-icon" aria-hidden="true">
+                        <img src="/feat-delivery.png" alt="" width="72" height="72" loading="lazy">
+                    </div>
                     <h3 class="ar">توصيل من أقرب بقال</h3>
                     <h3 class="ku">گەیاندن لە نزیکترین بەقال</h3>
                     <p class="ar">طلبك يذهب فقط للبقالين في منطقتك — لا اتصال عشوائي، لا وقت ضائع، لا وسطاء.</p>
@@ -1718,7 +1766,9 @@
                 </div>
 
                 <div class="feature-card">
-                    <div class="feature-icon" aria-hidden="true"><i class="fas fa-video"></i></div>
+                    <div class="feature-icon" aria-hidden="true">
+                        <img src="/feat-live.png" alt="" width="72" height="72" loading="lazy">
+                    </div>
                     <h3 class="ar">بث مباشر للمكاتب والشركات</h3>
                     <h3 class="ku">پەخشی ڕاستەوخۆ بۆ ئۆفیس و کۆمپانیاکان</h3>
                     <p class="ar">شاهد بضاعة المكتب لحظياً قبل أن تشتري — شفافية كاملة ودقة عالية في العرض.</p>
@@ -1726,7 +1776,9 @@
                 </div>
 
                 <div class="feature-card">
-                    <div class="feature-icon" aria-hidden="true"><i class="fas fa-clock"></i></div>
+                    <div class="feature-icon" aria-hidden="true">
+                        <img src="/feat-posts12.png" alt="" width="72" height="72" loading="lazy">
+                    </div>
                     <h3 class="ar">منشورات تدوم 12 ساعة</h3>
                     <h3 class="ku">بڵاوکراوە بۆ 12 کاتژمێر</h3>
                     <p class="ar">صور المنتجات تظهر 12 ساعة فقط ثم تُحذف تلقائياً — محتوى متجدد دائماً.</p>
@@ -1734,7 +1786,9 @@
                 </div>
 
                 <div class="feature-card">
-                    <div class="feature-icon" aria-hidden="true"><i class="fas fa-star"></i></div>
+                    <div class="feature-icon" aria-hidden="true">
+                        <img src="/feat-topbaqal.png" alt="" width="72" height="72" loading="lazy">
+                    </div>
                     <h3 class="ar">نظام "البقال الموصى به"</h3>
                     <h3 class="ku">سیستەمی "بەقالی پێشنیارکراو"</h3>
                     <p class="ar">بعد 5 طلبات ناجحة وتقييم إيجابي من العملاء، يتحول البقال تلقائياً إلى "موصى به".</p>
@@ -1742,7 +1796,9 @@
                 </div>
 
                 <div class="feature-card">
-                    <div class="feature-icon" aria-hidden="true"><i class="fas fa-shield-halved"></i></div>
+                    <div class="feature-icon" aria-hidden="true">
+                        <img src="/feat-verify.png" alt="" width="72" height="72" loading="lazy">
+                    </div>
                     <h3 class="ar">توثيق ميداني للمكاتب</h3>
                     <h3 class="ku">پشتڕاستکردنەوەی مەیدانی بۆ ئۆفیسەکان</h3>
                     <p class="ar">فريق ميداني يزور المكاتب ويتأكد من مصداقيتها قبل الموافقة على إضافتها.</p>
@@ -1750,7 +1806,9 @@
                 </div>
 
                 <div class="feature-card">
-                    <div class="feature-icon" aria-hidden="true"><i class="fas fa-headset"></i></div>
+                    <div class="feature-icon" aria-hidden="true">
+                        <img src="/feat-support.png" alt="" width="72" height="72" loading="lazy">
+                    </div>
                     <h3 class="ar">دعم فني 24/7</h3>
                     <h3 class="ku">پشتگیری تەکنیکی 24/7</h3>
                     <p class="ar">فريق دعم متواصل لحل أي مشكلة خلال دقائق — طوال أيام الأسبوع وفي كل المحافظات.</p>
@@ -1758,7 +1816,9 @@
                 </div>
 
                 <div class="feature-card">
-                    <div class="feature-icon" aria-hidden="true"><i class="fas fa-users"></i></div>
+                    <div class="feature-icon" aria-hidden="true">
+                        <img src="/feat-protection.png" alt="" width="72" height="72" loading="lazy">
+                    </div>
                     <h3 class="ar">نظام حماية الطرفين</h3>
                     <h3 class="ku">سیستەمی پاراستنی هەردوو لایەن</h3>
                     <p class="ar">قواعد واضحة تحمي المستخدم والبقال: إلغاء خلال 40٪ فقط، والالتزام بالوقت إلزامي.</p>
@@ -1766,7 +1826,9 @@
                 </div>
 
                 <div class="feature-card">
-                    <div class="feature-icon" aria-hidden="true"><i class="fas fa-language"></i></div>
+                    <div class="feature-icon" aria-hidden="true">
+                        <img src="/feat-language.png" alt="" width="72" height="72" loading="lazy">
+                    </div>
                     <h3 class="ar">دعم كامل للعربية والكردية</h3>
                     <h3 class="ku">پشتگیری تەواو بۆ عەرەبی و کوردی</h3>
                     <p class="ar">تطبيق بلغتين كاملتين — يخدم كل محافظات العراق بما فيها إقليم كردستان.</p>
@@ -1774,7 +1836,9 @@
                 </div>
 
                 <div class="feature-card">
-                    <div class="feature-icon" aria-hidden="true"><i class="fas fa-money-bill-wave"></i></div>
+                    <div class="feature-icon" aria-hidden="true">
+                        <img src="/feat-free.png" alt="" width="72" height="72" loading="lazy">
+                    </div>
                     <h3 class="ar">مجاني بدون عمولة</h3>
                     <h3 class="ku">بەخۆڕایی بێ کۆمیسیۆن</h3>
                     <p class="ar">صفر رسوم · صفر عمولة · صفر اشتراكات — على كل أنواع الحسابات.</p>
@@ -1789,7 +1853,11 @@
         <div class="container">
             <div class="elaalwa-box">
                 <div class="elaalwa-content">
-                    <img src="/elaalwa-logo.svg" alt="elaalwa - إعلانات العراق المحلية" class="elaalwa-logo" width="200" height="48" loading="lazy">
+                    <!-- ✅ الرابط مخفي داخل الشعار نفسه -->
+                    <a href="https://elaalwa.com" target="_blank" rel="noopener noreferrer"
+                       class="elaalwa-logo-link" aria-label="elaalwa - إعلانات العراق المحلية">
+                        <img src="/elaalwa-logo.svg" alt="elaalwa" class="elaalwa-logo" width="96" height="96" loading="lazy">
+                    </a>
                     <span class="elaalwa-domain">ELAALWA.COM</span>
                     <h2 class="ar">منصة إعلانات العراق المحلية — بنظام "إعلان واحد لكل منطقة"</h2>
                     <h2 class="ku">پلاتفۆرمی ڕیکلامی ناوخۆیی عێراق — بە سیستەمی "یەک ڕیکلام بۆ هەر ناوچەیەک"</h2>
@@ -2081,7 +2149,11 @@
     <!-- Sponsor -->
     <section class="sponsor-sec">
         <div class="container">
-            <img src="/riyada.svg" alt="مبادرة ريادة العراقية" width="120" height="120" loading="lazy">
+            <!-- ✅ الرابط مخفي داخل شعار ريادة نفسه -->
+            <a href="https://riyada.iq/" target="_blank" rel="noopener noreferrer"
+               class="riyada-link" aria-label="مبادرة ريادة العراقية">
+                <img src="/riyada.svg" alt="مبادرة ريادة العراقية" width="120" height="120" loading="lazy">
+            </a>
             <h2 class="ar">برعاية مبادرة ريادة العراقية</h2>
             <h2 class="ku">بە پشتیوانی دەستپیشکیشی ڕیاداری عێراقی</h2>
             <p class="ar">
