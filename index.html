@@ -648,14 +648,14 @@
         .account-card.yellow { border-top-color: var(--yellow); }
         .account-card.primary2 { border-top-color: var(--primary-dark); }
 
+        /* تم إزالة الخلفية والإطار لدمج الأيقونة مع المحيط */
         .account-logo {
             width: 52px;
             height: 52px;
             object-fit: contain;
             margin-bottom: 0.9rem;
-            border-radius: var(--radius);
-            background: var(--bg-soft);
-            padding: 8px;
+            display: block;
+            background: transparent;
         }
 
         .account-badge {
@@ -778,12 +778,26 @@
             border: 1px solid var(--primary-deep);
         }
 
-        .elaalwa-logo {
-            width: 44px;
-            height: 44px;
-            object-fit: contain;
-            margin-bottom: 0.7rem;
-            filter: brightness(0) invert(1);
+        /* شعار elaalwa الجديد — نص + أيقونة (بديل موثوق للصورة) */
+        .elaalwa-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 0.8rem;
+            color: var(--yellow);
+        }
+
+        .elaalwa-brand i {
+            font-size: 1.7rem;
+            line-height: 1;
+        }
+
+        .elaalwa-brand span {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            line-height: 1;
+            color: var(--white);
         }
 
         .elaalwa-domain {
@@ -792,7 +806,7 @@
             letter-spacing: 3px;
             color: var(--yellow);
             margin-bottom: 0.9rem;
-            display: inline-block;
+            display: block;
         }
 
         .elaalwa-box h2 {
@@ -874,16 +888,32 @@
             align-items: flex-start;
         }
 
-        .market-logo {
-            width: 58px;
-            height: 58px;
-            object-fit: contain;
+        /* حاوية أيقونة السوق — خلفية بلون الهوية + صورة دائرية بالداخل */
+        .market-icon {
+            width: 90px;
+            height: 90px;
+            padding: 8px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
             flex-shrink: 0;
-            background: var(--bg-soft);
-            border: 1px solid var(--line);
-            border-radius: var(--radius);
-            padding: 6px;
         }
+
+        .market-icon img {
+            width: 100%;
+            height: 100%;
+            aspect-ratio: 1 / 1;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* التناوب: أخضر → برتقالي → أصفر */
+        .market-item:nth-child(3n + 1) .market-icon { background: var(--primary); }
+        .market-item:nth-child(3n + 2) .market-icon { background: var(--orange); }
+        .market-item:nth-child(3n)     .market-icon { background: var(--yellow); }
 
         .market-info h4 {
             font-size: 1.02rem;
@@ -1267,7 +1297,7 @@
             .elaalwa-box h2 { font-size: 1.3rem; }
             .banner { padding: 2.5rem 0; }
             .banner h2 { font-size: 1.35rem; }
-            .market-logo { width: 48px; height: 48px; }
+            .market-icon { width: 72px; height: 72px; padding: 6px; }
         }
 
         @media (max-width: 480px) {
@@ -1692,7 +1722,10 @@
         <div class="container">
             <div class="elaalwa-box">
                 <div class="elaalwa-content">
-                    <img src="/elaalwa-logo.svg" alt="elaalwa" class="elaalwa-logo" width="44" height="44" loading="lazy">
+                    <div class="elaalwa-brand" aria-label="elaalwa">
+                        <i class="fas fa-bullhorn" aria-hidden="true"></i>
+                        <span>elaalwa</span>
+                    </div>
                     <span class="elaalwa-domain">ELAALWA.COM</span>
                     <h2 class="ar">منصة إعلانات العراق المحلية — بنظام "إعلان واحد لكل منطقة"</h2>
                     <h2 class="ku">پلاتفۆرمی ڕیکلامی ناوخۆیی — "یەک ڕیکلام بۆ هەر ناوچەیەک"</h2>
@@ -1758,7 +1791,7 @@
 
             <div class="markets-grid">
                 <article class="market-item">
-                    <img src="/market-1.png" alt="" class="market-logo" width="58" height="58" loading="lazy">
+                    <div class="market-icon"><img src="/market-1.png" alt="علوة بغداد المركزية" width="90" height="90" loading="lazy"></div>
                     <div class="market-info">
                         <h4 class="ar">علوة بغداد المركزية (الرمل)</h4>
                         <h4 class="ku">عەلوەی بەغدای ناوەندی (ڕمل)</h4>
@@ -1769,7 +1802,7 @@
                 </article>
 
                 <article class="market-item">
-                    <img src="/market-2.png" alt="" class="market-logo" width="58" height="58" loading="lazy">
+                    <div class="market-icon"><img src="/market-2.png" alt="علوة الرشيد النموذجية" width="90" height="90" loading="lazy"></div>
                     <div class="market-info">
                         <h4 class="ar">علوة الرشيد النموذجية</h4>
                         <h4 class="ku">عەلوەی ڕەشیدی نمونەیی</h4>
@@ -1780,7 +1813,7 @@
                 </article>
 
                 <article class="market-item">
-                    <img src="/market-3.png" alt="" class="market-logo" width="58" height="58" loading="lazy">
+                    <div class="market-icon"><img src="/market-3.png" alt="علوة التعاون" width="90" height="90" loading="lazy"></div>
                     <div class="market-info">
                         <h4 class="ar">علوة التعاون</h4>
                         <h4 class="ku">عەلوەی هاریکاری</h4>
@@ -1791,7 +1824,7 @@
                 </article>
 
                 <article class="market-item">
-                    <img src="/market-4.png" alt="" class="market-logo" width="58" height="58" loading="lazy">
+                    <div class="market-icon"><img src="/market-4.png" alt="علوة جميلة" width="90" height="90" loading="lazy"></div>
                     <div class="market-info">
                         <h4 class="ar">علوة جميلة</h4>
                         <h4 class="ku">عەلوەی جەمیلە</h4>
@@ -1802,7 +1835,7 @@
                 </article>
 
                 <article class="market-item">
-                    <img src="/market-5.png" alt="" class="market-logo" width="58" height="58" loading="lazy">
+                    <div class="market-icon"><img src="/market-5.png" alt="علوة التاجيات" width="90" height="90" loading="lazy"></div>
                     <div class="market-info">
                         <h4 class="ar">علوة التاجيات</h4>
                         <h4 class="ku">عەلوەی تاجیات</h4>
@@ -1813,7 +1846,7 @@
                 </article>
 
                 <article class="market-item">
-                    <img src="/market-6.png" alt="" class="market-logo" width="58" height="58" loading="lazy">
+                    <div class="market-icon"><img src="/market-6.png" alt="علوة البالوني" width="90" height="90" loading="lazy"></div>
                     <div class="market-info">
                         <h4 class="ar">علوة البالوني</h4>
                         <h4 class="ku">عەلوەی باڵۆنی</h4>
@@ -1824,7 +1857,7 @@
                 </article>
 
                 <article class="market-item">
-                    <img src="/market-7.png" alt="" class="market-logo" width="58" height="58" loading="lazy">
+                    <div class="market-icon"><img src="/market-7.png" alt="علوة الزيدان" width="90" height="90" loading="lazy"></div>
                     <div class="market-info">
                         <h4 class="ar">علوة الزيدان</h4>
                         <h4 class="ku">عەلوەی زەیدان</h4>
@@ -1835,7 +1868,7 @@
                 </article>
 
                 <article class="market-item">
-                    <img src="/market-8.png" alt="" class="market-logo" width="58" height="58" loading="lazy">
+                    <div class="market-icon"><img src="/market-8.png" alt="علوة الكوت" width="90" height="90" loading="lazy"></div>
                     <div class="market-info">
                         <h4 class="ar">علوة الكوت</h4>
                         <h4 class="ku">عەلوەی کوت</h4>
@@ -1846,7 +1879,7 @@
                 </article>
 
                 <article class="market-item">
-                    <img src="/market-9.png" alt="" class="market-logo" width="58" height="58" loading="lazy">
+                    <div class="market-icon"><img src="/market-9.png" alt="علوة كربلاء" width="90" height="90" loading="lazy"></div>
                     <div class="market-info">
                         <h4 class="ar">علوة كربلاء (الإمامين)</h4>
                         <h4 class="ku">عەلوەی کەربەلا (ئیمامەین)</h4>
@@ -1857,7 +1890,7 @@
                 </article>
 
                 <article class="market-item">
-                    <img src="/market-10.png" alt="" class="market-logo" width="58" height="58" loading="lazy">
+                    <div class="market-icon"><img src="/market-10.png" alt="علوة المثنى" width="90" height="90" loading="lazy"></div>
                     <div class="market-info">
                         <h4 class="ar">علوة المثنى (السماوة)</h4>
                         <h4 class="ku">عەلوەی موسەننا (سماوە)</h4>
@@ -1868,7 +1901,7 @@
                 </article>
 
                 <article class="market-item">
-                    <img src="/market-11.png" alt="" class="market-logo" width="58" height="58" loading="lazy">
+                    <div class="market-icon"><img src="/market-11.png" alt="علوة حمدان البصرة" width="90" height="90" loading="lazy"></div>
                     <div class="market-info">
                         <h4 class="ar">علوة حمدان — البصرة</h4>
                         <h4 class="ku">عەلوەی حەمدان — بەسرە</h4>
@@ -1879,7 +1912,7 @@
                 </article>
 
                 <article class="market-item">
-                    <img src="/market-12.png" alt="" class="market-logo" width="58" height="58" loading="lazy">
+                    <div class="market-icon"><img src="/market-12.png" alt="علوة كركوك" width="90" height="90" loading="lazy"></div>
                     <div class="market-info">
                         <h4 class="ar">علوة كركوك النموذجية</h4>
                         <h4 class="ku">عەلوەی کەرکوکی نمونەیی</h4>
@@ -1890,7 +1923,7 @@
                 </article>
 
                 <article class="market-item">
-                    <img src="/market-13.png" alt="" class="market-logo" width="58" height="58" loading="lazy">
+                    <div class="market-icon"><img src="/market-13.png" alt="علوة عنكاوا أربيل" width="90" height="90" loading="lazy"></div>
                     <div class="market-info">
                         <h4 class="ar">علوة عنكاوا — أربيل</h4>
                         <h4 class="ku">عەلوەی عەنکاوا — هەولێر</h4>
@@ -1901,7 +1934,7 @@
                 </article>
 
                 <article class="market-item">
-                    <img src="/market-14.png" alt="" class="market-logo" width="58" height="58" loading="lazy">
+                    <div class="market-icon"><img src="/market-14.png" alt="علوة السليمانية" width="90" height="90" loading="lazy"></div>
                     <div class="market-info">
                         <h4 class="ar">علوة السليمانية</h4>
                         <h4 class="ku">عەلوەی سلێمانی</h4>
@@ -1912,7 +1945,7 @@
                 </article>
 
                 <article class="market-item">
-                    <img src="/market-15.png" alt="" class="market-logo" width="58" height="58" loading="lazy">
+                    <div class="market-icon"><img src="/market-15.png" alt="علوة كلار" width="90" height="90" loading="lazy"></div>
                     <div class="market-info">
                         <h4 class="ar">علوة كلار</h4>
                         <h4 class="ku">عەلوەی کەلار</h4>
@@ -2012,81 +2045,81 @@
                 <span class="eyebrow ar">الأسئلة الشائعة</span>
                 <span class="eyebrow ku">پرسیارە باوەکان</span>
                 <h2 class="ar">كل ما تريد معرفته عن علوة</h2>
-                <h2 class="ku">هەموو ئەوەی دەتەوێت بزانیت</h2>
+                <h2 class="ku">هەموو ئەوەی دەتەوێت بزانیت دەربارەی عەلوە</h2>
                 <div class="h-line"></div>
             </div>
 
             <div class="faq-wrap">
                 <details>
-                    <summary><span class="ar">ما هو تطبيق علوة ALWA؟</span><span class="ku">ئەپی عەلوە چییە؟</span></summary>
+                    <summary><span class="ar">ما هو تطبيق علوة ALWA؟</span><span class="ku">ئەپی عەلوە ALWA چییە؟</span></summary>
                     <div class="ans ar">علوة ALWA هو أول سوق رقمي متكامل للخضار والفواكه في العراق. يربط المستخدم بأقرب بقال في منطقته، ويعرض بضاعة المكاتب داخل العلاوي المركزية عبر البث المباشر، ويستضيف شركات تجهيز المطاعم والفنادق وشركات التصدير.</div>
-                    <div class="ans ku">عەلوە ALWA یەکەم بازاڕی دیجیتاڵی تەواوە بۆ سەوزە و میوە لە عێراق.</div>
+                    <div class="ans ku">عەلوە ALWA یەکەم بازاڕی دیجیتاڵی تەواوە بۆ سەوزە و میوە لە عێراق. بەکارهێنەر بە نزیکترین بەقال لە ناوچەکەی دەبەستێتەوە، کاڵای ئۆفیسەکانی ناو عەلوەکانی ناوەندی بە پەخشی ڕاستەوخۆ پیشان دەدات، و میوانداری کۆمپانیاکانی دابینکردنی چێشتخانە و هۆتێلەکان و کۆمپانیاکانی هەناردەکردن دەکات.</div>
                 </details>
 
                 <details>
-                    <summary><span class="ar">كيف أطلب الخضار والفواكه من علوة؟</span><span class="ku">چۆن داواکاری بکەم؟</span></summary>
+                    <summary><span class="ar">كيف أطلب الخضار والفواكه من علوة؟</span><span class="ku">چۆن سەوزە و میوە لە عەلوە داوا بکەم؟</span></summary>
                     <div class="ans ar">افتح التطبيق، اختر المنتجات والكميات (الحد الأدنى 1 كغم)، أرسل الطلب ليصل تلقائياً لكل البقالين في محافظتك ومنطقتك، ثم اختر العرض الأنسب من حيث السعر والوقت.</div>
-                    <div class="ans ku">ئەپ بکەرەوە، بەرهەمەکان هەڵبژێرە، داواکاری بنێرە، باشترین پێشنیار هەڵبژێرە.</div>
+                    <div class="ans ku">ئەپەکە بکەرەوە، بەرهەمەکان و بڕەکان هەڵبژێرە (کەمترین بڕ 1 کیلۆگرام)، داواکاری بنێرە بۆ ئەوەی بە شێوەیەکی خۆکار بگاتە هەموو بەقالەکانی پارێزگا و ناوچەکەت، پاشان باشترین پێشنیار هەڵبژێرە لە ڕووی نرخ و کاتەوە.</div>
                 </details>
 
                 <details>
-                    <summary><span class="ar">هل تطبيق علوة مجاني؟</span><span class="ku">بەخۆڕاییە؟</span></summary>
+                    <summary><span class="ar">هل تطبيق علوة مجاني؟</span><span class="ku">ئایا ئەپی عەلوە بەخۆڕاییە؟</span></summary>
                     <div class="ans ar">نعم، مجاني بالكامل للمستخدمين والبقالين والمكاتب وشركات التجهيز والتصدير. لا رسوم تسجيل، ولا عمولة على الطلبات، ولا اشتراك شهري.</div>
-                    <div class="ans ku">بەڵێ، بە تەواوی بەخۆڕاییە بۆ هەموو جۆرەکانی هەژمار.</div>
+                    <div class="ans ku">بەڵێ، بە تەواوی بەخۆڕاییە بۆ بەکارهێنەران و بەقالەکان و ئۆفیسەکان و کۆمپانیاکانی دابینکردن و هەناردەکردن. هیچ کرێی تۆمارکردن نییە، هیچ کۆمیسیۆن لەسەر داواکاری نییە، و هیچ بەشداریکردنی مانگانە نییە.</div>
                 </details>
 
                 <details>
-                    <summary><span class="ar">كيف يتم الدفع في تطبيق علوة؟</span><span class="ku">پارەدان چۆنە؟</span></summary>
+                    <summary><span class="ar">كيف يتم الدفع في تطبيق علوة؟</span><span class="ku">پارەدان لە ئەپی عەلوە چۆنە؟</span></summary>
                     <div class="ans ar">الدفع نقداً عند التسليم. تطبيق علوة غير مسؤول عن أي عملية دفع. السعر المعروض من البقال يشمل خدمة التوصيل إلزامياً.</div>
-                    <div class="ans ku">بە کاش لە کاتی گەیاندن. نرخ گەیاندنیش لەخۆ دەگرێت.</div>
+                    <div class="ans ku">پارەدان بە کاش لە کاتی گەیاندن. ئەپی عەلوە بەرپرس نییە لە هیچ پرۆسەیەکی پارەدان. نرخی پیشاندراو لە لایەن بەقال بە زۆرەملێ خزمەتگوزاری گەیاندن لەخۆ دەگرێت.</div>
                 </details>
 
                 <details>
-                    <summary><span class="ar">ما هي العلاوي المركزية المشمولة؟</span><span class="ku">کام عەلوە لەخۆ دەگرێت؟</span></summary>
+                    <summary><span class="ar">ما هي العلاوي المركزية المشمولة؟</span><span class="ku">کام عەلوەی ناوەندی لەخۆ دەگرێت؟</span></summary>
                     <div class="ans ar">علوة بغداد المركزية (الرمل)، الرشيد النموذجية، التعاون، جميلة، التاجيات، البالوني، الزيدان، كربلاء (الإمامين)، الكوت، السماوة، حمدان في البصرة، كركوك، عنكاوا في أربيل، السليمانية، وكلار.</div>
-                    <div class="ans ku">15 عەلوەی ناوەندی لە هەموو پارێزگاکانی عێراق.</div>
+                    <div class="ans ku">عەلوەی بەغدای ناوەندی (ڕەمل)، ڕەشیدی نمونەیی، هاریکاری، جەمیلە، تاجیات، باڵۆنی، زەیدان، کەربەلا (ئیمامەین)، کوت، سماوە، حەمدان لە بەسرە، کەرکوک، عەنکاوا لە هەولێر، سلێمانی، و کەلار.</div>
                 </details>
 
                 <details>
-                    <summary><span class="ar">كيف أصبح بقالاً في تطبيق علوة؟</span><span class="ku">چۆن ببمە بەقال؟</span></summary>
+                    <summary><span class="ar">كيف أصبح بقالاً في تطبيق علوة؟</span><span class="ku">چۆن ببمە بەقال لە ئەپی عەلوە؟</span></summary>
                     <div class="ans ar">حمّل التطبيق، أنشئ حساب "لدي محل"، واملأ بياناتك: رقم التواصل، رقم واتساب، المحافظة، المنطقة، ووافق على شرط التوصيل والالتزام بالوقت. بعد أول 5 طلبات ناجحة، تتحول تلقائياً إلى "بقال موصى به".</div>
-                    <div class="ans ku">هەژماری "دوکانم هەیە" دروست بکە و داتاکانت پڕ بکەرەوە.</div>
+                    <div class="ans ku">ئەپەکە دابگرە، هەژماری "دوکانم هەیە" دروست بکە، و داتاکانت پڕ بکەرەوە: ژمارەی پەیوەندی، ژمارەی واتساپ، پارێزگا، ناوچە، و ڕەزامەندی بدە لەسەر مەرجی گەیاندن و پابەندبوون بە کات. دوای یەکەم 5 داواکاری سەرکەوتوو، بە شێوەیەکی خۆکار دەبیت بە "بەقالی پێشنیارکراو".</div>
                 </details>
 
                 <details>
-                    <summary><span class="ar">ما الفرق بين حساب المكتب وحساب الشركة؟</span><span class="ku">جیاوازی ئۆفیس و کۆمپانیا چییە؟</span></summary>
+                    <summary><span class="ar">ما الفرق بين حساب المكتب وحساب الشركة؟</span><span class="ku">جیاوازی نێوان هەژماری ئۆفیس و هەژماری کۆمپانیا چییە؟</span></summary>
                     <div class="ans ar">حساب المكتب مخصص للعرض فقط داخل العلاوي المركزية ولا يحتاج رقم تواصل. أما حساب الشركة فيتطلب رقم واتساب إلزامي، ويستطيع البث المباشر ونشر المنتجات مع عدّاد ظهور عام.</div>
-                    <div class="ans ku">ئۆفیس تەنها بۆ پیشاندانە، کۆمپانیا پێویستی بە ژمارەی واتساپ هەیە.</div>
+                    <div class="ans ku">هەژماری ئۆفیس تەنها بۆ پیشاندانە لە ناو عەلوەکانی ناوەندی و پێویستی بە ژمارەی پەیوەندی نییە. بەڵام هەژماری کۆمپانیا پێویستی بە ژمارەی واتساپی زۆرەملێ هەیە، و دەتوانێت پەخشی ڕاستەوخۆ بکات و بەرهەمەکان بڵاوبکاتەوە لەگەڵ ژمێرەری بینەری گشتی.</div>
                 </details>
 
                 <details>
-                    <summary><span class="ar">ما هي منصة elaalwa؟</span><span class="ku">elaalwa چییە؟</span></summary>
+                    <summary><span class="ar">ما هي منصة elaalwa؟</span><span class="ku">پلاتفۆرمی elaalwa چییە؟</span></summary>
                     <div class="ans ar">elaalwa منصة إعلانية محلية تابعة لعلوة، تعرض إعلاناً واحداً لكل منطقة لمدة 24 ساعة كاملة. الإعلان عبر elaalwa.com.</div>
-                    <div class="ans ku">پلاتفۆرمێکی ڕیکلامی ناوخۆیی، یەک ڕیکلام بۆ 24 کاتژمێر لە هەر ناوچەیەک.</div>
+                    <div class="ans ku">elaalwa پلاتفۆرمێکی ڕیکلامی ناوخۆییە سەر بە عەلوە، یەک ڕیکلام بۆ هەر ناوچەیەک بۆ ماوەی 24 کاتژمێری تەواو پیشان دەدات. ڕیکلامکردن لە ڕێگەی elaalwa.com.</div>
                 </details>
 
                 <details>
-                    <summary><span class="ar">هل يمكنني إلغاء الطلب بعد الموافقة؟</span><span class="ku">دەتوانم هەڵبوەشێنمەوە؟</span></summary>
+                    <summary><span class="ar">هل يمكنني إلغاء الطلب بعد الموافقة؟</span><span class="ku">ئایا دەتوانم داواکاری هەڵبوەشێنمەوە دوای ڕەزامەندی؟</span></summary>
                     <div class="ans ar">نعم، يمكنك الإلغاء خلال 40٪ من المهلة الزمنية. بعد ذلك، قد يُعرَّض حسابك للحظر حمايةً لحقوق البقال.</div>
-                    <div class="ans ku">بەڵێ، لە ماوەی 40٪. دوای ئەوە هەژمارەکەت بلۆک دەکرێت.</div>
+                    <div class="ans ku">بەڵێ، دەتوانیت لە ماوەی 40٪ ی کاتەکە هەڵبوەشێنیتەوە. دوای ئەوە، لەوانەیە هەژمارەکەت بلۆک بکرێت بۆ پاراستنی مافەکانی بەقال.</div>
                 </details>
 
                 <details>
-                    <summary><span class="ar">كم يستغرق توصيل الطلب؟</span><span class="ku">گەیاندن چەند دەخایەنێت؟</span></summary>
+                    <summary><span class="ar">كم يستغرق توصيل الطلب؟</span><span class="ku">گەیاندنی داواکاری چەند دەخایەنێت؟</span></summary>
                     <div class="ans ar">يختار البقال وقت التجهيز والتوصيل من 5 إلى 60 دقيقة، وأنت تختار العرض الأنسب لك. الالتزام بالوقت إلزامي.</div>
-                    <div class="ans ku">لە 5 بۆ 60 خولەک، بەپێی پێشنیاری بەقال.</div>
+                    <div class="ans ku">بەقال کاتی ئامادەکردن و گەیاندن لە 5 بۆ 60 خولەک هەڵدەبژێرێت، و تۆ باشترین پێشنیار بۆ خۆت هەڵدەبژێریت. پابەندبوون بە کات زۆرەملێیە.</div>
                 </details>
 
                 <details>
-                    <summary><span class="ar">هل التطبيق يشمل جميع محافظات العراق؟</span><span class="ku">هەموو پارێزگاکان؟</span></summary>
+                    <summary><span class="ar">هل التطبيق يشمل جميع محافظات العراق؟</span><span class="ku">ئایا ئەپەکە هەموو پارێزگاکانی عێراق لەخۆ دەگرێت؟</span></summary>
                     <div class="ans ar">نعم، يشمل تطبيق علوة جميع المحافظات العراقية الـ19، بما فيها إقليم كردستان (أربيل، السليمانية، دهوك، حلبجة).</div>
-                    <div class="ans ku">هەموو 19 پارێزگای عێراق لەخۆ دەگرێت.</div>
+                    <div class="ans ku">بەڵێ، ئەپی عەلوە هەموو 19 پارێزگای عێراق لەخۆ دەگرێت، لەوانە هەرێمی کوردستان (هەولێر، سلێمانی، دهۆک، هەڵەبجە).</div>
                 </details>
 
                 <details>
-                    <summary><span class="ar">كيف أتواصل مع شركة تجهيز أو تصدير؟</span><span class="ku">چۆن پەیوەندی بە کۆمپانیا بکەم؟</span></summary>
+                    <summary><span class="ar">كيف أتواصل مع شركة تجهيز أو تصدير؟</span><span class="ku">چۆن پەیوەندی بە کۆمپانیای دابینکردن یان هەناردەکردن بکەم؟</span></summary>
                     <div class="ans ar">كل شركة تعرض رقم واتساب التواصل على صفحتها داخل التطبيق. أثناء البث المباشر يمكنك التواصل عبر التعليقات.</div>
-                    <div class="ans ku">هەر کۆمپانیایەک ژمارەی واتساپی پیشان دەدات لەسەر لاپەڕەکەی.</div>
+                    <div class="ans ku">هەر کۆمپانیایەک ژمارەی واتساپی پەیوەندی لەسەر لاپەڕەکەی لە ناو ئەپەکە پیشان دەدات. لە کاتی پەخشی ڕاستەوخۆ دەتوانیت لە ڕێگەی کۆمێنتەکانەوە پەیوەندی بکەیت.</div>
                 </details>
             </div>
         </div>
