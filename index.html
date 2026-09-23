@@ -19,35 +19,44 @@
 
     <link rel="canonical" href="https://alwaiq.com/">
     <link rel="alternate" hreflang="ar" href="https://alwaiq.com/">
-    <link rel="alternate" hreflang="ku" href="https://alwaiq.com/ku/">
+    <link rel="alternate" hreflang="ckb" href="https://alwaiq.com/ckb/">
     <link rel="alternate" hreflang="x-default" href="https://alwaiq.com/">
 
+    <!-- ✅ Open Graph محسّن بالكامل لعرض صورة المشاركة في واتساب وإنستغرام -->
     <meta property="og:site_name" content="علوة ALWA">
     <meta property="og:title" content="علوة ALWA | سوق الجملة الرقمي المتكامل للخضار والفواكه">
     <meta property="og:description" content="اطلب من أقرب بقال، تابع المكاتب، وأعلن عبر elaalwa.">
     <meta property="og:image" content="https://alwaiq.com/alwa-og.jpg">
+    <meta property="og:image:secure_url" content="https://alwaiq.com/alwa-og.jpg">
+    <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="علوة ALWA — سوق الجملة الرقمي للخضار والفواكه في العراق">
     <meta property="og:url" content="https://alwaiq.com/">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="ar_IQ">
     <meta property="og:locale:alternate" content="ckb_IQ">
 
+    <!-- ✅ Twitter / X Card -->
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@alwaiq">
+    <meta name="twitter:creator" content="@alwaiq">
     <meta name="twitter:title" content="علوة ALWA | سوق الجملة الرقمي للخضار والفواكه في العراق">
     <meta name="twitter:description" content="اطلب من أقرب بقال، تابع المكاتب، وأعلن عبر elaalwa.">
     <meta name="twitter:image" content="https://alwaiq.com/alwa-og.jpg">
+    <meta name="twitter:image:alt" content="علوة ALWA — سوق الجملة الرقمي للخضار والفواكه في العراق">
 
     <link rel="icon" type="image/png" href="/alwa.png">
     <link rel="apple-touch-icon" href="/alwa.png">
 
+    <!-- ✅ preconnect لخطوط جوجل و cdnjs لتحسين سرعة التحميل -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" media="print" onload="this.media='all'">
-    <noscript>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap">
-    </noscript>
+    <!-- ✅ خط Cairo بالأوزان المستخدمة فعلاً فقط (400, 600, 700, 800) -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap">
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17907655558"></script>
     <script>
@@ -65,6 +74,7 @@
       "alternateName":"Alwa",
       "url":"https://alwaiq.com",
       "logo":"https://alwaiq.com/alwa.png",
+      "image":"https://alwaiq.com/alwa-og.jpg",
       "telephone":"+9647813130254",
       "sameAs":[
         "https://www.facebook.com/share/1SJW6y8CaB/",
@@ -132,6 +142,9 @@
             --radius-md: 6px;
             --transition: all 0.2s ease;
             --focus: #ff6600;
+
+            /* ✅ ارتفاع الهيدر — يُحدَّث ديناميكياً بـ JS، مع قيمة افتراضية */
+            --header-h: 100px;
         }
 
         *, *::before, *::after {
@@ -197,7 +210,10 @@
             padding-inline: 15px;
         }
 
-        section[id], div[id] { scroll-margin-top: 100px; }
+        /* ✅ scroll-margin-top محسوب ديناميكياً بناءً على ارتفاع الهيدر الفعلي */
+        section[id], div[id] {
+            scroll-margin-top: calc(var(--header-h) + 20px);
+        }
 
         /* ============ TOPBAR ============ */
         .topbar {
@@ -487,7 +503,6 @@
 
         .how-col { text-align: center; }
 
-        /* ✅ أيقونات SVG مخصصة */
         .how-icon {
             width: 96px;
             height: 96px;
@@ -739,7 +754,6 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.06);
         }
 
-        /* ✅ أيقونات PNG مخصصة 256×256 */
         .feature-icon {
             width: 72px;
             height: 72px;
@@ -778,7 +792,6 @@
             border: 1px solid var(--primary-deep);
         }
 
-        /* ✅ شعار elaalwa داخل دائرة بيضاء مع رابط مخفي */
         .elaalwa-logo-link {
             display: inline-flex;
             align-items: center;
@@ -1017,7 +1030,6 @@
             padding: 3.5rem 0;
         }
 
-        /* ✅ شعار ريادة داخل رابط مخفي */
         .riyada-link {
             display: inline-flex;
             align-items: center;
@@ -1246,20 +1258,12 @@
         .back-to-top.visible { opacity: 1; visibility: visible; }
         .back-to-top:hover, .back-to-top:focus-visible { background: var(--orange); }
 
-        /* ============ LANGUAGE ============ */
-        .ku { display: none !important; }
-        body.kurdish .ar { display: none !important; }
-        body.kurdish .ku { display: block !important; }
-        body.kurdish .btn-text.ku { display: flex !important; }
-        body.kurdish span.ku,
-        body.kurdish div.ku,
-        body.kurdish p.ku,
-        body.kurdish h1.ku,
-        body.kurdish h2.ku,
-        body.kurdish h3.ku,
-        body.kurdish h4.ku,
-        body.kurdish li.ku { display: block !important; }
-        body.kurdish a.ku { display: inline !important; }
+        /* ============ LANGUAGE VISIBILITY (نظام جديد نظيف) ============ */
+        /* ✅ لا نفرض display على العناصر الظاهرة — فقط نخفي اللغة غير النشطة */
+        html[lang="ar"] .ku,
+        html[lang="ckb"] .ar {
+            display: none !important;
+        }
 
         /* ============ LOADING ============ */
         .lang-loading {
@@ -1323,6 +1327,14 @@
             .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
             .how-grid { grid-template-columns: 1fr; gap: 2rem; }
             .banner-inner { grid-template-columns: 1fr; gap: 2rem; }
+        }
+
+        /* ✅ قيمة احتياطية لـ scroll-margin-top في حال فشل JS */
+        @media (max-width: 768px) {
+            :root { --header-h: 340px; }
+        }
+        @media (max-width: 480px) {
+            :root { --header-h: 360px; }
         }
 
         @media (max-width: 768px) {
@@ -1420,10 +1432,6 @@
         <div class="letter" id="l4">A</div>
     </div>
 
-    <button class="back-to-top" id="backToTop" aria-label="العودة إلى أعلى الصفحة" type="button">
-        <i class="fas fa-arrow-up" aria-hidden="true"></i>
-    </button>
-
     <!-- ═══ TOPBAR ═══ -->
     <div class="topbar">
         <div class="container">
@@ -1451,13 +1459,15 @@
             </nav>
 
             <div class="header-actions">
-                <div class="language-toggle" role="group" aria-label="تغيير اللغة">
+                <div class="language-toggle" id="langToggle" role="group" aria-label="تغيير اللغة">
                     <button id="btnAr" class="active" type="button" aria-pressed="true">العربية</button>
                     <button id="btnKu" type="button" aria-pressed="false">کوردی</button>
                 </div>
 
+                <!-- ✅ كل متجر له بيانات تحويل منفصلة عبر data-conversion -->
                 <a class="store-mini" href="https://play.google.com/store/apps/details?id=com.alwaa.app"
-                   rel="noopener noreferrer" onclick="safeConvert();">
+                   target="_blank" rel="noopener noreferrer"
+                   data-conversion="m7JCCNbWkPUbEIbHhNtC">
                     <svg viewBox="0 0 512 512" fill="white" aria-hidden="true" focusable="false">
                         <path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/>
                     </svg>
@@ -1465,8 +1475,10 @@
                     <div class="btn-text ku"><small>داگرتن لە</small><span>گووگڵ پلەی</span></div>
                 </a>
 
-                <a class="store-mini" href="https://apps.apple.com/us/app/%D8%B9%D9%84%D9%88%D8%A9/id6766648439" target="_blank"
-                   rel="noopener noreferrer" onclick="safeConvert();">
+                <!-- ⚠️ استبدل قيمة data-conversion بلابل التحويل الخاص بمتجر آبل من Google Ads -->
+                <a class="store-mini" href="https://apps.apple.com/us/app/%D8%B9%D9%84%D9%88%D8%A9/id6766648439"
+                   target="_blank" rel="noopener noreferrer"
+                   data-conversion="REPLACE_WITH_APP_STORE_CONVERSION_LABEL">
                     <svg viewBox="0 0 24 24" fill="white" aria-hidden="true" focusable="false">
                         <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
                     </svg>
@@ -1852,7 +1864,6 @@
         <div class="container">
             <div class="elaalwa-box">
                 <div class="elaalwa-content">
-                    <!-- ✅ الرابط مخفي داخل الشعار نفسه -->
                     <a href="https://elaalwa.com" target="_blank" rel="noopener noreferrer"
                        class="elaalwa-logo-link" aria-label="elaalwa - إعلانات العراق المحلية">
                         <img src="/elaalwa-logo.svg" alt="elaalwa" class="elaalwa-logo" width="96" height="96" loading="lazy">
@@ -2148,7 +2159,6 @@
     <!-- Sponsor -->
     <section class="sponsor-sec">
         <div class="container">
-            <!-- ✅ الرابط مخفي داخل شعار ريادة نفسه -->
             <a href="https://riyada.iq/" target="_blank" rel="noopener noreferrer"
                class="riyada-link" aria-label="مبادرة ريادة العراقية">
                 <img src="/riyada.svg" alt="مبادرة ريادة العراقية" width="120" height="120" loading="lazy">
@@ -2322,7 +2332,7 @@
                     <ul>
                         <li><a href="https://elaalwa.com" target="_blank" rel="noopener noreferrer">elaalwa.com — <span class="ar">إعلانات العراق</span><span class="ku">ڕیکلامی عێراق</span></a></li>
                         <li><a href="#faq" class="ar">الأسئلة الشائعة</a><a href="#faq" class="ku">پرسیارە باوەکان</a></li>
-                        <li><a href="#policy" class="ar">حدود المسؤولية</a><a href="#policy" class="ku">سنووری بەرپرسیارێتی</a></li>
+                        <li><a href="#policy" class="ar">حدود المسؤولية</a><a href="#policy" class="ku">سنووری بەرپرس یارێتی</a></li>
                         <li><a href="privacy-ar.html" class="ar">سياسة الخصوصية</a><a href="privacy-ku.html" class="ku">سیاسەتی تایبەتمەندی</a></li>
                         <li><a href="terms-ar.html" class="ar">شروط الاستخدام</a><a href="terms-ku.html" class="ku">مەرجەکانی بەکارهێنان</a></li>
                     </ul>
@@ -2336,33 +2346,60 @@
         </div>
     </footer>
 
+    <!-- ✅ زر العودة للأعلى الآن في نهاية body (ترتيب صحيح للـ tab) -->
+    <button class="back-to-top" id="backToTop" type="button" aria-label="العودة إلى أعلى الصفحة">
+        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+    </button>
+
     <script>
-        function safeConvert() {
-            if (typeof gtag === 'function') {
-                gtag('event', 'conversion', {'send_to': 'AW-17907655558/m7JCCNbWkPUbEIbHhNtC'});
+        // ═══════════════════════════════════════════
+        // 1) دوال مساعدة
+        // ═══════════════════════════════════════════
+        function safeConvert(label) {
+            if (typeof gtag === 'function' && label && label !== 'REPLACE_WITH_APP_STORE_CONVERSION_LABEL') {
+                gtag('event', 'conversion', {'send_to': 'AW-17907655558/' + label});
             }
         }
 
+        // ═══════════════════════════════════════════
+        // 2) نظام تبديل اللغة (نظيف بدون فرض display)
+        // ═══════════════════════════════════════════
         const STORAGE_KEY = 'alwa-lang';
         const loading = document.getElementById('langLoading');
         const letters = ['l1','l2','l3','l4'].map(id => document.getElementById(id));
         const btnAr = document.getElementById('btnAr');
         const btnKu = document.getElementById('btnKu');
+        const langToggle = document.getElementById('langToggle');
+        const btt = document.getElementById('backToTop');
 
-        function applyLang(lang, animate) {
+        function applyLang(lang) {
             const isKu = lang === 'ku';
-            document.body.classList.toggle('kurdish', isKu);
             document.documentElement.lang = isKu ? 'ckb' : 'ar';
             document.documentElement.dir = 'rtl';
             btnAr.classList.toggle('active', !isKu);
             btnKu.classList.toggle('active', isKu);
             btnAr.setAttribute('aria-pressed', String(!isKu));
             btnKu.setAttribute('aria-pressed', String(isKu));
+
+            // ✅ تحديث النصوص الديناميكية حسب اللغة
+            if (langToggle) {
+                langToggle.setAttribute('aria-label', isKu ? 'گۆڕینی زمان' : 'تغيير اللغة');
+            }
+            if (btt) {
+                btt.setAttribute('aria-label', isKu ? 'گەڕانەوە بۆ سەری لاپەڕە' : 'العودة إلى أعلى الصفحة');
+            }
         }
 
         function animateLetters(cb) {
-            letters.forEach(l => { l.style.opacity = '0'; l.style.animation = 'none'; });
+            // ✅ إعادة تعيين مع إجبار المتصفح على reflow لضمان إعادة تشغيل الأنيميشن
+            letters.forEach(l => {
+                if (!l) return;
+                l.style.opacity = '0';
+                l.style.animation = 'none';
+                void l.offsetWidth; // ← reflow trick
+            });
             letters.forEach((l, i) => {
+                if (!l) return;
                 setTimeout(() => {
                     l.style.animation = 'letterAnim 0.4s forwards';
                     if (i === letters.length - 1) setTimeout(cb, 400);
@@ -2373,12 +2410,12 @@
         function setLang(lang, animate) {
             try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) {}
             if (!animate) {
-                applyLang(lang, false);
+                applyLang(lang);
                 return;
             }
             loading.classList.add('active');
             animateLetters(() => {
-                applyLang(lang, true);
+                applyLang(lang);
                 loading.classList.remove('active');
             });
         }
@@ -2391,9 +2428,11 @@
             const saved = localStorage.getItem(STORAGE_KEY);
             if (saved === 'ar' || saved === 'ku') initialLang = saved;
         } catch (e) {}
-        applyLang(initialLang, false);
+        applyLang(initialLang);
 
-        const btt = document.getElementById('backToTop');
+        // ═══════════════════════════════════════════
+        // 3) زر العودة للأعلى
+        // ═══════════════════════════════════════════
         let bttTick = false;
         window.addEventListener('scroll', () => {
             if (bttTick) return;
@@ -2408,6 +2447,9 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
+        // ═══════════════════════════════════════════
+        // 4) تمرير سلس للروابط الداخلية
+        // ═══════════════════════════════════════════
         document.querySelectorAll('a[href^="#"]').forEach(a => {
             a.addEventListener('click', e => {
                 const id = a.getAttribute('href');
@@ -2422,6 +2464,32 @@
                 }
             });
         });
+
+        // ═══════════════════════════════════════════
+        // 5) أحداث التحويل لمتاجر التطبيقات (بدون onclick inline)
+        // ═══════════════════════════════════════════
+        document.querySelectorAll('a[data-conversion]').forEach(a => {
+            a.addEventListener('click', () => {
+                safeConvert(a.dataset.conversion);
+            });
+        });
+
+        // ═══════════════════════════════════════════
+        // 6) حساب ارتفاع الهيدر ديناميكياً لضبط scroll-margin-top
+        // ═══════════════════════════════════════════
+        const headerEl = document.querySelector('header');
+        function updateHeaderHeight() {
+            if (!headerEl) return;
+            const h = headerEl.offsetHeight;
+            document.documentElement.style.setProperty('--header-h', h + 'px');
+        }
+        updateHeaderHeight();
+        window.addEventListener('load', updateHeaderHeight);
+        window.addEventListener('resize', updateHeaderHeight);
+        window.addEventListener('orientationchange', updateHeaderHeight);
+        if (typeof ResizeObserver !== 'undefined' && headerEl) {
+            new ResizeObserver(updateHeaderHeight).observe(headerEl);
+        }
     </script>
 
 </body>
