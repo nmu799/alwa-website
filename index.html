@@ -105,10 +105,6 @@
     </script>
 
     <style>
-        /* ========================================
-           لوحة الألوان الجديدة
-           أخضر 60% · برتقالي 25% · أصفر 15%
-        ======================================== */
         :root {
             --primary: #04722b;
             --primary-dark: #035a22;
@@ -145,7 +141,7 @@
         }
 
         html {
-            overflow-x: hidden;
+            /* ⚠️ إزالة overflow-x من html لحل مشكلة الهاتف في RTL */
             scroll-behavior: smooth;
         }
 
@@ -158,11 +154,14 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             overflow-x: hidden;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
         }
 
         a { color: inherit; text-decoration: none; }
         button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
         img { max-width: 100%; height: auto; display: block; }
+        svg { max-width: 100%; }
         ul { list-style: none; }
 
         :focus-visible {
@@ -192,8 +191,8 @@
         .container {
             width: 92%;
             max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
+            margin-inline: auto;
+            padding-inline: 15px;
         }
 
         section[id], div[id] { scroll-margin-top: 100px; }
@@ -311,7 +310,7 @@
 
         .hero-content {
             max-width: 780px;
-            margin: 0 auto;
+            margin-inline: auto;
             text-align: center;
         }
 
@@ -342,7 +341,7 @@
             justify-content: center;
             gap: 10px;
             max-width: 780px;
-            margin: 0 auto;
+            margin-inline: auto;
         }
 
         .hero-pill {
@@ -481,7 +480,7 @@
             grid-template-columns: repeat(3, 1fr);
             gap: 2.5rem;
             max-width: 1020px;
-            margin: 0 auto;
+            margin-inline: auto;
         }
 
         .how-col { text-align: center; }
@@ -515,7 +514,7 @@
             font-size: 0.95rem;
             line-height: 1.75;
             max-width: 300px;
-            margin: 0 auto;
+            margin-inline: auto;
         }
 
         /* ============ SECTIONS ============ */
@@ -648,7 +647,6 @@
         .account-card.yellow { border-top-color: var(--yellow); }
         .account-card.primary2 { border-top-color: var(--primary-dark); }
 
-        /* تم إزالة الخلفية والإطار لدمج الأيقونة مع المحيط */
         .account-logo {
             width: 52px;
             height: 52px;
@@ -778,26 +776,15 @@
             border: 1px solid var(--primary-deep);
         }
 
-        /* شعار elaalwa الجديد — نص + أيقونة (بديل موثوق للصورة) */
-        .elaalwa-brand {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
+        /* شعار elaalwa الجديد — صورة SVG */
+        .elaalwa-logo {
+            display: block;
+            height: 48px;
+            width: auto;
+            max-width: 200px;
             margin-bottom: 0.8rem;
-            color: var(--yellow);
-        }
-
-        .elaalwa-brand i {
-            font-size: 1.7rem;
-            line-height: 1;
-        }
-
-        .elaalwa-brand span {
-            font-size: 1.5rem;
-            font-weight: 800;
-            letter-spacing: 1.5px;
-            line-height: 1;
-            color: var(--white);
+            /* إذا كان الشعار داكناً على خلفية خضراء، فعّل السطر التالي: */
+            /* filter: brightness(0) invert(1); */
         }
 
         .elaalwa-domain {
@@ -838,6 +825,7 @@
             align-items: baseline;
             padding: 11px 0;
             border-bottom: 1px solid rgba(255,255,255,0.08);
+            gap: 12px;
         }
 
         .elaalwa-stat-row:last-child { border-bottom: none; }
@@ -888,7 +876,6 @@
             align-items: flex-start;
         }
 
-        /* حاوية أيقونة السوق — خلفية بلون الهوية + صورة دائرية بالداخل */
         .market-icon {
             width: 90px;
             height: 90px;
@@ -910,10 +897,11 @@
             display: block;
         }
 
-        /* التناوب: أخضر → برتقالي → أصفر */
         .market-item:nth-child(3n + 1) .market-icon { background: var(--primary); }
         .market-item:nth-child(3n + 2) .market-icon { background: var(--orange); }
         .market-item:nth-child(3n)     .market-icon { background: var(--yellow); }
+
+        .market-info { flex: 1; min-width: 0; }
 
         .market-info h4 {
             font-size: 1.02rem;
@@ -1024,7 +1012,7 @@
 
         .sponsor-sec p {
             max-width: 720px;
-            margin: 0 auto;
+            margin-inline: auto;
             font-size: 0.98rem;
             color: rgba(255,255,255,0.88);
             line-height: 1.85;
@@ -1058,7 +1046,7 @@
         }
 
         /* ============ FAQ ============ */
-        .faq-wrap { max-width: 860px; margin: 0 auto; }
+        .faq-wrap { max-width: 860px; margin-inline: auto; }
 
         .faq details {
             background: var(--white);
@@ -1144,7 +1132,7 @@
             margin-bottom: 1.3rem;
         }
 
-        .footer-social { display: flex; gap: 8px; }
+        .footer-social { display: flex; gap: 8px; flex-wrap: wrap; }
 
         .footer-social a {
             width: 36px;
@@ -1224,6 +1212,15 @@
         body.kurdish .ar { display: none !important; }
         body.kurdish .ku { display: block !important; }
         body.kurdish .btn-text.ku { display: flex !important; }
+        body.kurdish span.ku,
+        body.kurdish div.ku,
+        body.kurdish p.ku,
+        body.kurdish h1.ku,
+        body.kurdish h2.ku,
+        body.kurdish h3.ku,
+        body.kurdish h4.ku,
+        body.kurdish li.ku { display: block !important; }
+        body.kurdish a.ku { display: inline !important; }
 
         /* ============ LOADING ============ */
         .lang-loading {
@@ -1285,25 +1282,79 @@
         }
 
         @media (max-width: 768px) {
-            .header-content { flex-direction: column; align-items: flex-start; }
-            nav ul { justify-content: flex-start; }
+            /* ⚠️ إصلاحات الهاتف: تمدد كامل للعناصر لمنع التكدس يميناً */
+            .header-content {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+                padding: 12px 0;
+            }
+
+            .logo { align-self: center; justify-content: center; }
+
+            nav { width: 100%; }
+
+            nav ul {
+                justify-content: center;
+                width: 100%;
+            }
+
+            nav ul li a {
+                font-size: 0.85rem;
+                padding: 7px 10px;
+            }
+
+            .header-actions {
+                width: 100%;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 8px;
+            }
+
+            .language-toggle {
+                width: 100%;
+            }
+
+            .language-toggle button {
+                flex: 1;
+                padding: 9px 12px;
+            }
+
+            .store-mini {
+                width: 100%;
+                justify-content: center;
+                padding: 9px 13px;
+            }
+
+            .btn-text { text-align: center; align-items: center; }
+
             .hero { padding: 2.5rem 0 2rem; }
             .hero h1 { font-size: 1.6rem; }
             .hero .sub { font-size: 0.98rem; }
             section.sec { padding: 3rem 0; }
             .how-section { padding: 3rem 0; }
-            .store-mini { width: 100%; justify-content: center; }
             .footer-grid { grid-template-columns: 1fr; }
             .elaalwa-box h2 { font-size: 1.3rem; }
+            .elaalwa-logo { height: 40px; }
             .banner { padding: 2.5rem 0; }
             .banner h2 { font-size: 1.35rem; }
             .market-icon { width: 72px; height: 72px; padding: 6px; }
+
+            .back-to-top {
+                inset-inline-start: 16px;
+                bottom: 16px;
+            }
         }
 
         @media (max-width: 480px) {
+            .container { width: 94%; padding-inline: 12px; }
             .hero h1 { font-size: 1.4rem; }
             .account-card, .feature-card, .policy-card { padding: 1.3rem; }
             .hero-pill { font-size: 0.82rem; padding: 8px 14px; }
+            .elaalwa-box { padding: 1.5rem 1.2rem; }
+            .elaalwa-logo { height: 36px; }
+            .market-icon { width: 64px; height: 64px; padding: 5px; }
+            .market-item { gap: 12px; }
         }
     </style>
 </head>
@@ -1330,7 +1381,7 @@
     <div class="topbar">
         <div class="container">
             <span class="ar">توصيل مباشر من أقرب بقال &nbsp;·&nbsp; دعم فني متواصل <b>24/7</b> &nbsp;·&nbsp; التسجيل مجاني &nbsp;·&nbsp; ابدأ الآن</span>
-            <span class="ku">گەیاندنی ڕاستەوخۆ &nbsp;·&nbsp; پشتگیری <b>24/7</b> &nbsp;·&nbsp; تۆمارکردن بەخۆڕاییە &nbsp;·&nbsp; ئێستا دەستپێبکە</span>
+            <span class="ku">گەیاندنی ڕاستەوخۆ لە نزیکترین بەقال &nbsp;·&nbsp; پشتگیری <b>24/7</b> &nbsp;·&nbsp; تۆمارکردن بەخۆڕاییە &nbsp;·&nbsp; ئێستا دەستپێبکە</span>
         </div>
     </div>
 
@@ -1390,7 +1441,7 @@
             <h1 class="ku">داواکاری سەوزە و میوە <em>لە نزیکترین بەقال</em> لە ناوچەکەت</h1>
 
             <p class="sub ar">علوة ALWA — أول سوق رقمي متكامل للخضار والفواكه في العراق. حمّل التطبيق واختر منطقتك لعرض البقالين القريبين منك.</p>
-            <p class="sub ku">عەلوە ALWA — یەکەم بازاڕی دیجیتاڵی تەواو لە عێراق. ئەپەکە دابگرە و ناوچەکەت هەڵبژێرە.</p>
+            <p class="sub ku">عەلوە ALWA — یەکەم بازاڕی دیجیتاڵی تەواو بۆ سەوزە و میوە لە عێراق. ئەپەکە دابگرە و ناوچەکەت هەڵبژێرە بۆ پیشاندانی بەقالەکانی نزیکت.</p>
 
             <div class="hero-pills" role="list" aria-label="مزايا التطبيق">
                 <span class="hero-pill" role="listitem">
@@ -1425,13 +1476,13 @@
                 <span class="banner-tag ku">پلاتفۆرمی تەواو</span>
 
                 <h2 class="ar">اطلب من البقال · تابع العلاوي · أعلن عبر elaalwa</h2>
-                <h2 class="ku">داواکاری · چاودێری عەلوە · ڕیکلام لە elaalwa</h2>
+                <h2 class="ku">داواکاری لە بەقال · چاودێری عەلوە · ڕیکلام لە elaalwa</h2>
 
                 <p class="ar">
                     من الطلب إلى التوصيل في دقائق. اختر منتجاتك، أرسل طلبك لبقالين منطقتك، استقبل عروضهم، اختر الأنسب — وأنت في مكانك.
                 </p>
                 <p class="ku">
-                    لە داواکاری بۆ گەیاندن لە چەند خولەکدا. بەرهەمەکانت هەڵبژێرە و داواکاری بنێرە.
+                    لە داواکاری بۆ گەیاندن لە چەند خولەکدا. بەرهەمەکانت هەڵبژێرە، داواکاریەکەت بنێرە بۆ بەقالەکانی ناوچەکەت، پێشنیارەکانیان وەربگرە، و باشترینیان هەڵبژێرە — لە شوێنی خۆت.
                 </p>
             </div>
 
@@ -1441,9 +1492,9 @@
                 <ul>
                     <li><i class="fas fa-check" aria-hidden="true"></i><span class="ar">طلب من أقرب بقال في منطقتك</span><span class="ku">داواکاری لە نزیکترین بەقال</span></li>
                     <li><i class="fas fa-check" aria-hidden="true"></i><span class="ar">بث مباشر من المكاتب داخل العلاوي</span><span class="ku">پەخشی ڕاستەوخۆ لە ئۆفیسەکان</span></li>
-                    <li><i class="fas fa-check" aria-hidden="true"></i><span class="ar">شركات تجهيز مطاعم وفنادق</span><span class="ku">کۆمپانیاکانی دابینکردن</span></li>
-                    <li><i class="fas fa-check" aria-hidden="true"></i><span class="ar">شركات تصدير للعراق والخليج</span><span class="ku">کۆمپانیاکانی هەناردەکردن</span></li>
-                    <li><i class="fas fa-check" aria-hidden="true"></i><span class="ar">إعلانات محلية عبر elaalwa</span><span class="ku">ڕیکلامی ناوخۆیی لە elaalwa</span></li>
+                    <li><i class="fas fa-check" aria-hidden="true"></i><span class="ar">شركات تجهيز مطاعم وفنادق</span><span class="ku">کۆمپانیاکانی دابینکردنی چێشتخانە و هۆتێل</span></li>
+                    <li><i class="fas fa-check" aria-hidden="true"></i><span class="ar">شركات تصدير للعراق والخليج</span><span class="ku">کۆمپانیاکانی هەناردەکردن بۆ عێراق و کەنداو</span></li>
+                    <li><i class="fas fa-check" aria-hidden="true"></i><span class="ar">إعلانات محلية عبر elaalwa</span><span class="ku">ڕیکلامی ناوخۆیی لە ڕێگەی elaalwa</span></li>
                 </ul>
             </div>
         </div>
@@ -1464,7 +1515,7 @@
                     <h3 class="ar">حدّد موقعك</h3>
                     <h3 class="ku">شوێنت دیاری بکە</h3>
                     <p class="ar">نعرض لك البقالين القريبين منك في منطقتك فقط — بدون وسطاء ولا اتصال عشوائي.</p>
-                    <p class="ku">بەقالەکانی نزیکت پیشان دەدەین لە ناوچەکەت تەنها.</p>
+                    <p class="ku">تەنها بەقالەکانی نزیکت لە ناوچەکەت پیشان دەدەین — بێ نێوەندگیر و بێ پەیوەندی هەڕەمەکی.</p>
                 </div>
 
                 <div class="how-col">
@@ -1472,15 +1523,15 @@
                     <h3 class="ar">اختر ما تريد</h3>
                     <h3 class="ku">هەڵبژێرە چی دەتەوێت</h3>
                     <p class="ar">تصفح المنتجات، حدّد الكميات بالكيلوغرام (الحد الأدنى 1 كغم)، وأضف ملاحظاتك الخاصة.</p>
-                    <p class="ku">بەرهەمەکان بگەڕێ، بڕ دیاری بکە، و تێبینی زیاد بکە.</p>
+                    <p class="ku">بەرهەمەکان بگەڕێ، بڕەکان بە کیلۆگرام دیاری بکە (کەمترین بڕ 1 کگم)، و تێبینیە تایبەتەکانت زیاد بکە.</p>
                 </div>
 
                 <div class="how-col">
                     <div class="how-icon" aria-hidden="true"><i class="fas fa-hand-holding-heart"></i></div>
                     <h3 class="ar">اختر عرض واستلم</h3>
-                    <h3 class="ku">پێشنیارەکەت هەڵبژێرە</h3>
+                    <h3 class="ku">پێشنیار هەڵبژێرە و وەریبگرە</h3>
                     <p class="ar">يصلك عرض كل بقال: السعر + وقت التوصيل. اختر الأنسب وسيصلك في الوقت المحدد.</p>
-                    <p class="ku">پێشنیاری هەر بەقالێک دەتگاتێت. باشترین هەڵبژێرە.</p>
+                    <p class="ku">پێشنیاری هەر بەقالێک دەتگاتێت: نرخ + کاتی گەیاندن. باشترینیان هەڵبژێرە و لە کاتی دیاریکراودا دەتگاتێت.</p>
                 </div>
             </div>
         </div>
@@ -1502,33 +1553,43 @@
                     <p class="ar">
                         في العراق، تمرّ تجارة الخضار والفواكه بالجملة بثلاث حلقات: <strong>المزارع</strong> أو المستورد، ثم <strong>المكتب داخل العلوة المركزية</strong>، ثم <strong>البقال</strong> في الأحياء والزقاق. بين هذه الحلقات فجوة معلوماتية كبيرة.
                     </p>
+                    <p class="ku">
+                        لە عێراق، بازرگانی بەکۆمەڵی سەوزە و میوە بە سێ بازنەدا تێدەپەڕێت: <strong>جوتیار</strong> یان هاوردەکار، پاشان <strong>ئۆفیس لە ناو عەلوەی ناوەندی</strong>، پاشان <strong>بەقال</strong> لە گەڕەک و کۆڵانەکان. لە نێوان ئەم بازنانەدا بۆشاییەکی زانیاری گەورە هەیە.
+                    </p>
+
                     <p class="ar">
                         جاء <strong>علوة ALWA</strong> لسدّ هذه الفجوة. صار المكتب قادراً على <strong>البث المباشر</strong> يومياً من داخل علوته، وصار البقال قادراً على رؤية البضاعة قبل أن يتحرك، وصار المستخدم قادراً على <strong>طلب ما يريده من أقرب بقال في منطقته</strong>، ويستقبل عروضاً متعددة، ويختار الأنسب.
                     </p>
+                    <p class="ku">
+                        <strong>عەلوە ALWA</strong> هاتووە بۆ داخستنی ئەم بۆشاییە. ئۆفیس ئێستا دەتوانێت ڕۆژانە <strong>پەخشی ڕاستەوخۆ</strong> لە ناو عەلوەکەی بکات، بەقال دەتوانێت کاڵا ببینێت پێش ئەوەی بجوڵێت، و بەکارهێنەر دەتوانێت <strong>لە نزیکترین بەقال لە ناوچەکەی داواکاری بکات</strong>، چەند پێشنیارێک وەربگرێت، و باشترینیان هەڵبژێرێت.
+                    </p>
+
                     <p class="ar">
                         لم نتوقف هنا. أضفنا حقل <strong>شركات تجهيز المطاعم والفنادق</strong>، وحقل <strong>شركات التصدير للعراق والخليج</strong>، ونظام <strong>عدّاد الظهور</strong> الذي يمنح كل شركة مصداقية موثقة. ثم أطلقنا منصة <strong>elaalwa</strong> الإعلانية المحلية.
+                    </p>
+                    <p class="ku">
+                        لێرەدا نەوەستاین. زیادمانکرد <strong>کۆمپانیاکانی دابینکردنی چێشتخانە و هۆتێلەکان</strong>، و <strong>کۆمپانیاکانی هەناردەکردن بۆ عێراق و کەنداو</strong>، و سیستەمی <strong>ژمێرەری بینەر</strong> کە بۆ هەر کۆمپانیایەک متمانەیەکی تۆمارکراو دەبەخشێت. پاشان پلاتفۆرمی ڕیکلامی ناوخۆیی <strong>elaalwa</strong> مان دەستپێکرد.
                     </p>
 
                     <div class="intro-quote ar">
                         هدفنا ليس التسعير ولا التدخل في السوق — هدفنا أن يعرف كل عراقي أين توجد بضاعته، ومتى تصل، وبكم.
                     </div>
-
-                    <p class="ku">
-                        لە عێراق، بازرگانی بەکۆمەڵی سەوزە و میوە بە سێ بازنەدا تێدەپەڕێت: <strong>جوتیار</strong> یان هاوردەکار، پاشان <strong>ئۆفیس</strong>، پاشان <strong>بەقال</strong>.
-                    </p>
+                    <div class="intro-quote ku">
+                        ئامانجمان نرخدانان نییە و دەستتێوەردان لە بازاڕ ناکەین — ئامانجمان ئەوەیە هەر عێراقییەک بزانێت کاڵاکەی لە کوێیە، کەی دەگات، و بە چەند.
+                    </div>
                 </div>
 
                 <aside class="intro-aside">
                     <h4 class="ar">علوة بكل اختصار</h4>
                     <h4 class="ku">عەلوە بە کورتی</h4>
                     <ul>
-                        <li><i class="fas fa-check" aria-hidden="true"></i><span class="ar">سوق رقمي متكامل — ليس تطبيق توصيل فقط</span><span class="ku">بازاڕێکی دیجیتاڵی تەواو</span></li>
-                        <li><i class="fas fa-check" aria-hidden="true"></i><span class="ar">4 أنواع حسابات: مستخدم، بقال، مكتب، شركة</span><span class="ku">4 جۆری هەژمار</span></li>
-                        <li><i class="fas fa-check" aria-hidden="true"></i><span class="ar">بث مباشر من داخل العلاوي المركزية</span><span class="ku">پەخشی ڕاستەوخۆ</span></li>
-                        <li><i class="fas fa-check" aria-hidden="true"></i><span class="ar">عروض أسعار متعددة من بقالين منطقتك</span><span class="ku">پێشنیاری نرخی جیاواز</span></li>
-                        <li><i class="fas fa-check" aria-hidden="true"></i><span class="ar">شركات تجهيز مطاعم + شركات تصدير</span><span class="ku">کۆمپانیاکانی دابینکردن</span></li>
-                        <li><i class="fas fa-check" aria-hidden="true"></i><span class="ar">منصة elaalwa للإعلانات المحلية</span><span class="ku">پلاتفۆرمی elaalwa</span></li>
-                        <li><i class="fas fa-check" aria-hidden="true"></i><span class="ar">مجاني بالكامل · بدون عمولة</span><span class="ku">بە تەواوەتی بەخۆڕایی</span></li>
+                        <li><i class="fas fa-check" aria-hidden="true"></i><span class="ar">سوق رقمي متكامل — ليس تطبيق توصيل فقط</span><span class="ku">بازاڕێکی دیجیتاڵی تەواو — نەک تەنها ئەپی گەیاندن</span></li>
+                        <li><i class="fas fa-check" aria-hidden="true"></i><span class="ar">4 أنواع حسابات: مستخدم، بقال، مكتب، شركة</span><span class="ku">4 جۆری هەژمار: بەکارهێنەر، بەقال، ئۆفیس، کۆمپانیا</span></li>
+                        <li><i class="fas fa-check" aria-hidden="true"></i><span class="ar">بث مباشر من داخل العلاوي المركزية</span><span class="ku">پەخشی ڕاستەوخۆ لە ناو عەلوەکانی ناوەندی</span></li>
+                        <li><i class="fas fa-check" aria-hidden="true"></i><span class="ar">عروض أسعار متعددة من بقالين منطقتك</span><span class="ku">پێشنیاری نرخی جیاواز لە بەقالەکانی ناوچەکەت</span></li>
+                        <li><i class="fas fa-check" aria-hidden="true"></i><span class="ar">شركات تجهيز مطاعم + شركات تصدير</span><span class="ku">کۆمپانیاکانی دابینکردنی چێشتخانە + هەناردەکردن</span></li>
+                        <li><i class="fas fa-check" aria-hidden="true"></i><span class="ar">منصة elaalwa للإعلانات المحلية</span><span class="ku">پلاتفۆرمی elaalwa بۆ ڕیکلامی ناوخۆیی</span></li>
+                        <li><i class="fas fa-check" aria-hidden="true"></i><span class="ar">مجاني بالكامل · بدون عمولة</span><span class="ku">بە تەواوەتی بەخۆڕایی · بێ کۆمیسیۆن</span></li>
                     </ul>
                 </aside>
             </div>
@@ -1544,7 +1605,7 @@
                 <h2 class="ar">أنواع الحسابات في علوة</h2>
                 <h2 class="ku">جۆرەکانی هەژمار لە عەلوە</h2>
                 <p class="sub ar">كل حساب مصمم لمهمة محددة، بمزايا مدروسة بعناية لتناسب طبيعة السوق العراقي</p>
-                <p class="sub ku">هەر هەژمارێک بۆ ئەرکێکی دیاریکراو دروستکراوە</p>
+                <p class="sub ku">هەر هەژمارێک بۆ ئەرکێکی دیاریکراو دروستکراوە، بە تایبەتمەندییەکی ورد بۆ گونجاندن لەگەڵ سروشتی بازاڕی عێراقی</p>
                 <div class="h-line"></div>
             </div>
 
@@ -1555,16 +1616,16 @@
                     <h3 class="ar">مستخدم عادي</h3>
                     <h3 class="ku">بەکارهێنەری ئاسایی</h3>
                     <p class="desc ar">اطلب من أقرب بقال، وقارن العروض، وتابع طلبك لحظة بلحظة.</p>
-                    <p class="desc ku">داواکاری بکە لە نزیکترین بەقال.</p>
+                    <p class="desc ku">لە نزیکترین بەقال داواکاری بکە، پێشنیارەکان بەراورد بکە، و داواکاریەکەت سات بە سات چاودێری بکە.</p>
                     <ul>
                         <li class="ar">تصفح التطبيق كزائر أو مسجّل</li>
-                        <li class="ku">گەڕان وەک میوان یان تۆمارکراو</li>
+                        <li class="ku">گەڕان لە ئەپەکە وەک میوان یان تۆمارکراو</li>
                         <li class="ar">طلب الخضار والفواكه من البقالين</li>
-                        <li class="ku">داواکردنی سەوزە و میوە</li>
+                        <li class="ku">داواکردنی سەوزە و میوە لە بەقالەکان</li>
                         <li class="ar">مشاهدة البث المباشر للمكاتب والشركات</li>
-                        <li class="ku">بینینی پەخشی ڕاستەوخۆ</li>
+                        <li class="ku">بینینی پەخشی ڕاستەوخۆی ئۆفیس و کۆمپانیاکان</li>
                         <li class="ar">اختيار العرض الأنسب من حيث السعر والوقت</li>
-                        <li class="ku">هەڵبژاردنی باشترین پێشنیار</li>
+                        <li class="ku">هەڵبژاردنی باشترین پێشنیار لە ڕووی نرخ و کات</li>
                     </ul>
                 </div>
 
@@ -1574,16 +1635,16 @@
                     <h3 class="ar">بقال / صاحب محل</h3>
                     <h3 class="ku">بەقال / خاوەن دوکان</h3>
                     <p class="desc ar">استقبل الطلبات من منطقتك، قدّم عروضك، وابنِ سمعتك حتى تصبح "بقال موصى به".</p>
-                    <p class="desc ku">داواکاری لە ناوچەکەت وەربگرە و ناوبانگت ببەرزەوە.</p>
+                    <p class="desc ku">داواکاری لە ناوچەکەت وەربگرە، پێشنیارەکانت پێشکەش بکە، و ناوبانگت بنیات بنێ تا بیتە "بەقالی پێشنیارکراو".</p>
                     <ul>
                         <li class="ar">استقبال الطلبات من منطقته فقط</li>
-                        <li class="ku">وەرگرتنی داواکاری لە ناوچەکەی</li>
+                        <li class="ku">وەرگرتنی داواکاری لە ناوچەکەی تەنها</li>
                         <li class="ar">تقديم عروض: السعر + وقت التنفيذ</li>
-                        <li class="ku">پێشکەشکردنی نرخ + کات</li>
+                        <li class="ku">پێشکەشکردنی پێشنیار: نرخ + کاتی جێبەجێکردن</li>
                         <li class="ar">إلزامية خدمة التوصيل والالتزام بالوقت</li>
-                        <li class="ku">گەیاندن و پابەندبوون بە کات</li>
+                        <li class="ku">خزمەتگوزاری گەیاندن و پابەندبوون بە کات زۆرەملێیە</li>
                         <li class="ar">ترقية تلقائية لـ"بقال موصى به" بعد 5 طلبات</li>
-                        <li class="ku">بەرزکردنەوە دوای 5 داواکاری</li>
+                        <li class="ku">بەرزکردنەوەی خۆکار بۆ "بەقالی پێشنیارکراو" دوای 5 داواکاری</li>
                     </ul>
                 </div>
 
@@ -1593,16 +1654,16 @@
                     <h3 class="ar">مكتب داخل علوة</h3>
                     <h3 class="ku">ئۆفیس لە ناو عەلوە</h3>
                     <p class="desc ar">انشر بضاعتك يومياً، وابث مباشرة من داخل علوتك، واعرض عنوانك للبقالين.</p>
-                    <p class="desc ku">کاڵاکانت بڵاوبکەرەوە و لە ناو عەلوەکەت پەخش بکە.</p>
+                    <p class="desc ku">کاڵاکانت ڕۆژانە بڵاوبکەرەوە، لە ناو عەلوەکەتەوە پەخشی ڕاستەوخۆ بکە، و ناونیشانت بۆ بەقالەکان پیشان بدە.</p>
                     <ul>
                         <li class="ar">حساب عرض فقط — لا يستقبل طلبات</li>
-                        <li class="ku">تەنها هەژماری پیشاندان</li>
+                        <li class="ku">تەنها هەژماری پیشاندان — داواکاری وەرناگرێت</li>
                         <li class="ar">بث مباشر يومي للبضاعة</li>
-                        <li class="ku">پەخشی ڕاستەوخۆی ڕۆژانە</li>
+                        <li class="ku">پەخشی ڕاستەوخۆی ڕۆژانە بۆ کاڵا</li>
                         <li class="ar">نشر صور المنتجات (تدوم 12 ساعة)</li>
-                        <li class="ku">بڵاوکردنەوەی وێنە (12 کاتژمێر)</li>
+                        <li class="ku">بڵاوکردنەوەی وێنەی بەرهەمەکان (12 کاتژمێر دەخایەنێت)</li>
                         <li class="ar">لا يحتاج رقم تواصل — داخل العلوة معروف</li>
-                        <li class="ku">پێویستی بە ژمارە نییە</li>
+                        <li class="ku">پێویستی بە ژمارەی پەیوەندی نییە — لە ناو عەلوە ناسراوە</li>
                     </ul>
                 </div>
 
@@ -1612,16 +1673,16 @@
                     <h3 class="ar">شركة تجهيز / تصدير</h3>
                     <h3 class="ku">کۆمپانیای دابینکردن / هەناردەکردن</h3>
                     <p class="desc ar">شركات تجهيز المطاعم والفنادق، وشركات التصدير للعراق والخليج — بمصداقية موثقة وعدّاد ظهور.</p>
-                    <p class="desc ku">کۆمپانیاکانی دابینکردنی چێشتخانە و هۆتێل.</p>
+                    <p class="desc ku">کۆمپانیاکانی دابینکردنی چێشتخانە و هۆتێلەکان، و کۆمپانیاکانی هەناردەکردن بۆ عێراق و کەنداو — بە متمانەی تۆمارکراو و ژمێرەری بینەر.</p>
                     <ul>
                         <li class="ar">رقم واتساب إلزامي للتواصل</li>
-                        <li class="ku">ژمارەی واتساپ زۆرەملێیە</li>
+                        <li class="ku">ژمارەی واتساپ زۆرەملێیە بۆ پەیوەندی</li>
                         <li class="ar">بث مباشر ونشر منتجات زراعية يومياً</li>
-                        <li class="ku">پەخشی ڕاستەوخۆ و بڵاوکردنەوە</li>
+                        <li class="ku">پەخشی ڕاستەوخۆ و بڵاوکردنەوەی بەرهەمی کشتوکاڵی ڕۆژانە</li>
                         <li class="ar">عدّاد ظهور المنشورات لتقييم السمعة</li>
-                        <li class="ku">ژمێرەری بینەر بۆ ناوبانگ</li>
+                        <li class="ku">ژمێرەری بینەری بڵاوکراوەکان بۆ هەڵسەنگاندنی ناوبانگ</li>
                         <li class="ar">وثائق: سجل تجاري + بطاقة ضريبية أو شهادة مزاولة مهنة</li>
-                        <li class="ku">بەڵگەنامە: تۆمارنامە + کارتی باج</li>
+                        <li class="ku">بەڵگەنامە: تۆمارنامەی بازرگانی + کارتی باج یان بڕوانامەی پیشە</li>
                     </ul>
                 </div>
             </div>
@@ -1637,7 +1698,7 @@
                 <h2 class="ar">مزايا لا تجدها في أي تطبيق آخر</h2>
                 <h2 class="ku">تایبەتمەندی کە لە هیچ ئەپێکی تردا نابینیت</h2>
                 <p class="sub ar">بُنيت علوة على فهم عميق لطبيعة السوق العراقي، لا على نسخ تجارب أجنبية</p>
-                <p class="sub ku">عەلوە لەسەر تێگەیشتنی قووڵی بازاڕی عێراقی بنیات نراوە</p>
+                <p class="sub ku">عەلوە لەسەر تێگەیشتنی قووڵی سروشتی بازاڕی عێراقی بنیات نراوە، نەک لەسەر کۆپیکردنی ئەزموونی بیانی</p>
                 <div class="h-line"></div>
             </div>
 
@@ -1647,15 +1708,15 @@
                     <h3 class="ar">توصيل من أقرب بقال</h3>
                     <h3 class="ku">گەیاندن لە نزیکترین بەقال</h3>
                     <p class="ar">طلبك يذهب فقط للبقالين في منطقتك — لا اتصال عشوائي، لا وقت ضائع، لا وسطاء.</p>
-                    <p class="ku">داواکاریەکەت تەنها بۆ بەقالەکانی ناوچەکەت دەچێت.</p>
+                    <p class="ku">داواکاریەکەت تەنها بۆ بەقالەکانی ناوچەکەت دەچێت — بێ پەیوەندی هەڕەمەکی، بێ کاتی ون، بێ نێوەندگیر.</p>
                 </div>
 
                 <div class="feature-card">
                     <div class="feature-icon" aria-hidden="true"><i class="fas fa-video"></i></div>
                     <h3 class="ar">بث مباشر للمكاتب والشركات</h3>
-                    <h3 class="ku">پەخشی ڕاستەوخۆ</h3>
+                    <h3 class="ku">پەخشی ڕاستەوخۆ بۆ ئۆفیس و کۆمپانیاکان</h3>
                     <p class="ar">شاهد بضاعة المكتب لحظياً قبل أن تشتري — شفافية كاملة ودقة عالية في العرض.</p>
-                    <p class="ku">کاڵای ئۆفیس لە خولەکەدا ببینە پێش کڕین.</p>
+                    <p class="ku">کاڵای ئۆفیس لە هەمان ساتدا ببینە پێش ئەوەی بیکڕیت — شەفافیەتی تەواو و وردی بەرز لە پیشانداندا.</p>
                 </div>
 
                 <div class="feature-card">
@@ -1663,7 +1724,7 @@
                     <h3 class="ar">منشورات تدوم 12 ساعة</h3>
                     <h3 class="ku">بڵاوکراوە بۆ 12 کاتژمێر</h3>
                     <p class="ar">صور المنتجات تظهر 12 ساعة فقط ثم تُحذف تلقائياً — محتوى متجدد دائماً.</p>
-                    <p class="ku">وێنەکان 12 کاتژمێر دەردەکەون.</p>
+                    <p class="ku">وێنەی بەرهەمەکان تەنها 12 کاتژمێر دەردەکەون پاشان بە شێوەیەکی خۆکار دەسڕدرێنەوە — ناوەڕۆک هەمیشە نوێ.</p>
                 </div>
 
                 <div class="feature-card">
@@ -1671,23 +1732,23 @@
                     <h3 class="ar">نظام "البقال الموصى به"</h3>
                     <h3 class="ku">سیستەمی "بەقالی پێشنیارکراو"</h3>
                     <p class="ar">بعد 5 طلبات ناجحة وتقييم إيجابي من العملاء، يتحول البقال تلقائياً إلى "موصى به".</p>
-                    <p class="ku">دوای 5 داواکاری سەرکەوتوو، بەقال دەبێت بە پێشنیارکراو.</p>
+                    <p class="ku">دوای 5 داواکاری سەرکەوتوو و هەڵسەنگاندنی ئەرێنی لە کڕیارەکان، بەقال بە شێوەیەکی خۆکار دەبێت بە "پێشنیارکراو".</p>
                 </div>
 
                 <div class="feature-card">
                     <div class="feature-icon" aria-hidden="true"><i class="fas fa-shield-halved"></i></div>
                     <h3 class="ar">توثيق ميداني للمكاتب</h3>
-                    <h3 class="ku">پشتڕاستکردنەوەی ئۆفیس</h3>
+                    <h3 class="ku">پشتڕاستکردنەوەی مەیدانی بۆ ئۆفیسەکان</h3>
                     <p class="ar">فريق ميداني يزور المكاتب ويتأكد من مصداقيتها قبل الموافقة على إضافتها.</p>
-                    <p class="ku">تیمێکی مەیدانی سەردانی ئۆفیسەکان دەکات.</p>
+                    <p class="ku">تیمێکی مەیدانی سەردانی ئۆفیسەکان دەکات و دڵنیا دەبێتەوە لە متمانەپێکراویان پێش ڕەزامەندیدان لەسەر زیادکردنیان.</p>
                 </div>
 
                 <div class="feature-card">
                     <div class="feature-icon" aria-hidden="true"><i class="fas fa-headset"></i></div>
                     <h3 class="ar">دعم فني 24/7</h3>
-                    <h3 class="ku">پشتگیری 24/7</h3>
+                    <h3 class="ku">پشتگیری تەکنیکی 24/7</h3>
                     <p class="ar">فريق دعم متواصل لحل أي مشكلة خلال دقائق — طوال أيام الأسبوع وفي كل المحافظات.</p>
-                    <p class="ku">تیمی پشتگیری بۆ چارەسەرکردنی کێشە.</p>
+                    <p class="ku">تیمی پشتگیری بەردەوام بۆ چارەسەرکردنی هەر کێشەیەک لە ماوەی چەند خولەکدا — هەموو ڕۆژەکانی هەفتە و لە هەموو پارێزگاکان.</p>
                 </div>
 
                 <div class="feature-card">
@@ -1695,15 +1756,15 @@
                     <h3 class="ar">نظام حماية الطرفين</h3>
                     <h3 class="ku">سیستەمی پاراستنی هەردوو لایەن</h3>
                     <p class="ar">قواعد واضحة تحمي المستخدم والبقال: إلغاء خلال 40٪ فقط، والالتزام بالوقت إلزامي.</p>
-                    <p class="ku">یاسای ڕوون بۆ پاراستنی هەردوو لایەن.</p>
+                    <p class="ku">یاسای ڕوون کە بەکارهێنەر و بەقال دەپارێزێت: هەڵوەشاندنەوە تەنها لە ماوەی 40٪ دا، و پابەندبوون بە کات زۆرەملێیە.</p>
                 </div>
 
                 <div class="feature-card">
                     <div class="feature-icon" aria-hidden="true"><i class="fas fa-language"></i></div>
                     <h3 class="ar">دعم كامل للعربية والكردية</h3>
-                    <h3 class="ku">پشتگیری عەرەبی و کوردی</h3>
+                    <h3 class="ku">پشتگیری تەواو بۆ عەرەبی و کوردی</h3>
                     <p class="ar">تطبيق بلغتين كاملتين — يخدم كل محافظات العراق بما فيها إقليم كردستان.</p>
-                    <p class="ku">ئەپ بە دوو زمان بۆ هەموو پارێزگاکانی عێراق.</p>
+                    <p class="ku">ئەپ بە دوو زمانی تەواو — خزمەت بە هەموو پارێزگاکانی عێراق دەکات لەوانە هەرێمی کوردستان.</p>
                 </div>
 
                 <div class="feature-card">
@@ -1711,7 +1772,7 @@
                     <h3 class="ar">مجاني بدون عمولة</h3>
                     <h3 class="ku">بەخۆڕایی بێ کۆمیسیۆن</h3>
                     <p class="ar">صفر رسوم · صفر عمولة · صفر اشتراكات — على كل أنواع الحسابات.</p>
-                    <p class="ku">سفر کرێ · سفر کۆمیسیۆن.</p>
+                    <p class="ku">سفر کرێ · سفر کۆمیسیۆن · سفر بەشداریکردن — بۆ هەموو جۆرەکانی هەژمار.</p>
                 </div>
             </div>
         </div>
@@ -1722,37 +1783,34 @@
         <div class="container">
             <div class="elaalwa-box">
                 <div class="elaalwa-content">
-                    <div class="elaalwa-brand" aria-label="elaalwa">
-                        <i class="fas fa-bullhorn" aria-hidden="true"></i>
-                        <span>elaalwa</span>
-                    </div>
+                    <img src="/elaalwa-logo.svg" alt="elaalwa - إعلانات العراق المحلية" class="elaalwa-logo" width="200" height="48" loading="lazy">
                     <span class="elaalwa-domain">ELAALWA.COM</span>
                     <h2 class="ar">منصة إعلانات العراق المحلية — بنظام "إعلان واحد لكل منطقة"</h2>
-                    <h2 class="ku">پلاتفۆرمی ڕیکلامی ناوخۆیی — "یەک ڕیکلام بۆ هەر ناوچەیەک"</h2>
+                    <h2 class="ku">پلاتفۆرمی ڕیکلامی ناوخۆیی عێراق — بە سیستەمی "یەک ڕیکلام بۆ هەر ناوچەیەک"</h2>
 
                     <p class="ar">
                         أطلقنا elaalwa لتحل مشكلة حقيقية يعاني منها كل صاحب مشروع صغير في العراق. الحل: <strong>إعلان واحد فقط</strong> يظهر في كل منطقة لمدة <strong>24 ساعة كاملة</strong> — يتابعه كل من يستخدم التطبيق في نفس المنطقة، ويصل لأعلى نسبة تركيز ممكنة.
                     </p>
                     <p class="ku">
-                        ئێمە elaalwa دروستکرد بۆ چارەسەرکردنی کێشەیەکی ڕاستەقینە. <strong>یەک ڕیکلام</strong> بۆ هەر ناوچەیەک بۆ <strong>24 کاتژمێری تەواو</strong>.
+                        ئێمە elaalwa مان دەستپێکرد بۆ چارەسەرکردنی کێشەیەکی ڕاستەقینە کە هەموو خاوەن پرۆژەیەکی بچووک لە عێراق تووشی دەبێت. چارەسەرەکە: <strong>تەنها یەک ڕیکلام</strong> کە لە هەر ناوچەیەکدا بۆ ماوەی <strong>24 کاتژمێری تەواو</strong> دەردەکەوێت — هەموو ئەوانەی ئەپەکە بەکاردەهێنن لە هەمان ناوچەدا چاودێری دەکەن، و بەرزترین ڕێژەی سەرنجڕاکێشان بەدەست دەهێنێت.
                     </p>
 
                     <a href="https://elaalwa.com" target="_blank" rel="noopener noreferrer" class="btn-orange">
                         <i class="fas fa-bullhorn" aria-hidden="true"></i>
                         <span class="ar">أعلن الآن على elaalwa</span>
-                        <span class="ku">ئێستا ڕیکلام بکە</span>
+                        <span class="ku">ئێستا ڕیکلام بکە لە elaalwa</span>
                     </a>
                 </div>
 
                 <div class="elaalwa-stats">
                     <div class="elaalwa-stat-row">
                         <span class="lbl ar">المحافظات المدعومة</span>
-                        <span class="lbl ku">پارێزگاکان</span>
+                        <span class="lbl ku">پارێزگاکانی پشتگیریکراو</span>
                         <span class="num">19</span>
                     </div>
                     <div class="elaalwa-stat-row">
                         <span class="lbl ar">المناطق المدعومة</span>
-                        <span class="lbl ku">ناوچەکان</span>
+                        <span class="lbl ku">ناوچەکانی پشتگیریکراو</span>
                         <span class="num">1251</span>
                     </div>
                     <div class="elaalwa-stat-row">
@@ -1762,7 +1820,7 @@
                     </div>
                     <div class="elaalwa-stat-row">
                         <span class="lbl ar">إعلان لكل منطقة</span>
-                        <span class="lbl ku">ڕیکلام بۆ ناوچە</span>
+                        <span class="lbl ku">ڕیکلام بۆ هەر ناوچەیەک</span>
                         <span class="num">1</span>
                     </div>
                     <div class="elaalwa-stat-row">
@@ -1785,7 +1843,7 @@
                 <h2 class="ar">العلاوي المركزية في العراق</h2>
                 <h2 class="ku">عەلوە ناوەندییەکان لە عێراق</h2>
                 <p class="sub ar">دليل موثّق لأهم أسواق الجملة للخضار والفواكه في العراق — العناوين والأسماء المتداولة بين التجار</p>
-                <p class="sub ku">ڕێبەرێکی پشتڕاستکراو بۆ گرنگترین بازاڕەکانی بەکۆمەڵ لە عێراق</p>
+                <p class="sub ku">ڕێبەرێکی پشتڕاستکراو بۆ گرنگترین بازاڕەکانی بەکۆمەڵی سەوزە و میوە لە عێراق — ناونیشان و ناوە باوەکان لە نێوان بازرگاناندا</p>
                 <div class="h-line"></div>
             </div>
 
@@ -1794,9 +1852,9 @@
                     <div class="market-icon"><img src="/market-1.png" alt="علوة بغداد المركزية" width="90" height="90" loading="lazy"></div>
                     <div class="market-info">
                         <h4 class="ar">علوة بغداد المركزية (الرمل)</h4>
-                        <h4 class="ku">عەلوەی بەغدای ناوەندی (ڕمل)</h4>
+                        <h4 class="ku">عەلوەی بەغدای ناوەندی (ڕەمل)</h4>
                         <p class="ar">أهم وأكبر المراكز الحيوية لتجارة الجملة في العراق. يقع فعلياً على طريق اليوسفية. قاطع الحوت هو مصدر تحديث الأسعار الذي ينتشر إلى باقي المحافظات.</p>
-                        <p class="ku">گرنگترین ناوەندی بازرگانی بەکۆمەڵ لە عێراق لەسەر ڕێگای یوسفییە.</p>
+                        <p class="ku">گرنگترین و گەورەترین ناوەندی سەرەکی بازرگانی بەکۆمەڵ لە عێراق. لە ڕاستیدا لەسەر ڕێگای یوسفییە هەڵکەوتووە. قوتاعی حوت سەرچاوەی نوێکردنەوەی نرخەکانە کە بڵاودەبێتەوە بۆ باقی پارێزگاکان.</p>
                         <div class="market-loc"><i class="fas fa-map-marker-alt" aria-hidden="true"></i><span class="ar">بغداد · طريق اليوسفية</span><span class="ku">بەغدا · ڕێگای یوسفییە</span></div>
                     </div>
                 </article>
@@ -1807,7 +1865,7 @@
                         <h4 class="ar">علوة الرشيد النموذجية</h4>
                         <h4 class="ku">عەلوەی ڕەشیدی نمونەیی</h4>
                         <p class="ar">من أكبر وأقدم أسواق الجملة في العراق. تُعد من المراكز الاستراتيجية التي تؤمّن الغذاء للعاصمة والمحافظات المجاورة.</p>
-                        <p class="ku">لە گەورەترین و کۆنترین بازاڕەکانی بەکۆمەڵ لە عێراق.</p>
+                        <p class="ku">لە گەورەترین و کۆنترین بازاڕەکانی بەکۆمەڵ لە عێراق. یەکێکە لە ناوەندە ستراتیژییەکان کە خۆراک دابین دەکات بۆ پایتەخت و پارێزگاکانی دراوسێ.</p>
                         <div class="market-loc"><i class="fas fa-map-marker-alt" aria-hidden="true"></i><span class="ar">بغداد · حي الرشيد</span><span class="ku">بەغدا · گەڕەکی ڕەشید</span></div>
                     </div>
                 </article>
@@ -1818,7 +1876,7 @@
                         <h4 class="ar">علوة التعاون</h4>
                         <h4 class="ku">عەلوەی هاریکاری</h4>
                         <p class="ar">تُعرف بتوفير محاصيل حزام بغداد، فهي تكاد تكون خالية من المحاصيل المستوردة.</p>
-                        <p class="ku">بە بەرهەمی ناوخۆیی بەغدا ناسراوە.</p>
+                        <p class="ku">بە دابینکردنی بەرهەمی پشتێنی بەغدا ناسراوە، و بە نزیکەیی خاڵییە لە بەرهەمی هاوردەکراو.</p>
                         <div class="market-loc"><i class="fas fa-map-marker-alt" aria-hidden="true"></i><span class="ar">بغداد · الكرخ، الدورة</span><span class="ku">بەغدا · کەرخ، دورە</span></div>
                     </div>
                 </article>
@@ -1829,7 +1887,7 @@
                         <h4 class="ar">علوة جميلة</h4>
                         <h4 class="ku">عەلوەی جەمیلە</h4>
                         <p class="ar">من المراكز الحيوية التي تتحكم بأسعار المواد الغذائية الطازجة في العاصمة، وتستقبل البضائع من مختلف المحافظات.</p>
-                        <p class="ku">لە ناوەندەکانی کۆنترۆڵکردنی نرخی خۆراکی تازە.</p>
+                        <p class="ku">لە ناوەندە سەرەکییەکان کە نرخی کەرەستەی خۆراکی تازە لە پایتەختدا کۆنترۆڵ دەکەن، و کاڵا لە پارێزگاکانی جیاوازەوە وەردەگرن.</p>
                         <div class="market-loc"><i class="fas fa-map-marker-alt" aria-hidden="true"></i><span class="ar">بغداد · الرصافة، جميلة الصناعية</span><span class="ku">بەغدا · ڕوصافە، جەمیلە</span></div>
                     </div>
                 </article>
@@ -1840,7 +1898,7 @@
                         <h4 class="ar">علوة التاجيات</h4>
                         <h4 class="ku">عەلوەی تاجیات</h4>
                         <p class="ar">تُعرف رسمياً بمشروع تسويق المحاصيل الزراعية الحديث. تخدم شمال العاصمة والمحافظات الشمالية.</p>
-                        <p class="ku">پرۆژەی بازاڕکردنی بەرهەمی کشتوکاڵی نوێ.</p>
+                        <p class="ku">بە فەرمی بە پرۆژەی بازاڕکردنی بەرهەمی کشتوکاڵی نوێ ناسراوە. خزمەت بە باکووری پایتەخت و پارێزگاکانی باکوور دەکات.</p>
                         <div class="market-loc"><i class="fas fa-map-marker-alt" aria-hidden="true"></i><span class="ar">بغداد · التاجيات</span><span class="ku">بەغدا · تاجیات</span></div>
                     </div>
                 </article>
@@ -1851,7 +1909,7 @@
                         <h4 class="ar">علوة البالوني</h4>
                         <h4 class="ku">عەلوەی باڵۆنی</h4>
                         <p class="ar">من الأسواق الشعبية المعروفة في بغداد، تُعرف بأنها مخصصة للمحاصيل المستوردة بشكل أساسي.</p>
-                        <p class="ku">بازاڕێکی گەلێکی بۆ بەرهەمی هاوردەکراو.</p>
+                        <p class="ku">لە بازاڕە گەلێکییە ناسراوەکانی بەغدا، و بە شێوەیەکی سەرەکی بۆ بەرهەمی هاوردەکراو تەرخان کراوە.</p>
                         <div class="market-loc"><i class="fas fa-map-marker-alt" aria-hidden="true"></i><span class="ar">بغداد · منطقة البالوني</span><span class="ku">بەغدا · ناوچەی باڵۆنی</span></div>
                     </div>
                 </article>
@@ -1862,7 +1920,7 @@
                         <h4 class="ar">علوة الزيدان</h4>
                         <h4 class="ku">عەلوەی زەیدان</h4>
                         <p class="ar">تقع في قضاء أبي غريب قرب حدود محافظة الأنبار، تخدم بغداد الغربية والمناطق الحدودية.</p>
-                        <p class="ku">لە قازای ئەبو غریب نزیکی سنووری ئەنبار.</p>
+                        <p class="ku">لە قەزای ئەبو غریب نزیک سنووری پارێزگای ئەنبار هەڵکەوتووە، خزمەت بە بەغدای ڕۆژاوا و ناوچە سنوورییەکان دەکات.</p>
                         <div class="market-loc"><i class="fas fa-map-marker-alt" aria-hidden="true"></i><span class="ar">بغداد · أبو غريب</span><span class="ku">بەغدا · ئەبو غریب</span></div>
                     </div>
                 </article>
@@ -1873,8 +1931,8 @@
                         <h4 class="ar">علوة الكوت</h4>
                         <h4 class="ku">عەلوەی کوت</h4>
                         <p class="ar">السوق المركزية الرئيسية في محافظة واسط، ومن خلالها تُوزَّع المحاصيل المحلية والمستوردة.</p>
-                        <p class="ku">بازاڕی ناوەندی سەرەکی لە پارێزگای واسیت.</p>
-                        <div class="market-loc"><i class="fas fa-map-marker-alt" aria-hidden="true"></i><span class="ar">واسط · مدينة الكوت</span><span class="ku">واسیت · شاری کوت</span></div>
+                        <p class="ku">بازاڕی ناوەندی سەرەکی لە پارێزگای واست، و لە ڕێگەیەوە بەرهەمی ناوخۆیی و هاوردەکراو دابەش دەکرێت.</p>
+                        <div class="market-loc"><i class="fas fa-map-marker-alt" aria-hidden="true"></i><span class="ar">واسط · مدينة الكوت</span><span class="ku">واست · شاری کوت</span></div>
                     </div>
                 </article>
 
@@ -1884,8 +1942,8 @@
                         <h4 class="ar">علوة كربلاء (الإمامين)</h4>
                         <h4 class="ku">عەلوەی کەربەلا (ئیمامەین)</h4>
                         <p class="ar">تُعرف بـ"علوة الإمامين"، ويجري توسعتها لتصل إلى 4 دونمات. من أهم أسواق الفرات الأوسط.</p>
-                        <p class="ku">بە "عەلوەی ئیمامەین" ناسراوە.</p>
-                        <div class="market-loc"><i class="fas fa-map-marker-alt" aria-hidden="true"></i><span class="ar">كربلاء · طريق كربلاء - عين التمر</span><span class="ku">کەربەلا · عەینی تەمر</span></div>
+                        <p class="ku">بە "عەلوەی ئیمامەین" ناسراوە، و لە ئێستادا فراوان دەکرێت بۆ گەیشتن بە 4 دۆنم. یەکێکە لە گرنگترین بازاڕەکانی فوراتی ناوەڕاست.</p>
+                        <div class="market-loc"><i class="fas fa-map-marker-alt" aria-hidden="true"></i><span class="ar">كربلاء · طريق كربلاء - عين التمر</span><span class="ku">کەربەلا · ڕێگای کەربەلا - عەینی تەمر</span></div>
                     </div>
                 </article>
 
@@ -1895,7 +1953,7 @@
                         <h4 class="ar">علوة المثنى (السماوة)</h4>
                         <h4 class="ku">عەلوەی موسەننا (سماوە)</h4>
                         <p class="ar">المركز الرئيسي لتجارة المحاصيل الزراعية في محافظة المثنى. افتُتحت حديثاً عام 2021.</p>
-                        <p class="ku">ناوەندی سەرەکی لە پارێزگای موسەننا.</p>
+                        <p class="ku">ناوەندی سەرەکی بۆ بازرگانی بەرهەمی کشتوکاڵی لە پارێزگای موسەننا. بەم دواییە لە ساڵی 2021 کرایەوە.</p>
                         <div class="market-loc"><i class="fas fa-map-marker-alt" aria-hidden="true"></i><span class="ar">المثنى · مدينة السماوة</span><span class="ku">موسەننا · شاری سماوە</span></div>
                     </div>
                 </article>
@@ -1906,8 +1964,8 @@
                         <h4 class="ar">علوة حمدان — البصرة</h4>
                         <h4 class="ku">عەلوەی حەمدان — بەسرە</h4>
                         <p class="ar">الشريان الرئيسي لتجارة الجملة في محافظة البصرة، تخدم جنوب العراق بأكمله.</p>
-                        <p class="ku">شاهڕەگی سەرەکی بازرگانی لە بەسرە.</p>
-                        <div class="market-loc"><i class="fas fa-map-marker-alt" aria-hidden="true"></i><span class="ar">البصرة · أبو الخصيب، حمدان</span><span class="ku">بەسرە · ئەبولخەسیب</span></div>
+                        <p class="ku">شاهڕەگی سەرەکی بازرگانی بەکۆمەڵ لە پارێزگای بەسرە، خزمەت بە هەموو باشووری عێراق دەکات.</p>
+                        <div class="market-loc"><i class="fas fa-map-marker-alt" aria-hidden="true"></i><span class="ar">البصرة · أبو الخصيب، حمدان</span><span class="ku">بەسرە · ئەبولخەسیب، حەمدان</span></div>
                     </div>
                 </article>
 
@@ -1917,8 +1975,8 @@
                         <h4 class="ar">علوة كركوك النموذجية</h4>
                         <h4 class="ku">عەلوەی کەرکوکی نمونەیی</h4>
                         <p class="ar">المركز الرئيسي لتوزيع المحاصيل في كركوك، تستقبل إنتاج الحويجة والدبس والداقوق، بالإضافة إلى محاصيل الإقليم والجنوب.</p>
-                        <p class="ku">ناوەندی سەرەکی لە کەرکوک.</p>
-                        <div class="market-loc"><i class="fas fa-map-marker-alt" aria-hidden="true"></i><span class="ar">كركوك · طريق كركوك - بغداد</span><span class="ku">کەرکوک · ڕێگای بەغدا</span></div>
+                        <p class="ku">ناوەندی سەرەکی بۆ دابەشکردنی بەرهەم لە کەرکوک، بەرهەمی حەویجە و دەبس و داقوق وەردەگرێت، لەگەڵ بەرهەمی هەرێم و باشوور.</p>
+                        <div class="market-loc"><i class="fas fa-map-marker-alt" aria-hidden="true"></i><span class="ar">كركوك · طريق كركوك - بغداد</span><span class="ku">کەرکوک · ڕێگای کەرکوک - بەغدا</span></div>
                     </div>
                 </article>
 
@@ -1928,7 +1986,7 @@
                         <h4 class="ar">علوة عنكاوا — أربيل</h4>
                         <h4 class="ku">عەلوەی عەنکاوا — هەولێر</h4>
                         <p class="ar">سوق مخصص لبيع الخضار والفواكه في عنكاوا، يخدم سكان أربيل والمناطق المحيطة.</p>
-                        <p class="ku">بازاڕ لە عەنکاوا، خزمەتی هەولێر دەکات.</p>
+                        <p class="ku">بازاڕێکی تایبەت بۆ فرۆشتنی سەوزە و میوە لە عەنکاوا، خزمەت بە دانیشتووانی هەولێر و ناوچەکانی دەوروبەر دەکات.</p>
                         <div class="market-loc"><i class="fas fa-map-marker-alt" aria-hidden="true"></i><span class="ar">أربيل · عنكاوا</span><span class="ku">هەولێر · عەنکاوا</span></div>
                     </div>
                 </article>
@@ -1939,7 +1997,7 @@
                         <h4 class="ar">علوة السليمانية</h4>
                         <h4 class="ku">عەلوەی سلێمانی</h4>
                         <p class="ar">سوق الجملة المركزي للفواكه والخضر في السليمانية، على طريق السليمانية - كركوك.</p>
-                        <p class="ku">بازاڕی بەکۆمەڵی ناوەندی لە سلێمانی.</p>
+                        <p class="ku">بازاڕی بەکۆمەڵی ناوەندی بۆ میوە و سەوزە لە سلێمانی، لەسەر ڕێگای سلێمانی - کەرکوک.</p>
                         <div class="market-loc"><i class="fas fa-map-marker-alt" aria-hidden="true"></i><span class="ar">السليمانية · تانجرو</span><span class="ku">سلێمانی · تانجەرۆ</span></div>
                     </div>
                 </article>
@@ -1950,7 +2008,7 @@
                         <h4 class="ar">علوة كلار</h4>
                         <h4 class="ku">عەلوەی کەلار</h4>
                         <p class="ar">المركز التجاري الرئيسي لمنطقة كرميان، بموقع استراتيجي يربط السليمانية وأربيل بديالى وبغداد.</p>
-                        <p class="ku">ناوەندی بازرگانی سەرەکی لە گەرمیان.</p>
+                        <p class="ku">ناوەندی بازرگانی سەرەکی بۆ ناوچەی گەرمیان، بە شوێنێکی ستراتیژی کە سلێمانی و هەولێر بە دیالە و بەغدا دەبەستێتەوە.</p>
                         <div class="market-loc"><i class="fas fa-map-marker-alt" aria-hidden="true"></i><span class="ar">السليمانية · كلار، كرميان</span><span class="ku">سلێمانی · کەلار، گەرمیان</span></div>
                     </div>
                 </article>
@@ -1973,33 +2031,33 @@
                 <div class="policy-card">
                     <div class="policy-icon" aria-hidden="true"><i class="fas fa-ban"></i></div>
                     <h3 class="ar">ممنوع نشر الأسعار في المكتب</h3>
-                    <h3 class="ku">قەدەغەی نرخ لە ئۆفیس</h3>
+                    <h3 class="ku">قەدەغەی بڵاوکردنەوەی نرخ لە ئۆفیس</h3>
                     <p class="ar">المكتب للعرض البصري فقط. التسعير يتم بين البقال والمستخدم مباشرة.</p>
-                    <p class="ku">ئۆفیس تەنها بۆ پیشاندانی بینراوە.</p>
+                    <p class="ku">ئۆفیس تەنها بۆ پیشاندانی بینراوە. نرخدانان لە نێوان بەقال و بەکارهێنەر بە ڕاستەوخۆ ئەنجام دەدرێت.</p>
                 </div>
 
                 <div class="policy-card">
                     <div class="policy-icon" aria-hidden="true"><i class="fas fa-clock"></i></div>
                     <h3 class="ar">إلغاء الطلب خلال 40٪</h3>
-                    <h3 class="ku">هەڵوەشاندنەوە لە 40٪</h3>
+                    <h3 class="ku">هەڵوەشاندنەوەی داواکاری لە ماوەی 40٪</h3>
                     <p class="ar">يمكن للمستخدم إلغاء الطلب قبل مرور 40٪ من الوقت. بعد ذلك يعرّض حسابه للحظر.</p>
-                    <p class="ku">بەکارهێنەر دەتوانێت لە 40٪ هەڵبوەشێنێتەوە.</p>
+                    <p class="ku">بەکارهێنەر دەتوانێت داواکاریەکە هەڵبوەشێنێتەوە پێش تێپەڕبوونی 40٪ لە کاتەکە. دوای ئەوە هەژمارەکەی بۆ بلۆککردن دەخاتە مەترسییەوە.</p>
                 </div>
 
                 <div class="policy-card">
                     <div class="policy-icon" aria-hidden="true"><i class="fas fa-handshake"></i></div>
                     <h3 class="ar">الدفع نقداً عند التسليم</h3>
-                    <h3 class="ku">پارەدان بە کاش</h3>
+                    <h3 class="ku">پارەدان بە کاش لە کاتی گەیاندن</h3>
                     <p class="ar">التطبيق غير مسؤول عن أي عملية دفع. السعر المعروض يشمل التوصيل.</p>
-                    <p class="ku">ئەپ بەرپرس نییە لە پارەدان.</p>
+                    <p class="ku">ئەپ بەرپرس نییە لە هیچ پرۆسەیەکی پارەدان. نرخی پیشاندراو گەیاندنیش لەخۆ دەگرێت.</p>
                 </div>
 
                 <div class="policy-card">
                     <div class="policy-icon" aria-hidden="true"><i class="fas fa-shield-halved"></i></div>
                     <h3 class="ar">علوة منصة عرض فقط</h3>
-                    <h3 class="ku">عەلوە پلاتفۆرمی پیشاندان</h3>
+                    <h3 class="ku">عەلوە تەنها پلاتفۆرمی پیشاندانە</h3>
                     <p class="ar">لا نتدخل في عمليات البيع والشراء ولا نتحمل مسؤولية المعاملات أو الخلافات.</p>
-                    <p class="ku">دەستتێوەردان ناکەین لە بازرگانی.</p>
+                    <p class="ku">دەستتێوەردان ناکەین لە پرۆسەی فرۆشتن و کڕین و بەرپرسیار نین لە مامەڵە یان ناکۆکییەکان.</p>
                 </div>
             </div>
 
@@ -2008,7 +2066,7 @@
                     تطبيق علوة هو منصة للعرض والإعلان والتواصل فحسب. نحن لا نتدخل في عمليات البيع والشراء، ولا نتحمل أي مسؤولية عن المعاملات المالية أو الخلافات. مسؤوليتنا تنحصر في توفير منصة آمنة وموثوقة للعرض البصري وتسهيل التواصل بين الأطراف.
                 </p>
                 <p class="ku">
-                    ئەپی عەلوە پلاتفۆرمێکە تەنها بۆ پیشاندان، ڕیکلام و پەیوەندی. ئێمە دەستتێوەردان ناکەین لە پرۆسەی فرۆشتن و کڕین.
+                    ئەپی عەلوە پلاتفۆرمێکە تەنها بۆ پیشاندان، ڕیکلام و پەیوەندی. ئێمە دەستتێوەردان ناکەین لە پرۆسەی فرۆشتن و کڕین، و هیچ بەرپرسیارێتییەک لەسەر شانی ئێمە نییە بۆ مامەڵە داراییەکان یان ناکۆکییەکان. بەرپرسیارێتی ئێمە تەنها لە دابینکردنی پلاتفۆرمێکی پارێزراو و متمانەپێکراو بۆ پیشاندانی بینراو و ئاسانکاری پەیوەندی لە نێوان لایەنەکاندا کۆتایی دێت.
                 </p>
             </div>
         </div>
@@ -2024,7 +2082,7 @@
                 هذا المشروع الوطني أُطلق برعاية ودعم كامل من <strong>مبادرة ريادة العراقية</strong> — ضمن جهود الدولة لدعم المشاريع الرقمية الوطنية.
             </p>
             <p class="ku">
-                ئەم پرۆژەیە نیشتمانیە بە پشتیوانی تەواو لە لایەن <strong>دەستپیشکیشی ڕیاداری عێراقی</strong> دەستیپێکردووە.
+                ئەم پرۆژەیە نیشتمانیە بە پشتیوانی تەواو لە لایەن <strong>دەستپیشکیشی ڕیاداری عێراقی</strong> دەستیپێکردووە — لە چوارچێوەی هەوڵەکانی دەوڵەت بۆ پشتگیریکردن لە پرۆژە دیجیتاڵییە نیشتمانییەکان.
             </p>
         </div>
     </section>
@@ -2034,7 +2092,7 @@
         <div class="container">
             <i class="fas fa-headset" aria-hidden="true"></i>
             <span class="ar">دعم فني متواصل <b>24/7</b> — داخل التطبيق طوال أيام الأسبوع</span>
-            <span class="ku">پشتگیری تەکنیکی <b>24/7</b> — لە ناو ئەپەکە</span>
+            <span class="ku">پشتگیری تەکنیکی بەردەوام <b>24/7</b> — لە ناو ئەپەکە هەموو ڕۆژەکانی هەفتە</span>
         </div>
     </div>
 
@@ -2147,7 +2205,7 @@
                     <h3 class="ar">علوة<em>ALWA</em></h3>
                     <h3 class="ku">عەلوە<em>ALWA</em></h3>
                     <p class="ar">أول سوق رقمي متكامل للخضار والفواكه في العراق. اطلب من أقرب بقال، تابع العلاوي المركزية، وتعرّف على شركات التجهيز والتصدير.</p>
-                    <p class="ku">یەکەم بازاڕی دیجیتاڵی تەواو بۆ سەوزە و میوە لە عێراق.</p>
+                    <p class="ku">یەکەم بازاڕی دیجیتاڵی تەواو بۆ سەوزە و میوە لە عێراق. داواکاری بکە لە نزیکترین بەقال، چاودێری عەلوە ناوەندییەکان بکە، و بزانە دەربارەی کۆمپانیاکانی دابینکردن و هەناردەکردن.</p>
 
                     <div class="footer-social">
                         <a href="https://wa.me/+9647813130254" target="_blank" rel="noopener noreferrer" aria-label="واتساب"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
@@ -2173,11 +2231,11 @@
                     <h4 class="ku">عەلوەکان و ڕێبەر</h4>
                     <ul>
                         <li><a href="#markets" class="ar">دليل العلاوي</a><a href="#markets" class="ku">ڕێبەری عەلوەکان</a></li>
-                        <li><a href="#markets" class="ar">علوة بغداد المركزية</a><a href="#markets" class="ku">عەلوەی بەغدا</a></li>
-                        <li><a href="#markets" class="ar">علوة الرشيد والتعاون</a><a href="#markets" class="ku">عەلوەی ڕەشید</a></li>
-                        <li><a href="#markets" class="ar">علوة كربلاء والسماوة</a><a href="#markets" class="ku">عەلوەی کەربەلا</a></li>
-                        <li><a href="#markets" class="ar">علوة البصرة وكركوك</a><a href="#markets" class="ku">عەلوەی بەسرە</a></li>
-                        <li><a href="#markets" class="ar">علوة أربيل والسليمانية</a><a href="#markets" class="ku">عەلوەی هەولێر</a></li>
+                        <li><a href="#markets" class="ar">علوة بغداد المركزية</a><a href="#markets" class="ku">عەلوەی بەغدای ناوەندی</a></li>
+                        <li><a href="#markets" class="ar">علوة الرشيد والتعاون</a><a href="#markets" class="ku">عەلوەی ڕەشید و هاریکاری</a></li>
+                        <li><a href="#markets" class="ar">علوة كربلاء والسماوة</a><a href="#markets" class="ku">عەلوەی کەربەلا و سماوە</a></li>
+                        <li><a href="#markets" class="ar">علوة البصرة وكركوك</a><a href="#markets" class="ku">عەلوەی بەسرە و کەرکوک</a></li>
+                        <li><a href="#markets" class="ar">علوة أربيل والسليمانية</a><a href="#markets" class="ku">عەلوەی هەولێر و سلێمانی</a></li>
                     </ul>
                 </div>
 
@@ -2187,7 +2245,7 @@
                     <ul>
                         <li><a href="https://elaalwa.com" target="_blank" rel="noopener noreferrer">elaalwa.com — <span class="ar">إعلانات العراق</span><span class="ku">ڕیکلامی عێراق</span></a></li>
                         <li><a href="#faq" class="ar">الأسئلة الشائعة</a><a href="#faq" class="ku">پرسیارە باوەکان</a></li>
-                        <li><a href="#policy" class="ar">حدود المسؤولية</a><a href="#policy" class="ku">بەرپرسیارێتی</a></li>
+                        <li><a href="#policy" class="ar">حدود المسؤولية</a><a href="#policy" class="ku">سنووری بەرپرسیارێتی</a></li>
                         <li><a href="privacy-ar.html" class="ar">سياسة الخصوصية</a><a href="privacy-ku.html" class="ku">سیاسەتی تایبەتمەندی</a></li>
                         <li><a href="terms-ar.html" class="ar">شروط الاستخدام</a><a href="terms-ku.html" class="ku">مەرجەکانی بەکارهێنان</a></li>
                     </ul>
