@@ -38,6 +38,7 @@ jobs:
           cp index.html docs/ 2>/dev/null || true
           cp privacy-policy.html docs/ 2>/dev/null || true
           cp terms.html docs/ 2>/dev/null || true
+          cp robots.txt docs/ 2>/dev/null || true
 
           cp *.png docs/ 2>/dev/null || true
           cp *.jpg docs/ 2>/dev/null || true
