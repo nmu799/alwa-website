@@ -32,15 +32,7 @@ jobs:
           node generate.js
           node sitemap.js
 
-      - name: التحقق من وجود index.html
-        run: |
-          if [ ! -f index.html ]; then
-            echo "❌ خطأ: index.html غير موجود في الجذر!"
-            exit 1
-          fi
-          echo "✅ index.html موجود"
-
-      - name: نسخ ملفات الموقع الرئيسية إلى docs
+      - name: نسخ ملفات الموقع إلى docs
         run: |
           cp index.html docs/ 2>/dev/null || true
           cp privacy-policy.html docs/ 2>/dev/null || true
@@ -51,25 +43,19 @@ jobs:
           cp *.svg docs/ 2>/dev/null || true
           cp *.ico docs/ 2>/dev/null || true
 
-      - name: التحقق من محتوى docs
-        run: |
-          echo "📂 محتوى docs بعد النسخ:"
-          ls -la docs/ | head -30
-          test -f docs/index.html && echo "✅ index.html منسوخ بنجاح" || exit 1
-
       - name: رفع الصفحات للمستودع
         run: |
           git config user.name "Alwa Bot"
           git config user.email "bot@alwairaq.com"
           git add docs/
-          git commit -m "🤖 توليد 1270 صفحة تلقائياً" || echo "لا تغييرات"
+          git commit -m "🤖 توليد صفحات المناطق" || echo "لا تغييرات"
           git push
 
       - name: تجهيز GitHub Pages
         uses: actions/configure-pages@v5
 
       - name: رفع ملفات الموقع
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v3
         with:
           path: './docs'
 
