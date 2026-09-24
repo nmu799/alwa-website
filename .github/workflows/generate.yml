@@ -19,6 +19,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
+
       - name: تحميل الملفات
         uses: actions/checkout@v4
 
@@ -32,30 +33,69 @@ jobs:
           node generate.js
           node sitemap.js
 
-      - name: نسخ ملفات الموقع إلى docs
+      - name: نسخ ملفات الموقع الرئيسية إلى docs
         run: |
           cp index.html docs/ 2>/dev/null || true
           cp privacy-policy.html docs/ 2>/dev/null || true
           cp terms.html docs/ 2>/dev/null || true
+
           cp *.png docs/ 2>/dev/null || true
           cp *.jpg docs/ 2>/dev/null || true
           cp *.jpeg docs/ 2>/dev/null || true
           cp *.svg docs/ 2>/dev/null || true
           cp *.ico docs/ 2>/dev/null || true
 
-      - name: رفع الصفحات للمستودع
+      - name: حفظ الملفات المولدة في المستودع
         run: |
           git config user.name "Alwa Bot"
           git config user.email "bot@alwairaq.com"
+
           git add docs/
-          git commit -m "🤖 توليد صفحات المناطق" || echo "لا تغييرات"
+
+          git commit -m "🤖 توليد 1270 صفحة تلقائياً" || echo "لا تغييرات"
+
           git push
+
+      - name: إصلاح مسارات GitHub Pages
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          BASE = "/alwa-website/"
+
+          for file in Path("docs").rglob("*.html"):
+              content = file.read_text(encoding="utf-8")
+
+              # إصلاح:
+              # src="/file"
+              # href="/file"
+              content = re.sub(
+                  r'((?:src|href)=["\'])/(?!/|alwa-website/)',
+                  r'\1' + BASE,
+                  content
+              )
+
+              # إصلاح:
+              # url(/file)
+              # url('/file')
+              # url("/file")
+              content = re.sub(
+                  r'url\((["\']?)/(?!/|alwa-website/)',
+                  r'url(\1' + BASE,
+                  content
+              )
+
+              file.write_text(content, encoding="utf-8")
+
+          print("✅ تم إصلاح مسارات الصور والأيقونات لـ GitHub Pages")
+          PY
 
       - name: تجهيز GitHub Pages
         uses: actions/configure-pages@v5
 
       - name: رفع ملفات الموقع
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: './docs'
 
