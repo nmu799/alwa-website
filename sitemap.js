@@ -16,6 +16,7 @@ let total = 1;
 regions.forEach(gov => {
   xml += `<url><loc>${SITE}/iraq/${gov.g}/</loc><lastmod>${today}</lastmod><priority>0.9</priority></url>\n`;
   total++;
+
   gov.a.forEach(area => {
     xml += `<url><loc>${SITE}/iraq/${gov.g}/${area.s}/</loc><lastmod>${today}</lastmod><priority>0.8</priority></url>\n`;
     total++;
@@ -23,5 +24,7 @@ regions.forEach(gov => {
 });
 
 xml += '</urlset>';
-fs.writeFileSync('./public/sitemap.xml', xml);
+
+fs.writeFileSync('./docs/sitemap.xml', xml);
+
 console.log(`✅ sitemap.xml يحتوي على ${total} رابط`);
