@@ -1,0 +1,35 @@
+name: Generate Alwa Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: تحميل الملفات
+        uses: actions/checkout@v4
+
+      - name: تجهيز Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: توليد الصفحات
+        run: |
+          node generate.js
+          node sitemap.js
+
+      - name: رفع الصفحات للمستودع
+        run: |
+          git config user.name "Alwa Bot"
+          git config user.email "bot@alwairaq.com"
+          git add docs/
+          git commit -m "🤖 توليد 1270 صفحة تلقائياً" || echo "لا تغييرات"
+          git push
