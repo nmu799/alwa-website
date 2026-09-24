@@ -44,6 +44,7 @@ jobs:
           cp *.jpg docs/ 2>/dev/null || true
           cp *.jpeg docs/ 2>/dev/null || true
           cp *.svg docs/ 2>/dev/null || true
+          cp *.pdf docs/ 2>/dev/null || true
           cp *.ico docs/ 2>/dev/null || true
 
       - name: حفظ الملفات المولدة في المستودع
@@ -53,7 +54,7 @@ jobs:
 
           git add docs/
 
-          git commit -m "🤖 توليد 1270 صفحة تلقائياً" || echo "لا تغييرات"
+          git commit -m "🤖 توليد صفحات عربية وكردية تلقائياً" || echo "لا تغييرات"
 
           git push
 
@@ -68,19 +69,12 @@ jobs:
           for file in Path("docs").rglob("*.html"):
               content = file.read_text(encoding="utf-8")
 
-              # إصلاح:
-              # src="/file"
-              # href="/file"
               content = re.sub(
                   r'((?:src|href)=["\'])/(?!/|alwa-website/)',
                   r'\1' + BASE,
                   content
               )
 
-              # إصلاح:
-              # url(/file)
-              # url('/file')
-              # url("/file")
               content = re.sub(
                   r'url\((["\']?)/(?!/|alwa-website/)',
                   r'url(\1' + BASE,
