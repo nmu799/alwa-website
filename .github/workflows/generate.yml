@@ -7,6 +7,8 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
   build:
@@ -33,3 +35,15 @@ jobs:
           git add docs/
           git commit -m "🤖 توليد 1270 صفحة تلقائياً" || echo "لا تغييرات"
           git push
+
+      - name: تجهيز GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: رفع ملفات الموقع
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: './docs'
+
+      - name: نشر GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
