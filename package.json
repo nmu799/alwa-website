@@ -1,0 +1,9 @@
+{
+  "name": "alwa-seo",
+  "version": "1.0.0",
+  "scripts": {
+    "generate": "node generate.js",
+    "sitemap": "node sitemap.js",
+    "all": "npm run generate && npm run sitemap"
+  }
+}
