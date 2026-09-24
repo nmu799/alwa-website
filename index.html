@@ -78,7 +78,10 @@
       "telephone":"+9647813130254",
       "sameAs":[
         "https://www.facebook.com/share/1SJW6y8CaB/",
-        "https://www.instagram.com/alwairaq"
+        "https://www.instagram.com/alwairaq",
+        "https://youtube.com/@alwairaq",
+        "https://www.tiktok.com/@alwairaq",
+        "https://wa.me/9647813130254"
       ],
       "areaServed":{"@type":"Country","name":"Iraq"}
     }
@@ -1205,6 +1208,14 @@
             color: var(--white);
         }
 
+        /* ✅ ألوان خاصة لكل منصة سوشيال */
+        .footer-social a.soc-whatsapp:hover { background: #25D366; border-color: #25D366; }
+        .footer-social a.soc-facebook:hover { background: #1877F2; border-color: #1877F2; }
+        .footer-social a.soc-instagram:hover { background: #E1306C; border-color: #E1306C; }
+        .footer-social a.soc-youtube:hover   { background: #FF0000; border-color: #FF0000; }
+        .footer-social a.soc-tiktok:hover    { background: #000000; border-color: #000000; }
+        .footer-social a.soc-phone:hover     { background: var(--primary); border-color: var(--primary); }
+
         .footer-col h4 {
             color: var(--white);
             font-size: 0.9rem;
@@ -2294,11 +2305,55 @@
                     <p class="ar">أول سوق رقمي متكامل للخضار والفواكه في العراق. اطلب من أقرب بقال، تابع العلاوي المركزية، وتعرّف على شركات التجهيز والتصدير.</p>
                     <p class="ku">یەکەم بازاڕی دیجیتاڵی تەواو بۆ سەوزە و میوە لە عێراق. داواکاری بکە لە نزیکترین بەقال، چاودێری عەلوە ناوەندییەکان بکە، و بزانە دەربارەی کۆمپانیاکانی دابینکردن و هەناردەکردن.</p>
 
-                    <div class="footer-social">
-                        <a href="https://wa.me/+9647813130254" target="_blank" rel="noopener noreferrer" aria-label="واتساب"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
-                        <a href="https://www.facebook.com/share/1SJW6y8CaB/" target="_blank" rel="noopener noreferrer" aria-label="فيسبوك"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
-                        <a href="https://www.instagram.com/alwairaq" target="_blank" rel="noopener noreferrer" aria-label="انستجرام"><i class="fab fa-instagram" aria-hidden="true"></i></a>
-                        <a href="tel:+9647813130254" aria-label="هاتف"><i class="fas fa-phone" aria-hidden="true"></i></a>
+                    <!-- ✅ جميع روابط التواصل الاجتماعي والمراسلة -->
+                    <div class="footer-social" aria-label="روابط التواصل الاجتماعي">
+                        <!-- واتساب -->
+                        <a href="https://wa.me/9647813130254"
+                           class="soc-whatsapp"
+                           target="_blank" rel="noopener noreferrer"
+                           aria-label="مراسلة علوة عبر واتساب"
+                           title="مراسلة علوة عبر واتساب">
+                            <i class="fab fa-whatsapp" aria-hidden="true"></i>
+                        </a>
+                        <!-- فيسبوك -->
+                        <a href="https://www.facebook.com/share/1SJW6y8CaB/"
+                           class="soc-facebook"
+                           target="_blank" rel="noopener noreferrer"
+                           aria-label="فيسبوك علوة ALWA"
+                           title="فيسبوك علوة ALWA">
+                            <i class="fab fa-facebook-f" aria-hidden="true"></i>
+                        </a>
+                        <!-- إنستجرام -->
+                        <a href="https://www.instagram.com/alwairaq"
+                           class="soc-instagram"
+                           target="_blank" rel="noopener noreferrer"
+                           aria-label="إنستجرام علوة ALWA"
+                           title="إنستجرام علوة ALWA">
+                            <i class="fab fa-instagram" aria-hidden="true"></i>
+                        </a>
+                        <!-- يوتيوب -->
+                        <a href="https://youtube.com/@alwairaq"
+                           class="soc-youtube"
+                           target="_blank" rel="noopener noreferrer"
+                           aria-label="قناة علوة ALWA على يوتيوب"
+                           title="قناة علوة ALWA على يوتيوب">
+                            <i class="fab fa-youtube" aria-hidden="true"></i>
+                        </a>
+                        <!-- تيك توك -->
+                        <a href="https://www.tiktok.com/@alwairaq"
+                           class="soc-tiktok"
+                           target="_blank" rel="noopener noreferrer"
+                           aria-label="تيك توك علوة ALWA"
+                           title="تيك توك علوة ALWA">
+                            <i class="fab fa-tiktok" aria-hidden="true"></i>
+                        </a>
+                        <!-- هاتف -->
+                        <a href="tel:+9647813130254"
+                           class="soc-phone"
+                           aria-label="اتصال هاتفي بعلوة ALWA"
+                           title="اتصل بنا">
+                            <i class="fas fa-phone" aria-hidden="true"></i>
+                        </a>
                     </div>
                 </div>
 
