@@ -4,7 +4,7 @@ const path = require('path');
 const regions = require('./regions.json');
 
 const SITE = 'https://alwairaq.com';
-const OUT = './public';
+const OUT = './docs';
 let count = 0;
 
 // حذف المجلد القديم
@@ -72,6 +72,7 @@ footer a{color:#f1c548}
 </style>
 </head>
 <body>
+
 <header>
   <div class="wrap">
     <a href="/">علوة ALWA</a>
@@ -108,10 +109,13 @@ footer a{color:#f1c548}
   </ul>
 
   <h2>أسئلة شائعة عن التوصيل في ${area.n}</h2>
+
   <h3>هل يوجد توصيل خضار في ${area.n}؟</h3>
   <p>نعم، عبر تطبيق علوة من أقرب بقال مسجل في ${area.n}.</p>
+
   <h3>كم يستغرق التوصيل في ${area.n}؟</h3>
   <p>من 5 إلى 60 دقيقة حسب عرض البقال الذي تختاره.</p>
+
   <h3>هل التوصيل مجاني؟</h3>
   <p>نعم، السعر المعروض من البقال يشمل التوصيل — بدون رسوم إضافية.</p>
 
@@ -123,13 +127,17 @@ footer a{color:#f1c548}
   <p>© 2026 علوة ALWA — سوق الجملة الرقمي للخضار والفواكه في العراق</p>
   <p><a href="/">الرئيسية</a> · <a href="/markets/">العلاوي</a> · <a href="/prices/">الأسعار</a></p>
 </footer>
+
 </body>
 </html>`;
 }
 
 // توليد صفحة المحافظة
 function makeGovPage(gov) {
-  const list = gov.a.map(a => `<li><a href="/iraq/${gov.g}/${a.s}/">خضار وفواكه ${a.n}</a></li>`).join('\n');
+  const list = gov.a
+    .map(a => `<li><a href="/iraq/${gov.g}/${a.s}/">خضار وفواكه ${a.n}</a></li>`)
+    .join('\n');
+
   return `<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -140,36 +148,90 @@ function makeGovPage(gov) {
 <link rel="canonical" href="${SITE}/iraq/${gov.g}/">
 <link rel="alternate" hreflang="ar" href="${SITE}/iraq/${gov.g}/">
 <link rel="alternate" hreflang="ckb" href="${SITE}/ckb/iraq/${gov.g}/">
+
 <style>
-body{font-family:'Cairo',sans-serif;padding:20px;max-width:900px;margin:0 auto;line-height:1.75}
-h1{color:#04722b;margin-bottom:20px}
-ul{columns:2;list-style:none;padding:0}
-li{padding:6px 0;border-bottom:1px solid #eee}
-a{color:#04722b;text-decoration:none}
-a:hover{text-decoration:underline}
+body{
+  font-family:'Cairo',sans-serif;
+  padding:20px;
+  max-width:900px;
+  margin:0 auto;
+  line-height:1.75
+}
+
+h1{
+  color:#04722b;
+  margin-bottom:20px
+}
+
+ul{
+  columns:2;
+  list-style:none;
+  padding:0
+}
+
+li{
+  padding:6px 0;
+  border-bottom:1px solid #eee
+}
+
+a{
+  color:#04722b;
+  text-decoration:none
+}
+
+a:hover{
+  text-decoration:underline
+}
 </style>
 </head>
+
 <body>
+
 <h1>خضار وفواكه ${gov.ga} — دليل كامل</h1>
-<p>تصفح جميع مناطق ${gov.ga} (${gov.a.length} منطقة) واطلب خضارك وفواكهك من أقرب بقال.</p>
-<ul>${list}</ul>
-<p><a href="/">← الرئيسية</a></p>
+
+<p>
+تصفح جميع مناطق ${gov.ga}
+(${gov.a.length} منطقة)
+واطلب خضارك وفواكهك من أقرب بقال.
+</p>
+
+<ul>
+${list}
+</ul>
+
+<p>
+<a href="/">← الرئيسية</a>
+</p>
+
 </body>
 </html>`;
 }
 
 // توليد كل شيء
 regions.forEach(gov => {
+
   // صفحة المحافظة
   const govDir = path.join(OUT, 'iraq', gov.g);
+
   fs.mkdirSync(govDir, { recursive: true });
-  fs.writeFileSync(path.join(govDir, 'index.html'), makeGovPage(gov));
+
+  fs.writeFileSync(
+    path.join(govDir, 'index.html'),
+    makeGovPage(gov)
+  );
 
   // صفحات المناطق
   gov.a.forEach(area => {
+
     const areaDir = path.join(govDir, area.s);
+
     fs.mkdirSync(areaDir, { recursive: true });
-    fs.writeFileSync(path.join(areaDir, 'index.html'), makePage(gov, area));
+
+    fs.writeFileSync(
+      path.join(areaDir, 'index.html'),
+      makePage(gov, area)
+    );
+
     count++;
   });
 });
