@@ -76,6 +76,7 @@
       "logo":"https://alwairaq.com/alwa.png",
       "image":"https://alwairaq.com/alwa-og.jpg",
       "telephone":"+9647813130254",
+      "email":"alwairaqe@gmail.com",
       "sameAs":[
         "https://www.facebook.com/share/1SJW6y8CaB/",
         "https://www.instagram.com/alwairaq",
@@ -1186,6 +1187,32 @@
             margin-bottom: 1.3rem;
         }
 
+        /* ✅ البريد الإلكتروني للتواصل */
+        .footer-email {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.14);
+            color: rgba(255,255,255,0.85);
+            padding: 8px 14px;
+            border-radius: var(--radius);
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 1.2rem;
+            transition: var(--transition);
+            word-break: break-all;
+        }
+
+        .footer-email:hover,
+        .footer-email:focus-visible {
+            background: rgba(255,255,255,0.12);
+            border-color: var(--orange);
+            color: var(--white);
+        }
+
+        .footer-email i { color: var(--orange); font-size: 0.95rem; flex-shrink: 0; }
+
         .footer-social { display: flex; gap: 8px; flex-wrap: wrap; }
 
         .footer-social a {
@@ -1215,6 +1242,7 @@
         .footer-social a.soc-youtube:hover   { background: #FF0000; border-color: #FF0000; }
         .footer-social a.soc-tiktok:hover    { background: #000000; border-color: #000000; }
         .footer-social a.soc-phone:hover     { background: var(--primary); border-color: var(--primary); }
+        .footer-social a.soc-gmail:hover     { background: #EA4335; border-color: #EA4335; }
 
         .footer-col h4 {
             color: var(--white);
@@ -2305,6 +2333,12 @@
                     <p class="ar">أول سوق رقمي متكامل للخضار والفواكه في العراق. اطلب من أقرب بقال، تابع العلاوي المركزية، وتعرّف على شركات التجهيز والتصدير.</p>
                     <p class="ku">یەکەم بازاڕی دیجیتاڵی تەواو بۆ سەوزە و میوە لە عێراق. داواکاری بکە لە نزیکترین بەقال، چاودێری عەلوە ناوەندییەکان بکە، و بزانە دەربارەی کۆمپانیاکانی دابینکردن و هەناردەکردن.</p>
 
+                    <!-- ✅ البريد الإلكتروني للتواصل -->
+                    <a href="mailto:alwairaqe@gmail.com" class="footer-email" aria-label="البريد الإلكتروني لعلوة">
+                        <i class="fas fa-envelope" aria-hidden="true"></i>
+                        <span>alwairaqe@gmail.com</span>
+                    </a>
+
                     <!-- ✅ جميع روابط التواصل الاجتماعي والمراسلة -->
                     <div class="footer-social" aria-label="روابط التواصل الاجتماعي">
                         <!-- واتساب -->
@@ -2314,6 +2348,13 @@
                            aria-label="مراسلة علوة عبر واتساب"
                            title="مراسلة علوة عبر واتساب">
                             <i class="fab fa-whatsapp" aria-hidden="true"></i>
+                        </a>
+                        <!-- جيميل -->
+                        <a href="mailto:alwairaqe@gmail.com"
+                           class="soc-gmail"
+                           aria-label="البريد الإلكتروني جيميل"
+                           title="البريد الإلكتروني جيميل">
+                            <i class="fas fa-envelope" aria-hidden="true"></i>
                         </a>
                         <!-- فيسبوك -->
                         <a href="https://www.facebook.com/share/1SJW6y8CaB/"
@@ -2388,8 +2429,9 @@
                         <li><a href="https://elaalwa.com" target="_blank" rel="noopener noreferrer">elaalwa.com — <span class="ar">إعلانات العراق</span><span class="ku">ڕیکلامی عێراق</span></a></li>
                         <li><a href="#faq" class="ar">الأسئلة الشائعة</a><a href="#faq" class="ku">پرسیارە باوەکان</a></li>
                         <li><a href="#policy" class="ar">حدود المسؤولية</a><a href="#policy" class="ku">سنووری بەرپرس یارێتی</a></li>
-                        <li><a href="privacy-ar.html" class="ar">سياسة الخصوصية</a><a href="privacy-ku.html" class="ku">سیاسەتی تایبەتمەندی</a></li>
-                        <li><a href="terms-ar.html" class="ar">شروط الاستخدام</a><a href="terms-ku.html" class="ku">مەرجەکانی بەکارهێنان</a></li>
+                        <li><a href="https://alwairaq.com/privacy-policy.html" class="ar">سياسة الخصوصية</a><a href="https://alwairaq.com/privacy-policy.html" class="ku">سیاسەتی تایبەتمەندی</a></li>
+                        <li><a href="https://alwairaq.com/terms.html" class="ar">شروط الاستخدام</a><a href="https://alwairaq.com/terms.html" class="ku">مەرجەکانی بەکارهێنان</a></li>
+                        <li><a href="mailto:alwairaqe@gmail.com" class="ar">تواصل معنا</a><a href="mailto:alwairaqe@gmail.com" class="ku">پەیوەندیمان پێوە بکە</a></li>
                     </ul>
                 </div>
             </div>
