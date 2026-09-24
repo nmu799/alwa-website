@@ -32,6 +32,31 @@ jobs:
           node generate.js
           node sitemap.js
 
+      - name: التحقق من وجود index.html
+        run: |
+          if [ ! -f index.html ]; then
+            echo "❌ خطأ: index.html غير موجود في الجذر!"
+            exit 1
+          fi
+          echo "✅ index.html موجود"
+
+      - name: نسخ ملفات الموقع الرئيسية إلى docs
+        run: |
+          cp index.html docs/ 2>/dev/null || true
+          cp privacy-policy.html docs/ 2>/dev/null || true
+          cp terms.html docs/ 2>/dev/null || true
+          cp *.png docs/ 2>/dev/null || true
+          cp *.jpg docs/ 2>/dev/null || true
+          cp *.jpeg docs/ 2>/dev/null || true
+          cp *.svg docs/ 2>/dev/null || true
+          cp *.ico docs/ 2>/dev/null || true
+
+      - name: التحقق من محتوى docs
+        run: |
+          echo "📂 محتوى docs بعد النسخ:"
+          ls -la docs/ | head -30
+          test -f docs/index.html && echo "✅ index.html منسوخ بنجاح" || exit 1
+
       - name: رفع الصفحات للمستودع
         run: |
           git config user.name "Alwa Bot"
