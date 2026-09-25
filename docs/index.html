@@ -22,7 +22,6 @@
     <link rel="alternate" hreflang="ckb" href="https://alwairaq.com/ckb/">
     <link rel="alternate" hreflang="x-default" href="https://alwairaq.com/">
 
-    <!-- ✅ Open Graph محسّن بالكامل لعرض صورة المشاركة في واتساب وإنستغرام -->
     <meta property="og:site_name" content="علوة ALWA">
     <meta property="og:title" content="علوة ALWA | سوق الجملة الرقمي المتكامل للخضار والفواكه">
     <meta property="og:description" content="اطلب من أقرب بقال، تابع المكاتب، وأعلن عبر elaalwa.">
@@ -37,7 +36,6 @@
     <meta property="og:locale" content="ar_IQ">
     <meta property="og:locale:alternate" content="ckb_IQ">
 
-    <!-- ✅ Twitter / X Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@alwairaq">
     <meta name="twitter:creator" content="@alwairaq">
@@ -49,13 +47,11 @@
     <link rel="icon" type="image/png" href="/alwa.png">
     <link rel="apple-touch-icon" href="/alwa.png">
 
-    <!-- ✅ preconnect لخطوط جوجل و cdnjs لتحسين سرعة التحميل -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- ✅ خط Cairo بالأوزان المستخدمة فعلاً فقط (400, 600, 700, 800) -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap">
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17907655558"></script>
@@ -147,7 +143,6 @@
             --transition: all 0.2s ease;
             --focus: #ff6600;
 
-            /* ✅ ارتفاع الهيدر — يُحدَّث ديناميكياً بـ JS، مع قيمة افتراضية */
             --header-h: 100px;
         }
 
@@ -214,12 +209,10 @@
             padding-inline: 15px;
         }
 
-        /* ✅ scroll-margin-top محسوب ديناميكياً بناءً على ارتفاع الهيدر الفعلي */
         section[id], div[id] {
             scroll-margin-top: calc(var(--header-h) + 20px);
         }
 
-        /* ============ TOPBAR ============ */
         .topbar {
             background: var(--primary-deep);
             color: rgba(255,255,255,0.88);
@@ -230,7 +223,6 @@
         }
         .topbar b { color: var(--yellow); font-weight: 600; }
 
-        /* ============ HEADER ============ */
         header {
             background: var(--white);
             border-bottom: 1px solid var(--line);
@@ -323,7 +315,6 @@
         .btn-text small { font-size: 9.5px; opacity: 0.75; font-weight: 400; }
         .btn-text span { font-size: 12.5px; font-weight: 600; }
 
-        /* ============ HERO ============ */
         .hero {
             background: var(--bg-soft);
             padding: 4rem 0 3rem;
@@ -393,7 +384,6 @@
             flex-shrink: 0;
         }
 
-        /* ============ BANNER ============ */
         .banner {
             background: var(--orange);
             color: var(--white);
@@ -470,7 +460,6 @@
             flex-shrink: 0;
         }
 
-        /* ============ HOW ============ */
         .how-section {
             background: var(--white);
             padding: 4.5rem 0;
@@ -544,7 +533,6 @@
             margin-inline: auto;
         }
 
-        /* ============ SECTIONS ============ */
         section.sec { padding: 4.5rem 0; }
         section.sec-soft { background: var(--bg-soft); }
 
@@ -587,7 +575,6 @@
             margin: 1.1rem auto 0;
         }
 
-        /* ============ INTRO ============ */
         .intro-grid {
             display: grid;
             grid-template-columns: 1.5fr 1fr;
@@ -647,7 +634,6 @@
         .intro-aside li:last-child { border-bottom: none; }
         .intro-aside li i { color: var(--primary); font-size: 0.9rem; margin-top: 4px; flex-shrink: 0; }
 
-        /* ============ ACCOUNTS ============ */
         .accounts-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -737,7 +723,6 @@
         .account-card.orange ul li::before { color: var(--orange); }
         .account-card.yellow ul li::before { color: #8a6d00; }
 
-        /* ============ FEATURES ============ */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
@@ -783,7 +768,6 @@
         .feature-card h3 { font-size: 1.05rem; font-weight: 700; color: var(--ink); margin-bottom: 0.5rem; }
         .feature-card p { font-size: 0.9rem; color: var(--ink-soft); line-height: 1.75; }
 
-        /* ============ ELAALWA ============ */
         .elaalwa-box {
             background: var(--primary-dark);
             color: var(--white);
@@ -899,7 +883,6 @@
             border-color: var(--orange-dark);
         }
 
-        /* ============ MARKETS ============ */
         .markets-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -966,7 +949,6 @@
 
         .market-loc i { color: var(--orange); font-size: 0.72rem; }
 
-        /* ============ POLICY ============ */
         .policy-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -1026,7 +1008,6 @@
             line-height: 1.9;
         }
 
-        /* ============ SPONSOR ============ */
         .sponsor-sec {
             background: var(--primary);
             color: var(--white);
@@ -1073,7 +1054,6 @@
             line-height: 1.85;
         }
 
-        /* ============ SUPPORT BAR ============ */
         .support-bar {
             background: var(--orange);
             color: var(--white);
@@ -1100,7 +1080,6 @@
             font-weight: 700;
         }
 
-        /* ============ FAQ ============ */
         .faq-wrap { max-width: 860px; margin-inline: auto; }
 
         .faq details {
@@ -1149,7 +1128,6 @@
             line-height: 1.85;
         }
 
-        /* ============ FOOTER ============ */
         footer {
             background: var(--primary-deep);
             color: rgba(255,255,255,0.75);
@@ -1187,7 +1165,6 @@
             margin-bottom: 1.3rem;
         }
 
-        /* ✅ البريد الإلكتروني للتواصل */
         .footer-email {
             display: inline-flex;
             align-items: center;
@@ -1235,7 +1212,6 @@
             color: var(--white);
         }
 
-        /* ✅ ألوان خاصة لكل منصة سوشيال */
         .footer-social a.soc-whatsapp:hover { background: #25D366; border-color: #25D366; }
         .footer-social a.soc-facebook:hover { background: #1877F2; border-color: #1877F2; }
         .footer-social a.soc-instagram:hover { background: #E1306C; border-color: #E1306C; }
@@ -1272,7 +1248,6 @@
             color: rgba(255,255,255,0.5);
         }
 
-        /* ============ BACK TO TOP ============ */
         .back-to-top {
             position: fixed;
             bottom: 26px;
@@ -1297,14 +1272,33 @@
         .back-to-top.visible { opacity: 1; visibility: visible; }
         .back-to-top:hover, .back-to-top:focus-visible { background: var(--orange); }
 
-        /* ============ LANGUAGE VISIBILITY (نظام جديد نظيف) ============ */
-        /* ✅ لا نفرض display على العناصر الظاهرة — فقط نخفي اللغة غير النشطة */
+        /* ═══ زر الدردشة العائم ═══ */
+        .chat-fab {
+            position: fixed;
+            bottom: 26px;
+            inset-inline-end: 26px;
+            width: 64px;
+            height: 64px;
+            z-index: 9998;
+            transition: transform 0.2s;
+            text-decoration: none;
+            display: block;
+        }
+        .chat-fab:hover, .chat-fab:focus-visible {
+            transform: scale(1.08);
+        }
+        .chat-fab img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: contain;
+        }
+
         html[lang="ar"] .ku,
         html[lang="ckb"] .ar {
             display: none !important;
         }
 
-        /* ============ LOADING ============ */
         .lang-loading {
             position: fixed;
             inset: 0;
@@ -1333,7 +1327,6 @@
             100% { opacity: 1; }
         }
 
-        /* ============ SEO HIDDEN ============ */
         .seo-hidden {
             position: absolute !important;
             width: 1px !important;
@@ -1347,7 +1340,6 @@
             border: 0 !important;
         }
 
-        /* ============ REDUCED MOTION ============ */
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
                 animation-duration: 0.01ms !important;
@@ -1358,7 +1350,6 @@
             .letter { opacity: 1 !important; }
         }
 
-        /* ============ RESPONSIVE ============ */
         @media (max-width: 1024px) {
             .intro-grid { grid-template-columns: 1fr; gap: 2rem; }
             .elaalwa-box { grid-template-columns: 1fr; padding: 2rem 1.7rem; gap: 1.8rem; }
@@ -1368,7 +1359,6 @@
             .banner-inner { grid-template-columns: 1fr; gap: 2rem; }
         }
 
-        /* ✅ قيمة احتياطية لـ scroll-margin-top في حال فشل JS */
         @media (max-width: 768px) {
             :root { --header-h: 340px; }
         }
@@ -1441,6 +1431,13 @@
                 inset-inline-start: 16px;
                 bottom: 16px;
             }
+
+            .chat-fab {
+                width: 58px;
+                height: 58px;
+                bottom: 16px;
+                inset-inline-end: 16px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1471,7 +1468,6 @@
         <div class="letter" id="l4">A</div>
     </div>
 
-    <!-- ═══ TOPBAR ═══ -->
     <div class="topbar">
         <div class="container">
             <span class="ar">توصيل مباشر من أقرب بقال &nbsp;·&nbsp; دعم فني متواصل <b>24/7</b> &nbsp;·&nbsp; التسجيل مجاني &nbsp;·&nbsp; ابدأ الآن</span>
@@ -1479,7 +1475,6 @@
         </div>
     </div>
 
-    <!-- ═══ HEADER ═══ -->
     <header>
         <div class="container header-content">
             <a href="/" class="logo" aria-label="علوة ALWA - الصفحة الرئيسية">
@@ -1503,7 +1498,6 @@
                     <button id="btnKu" type="button" aria-pressed="false">کوردی</button>
                 </div>
 
-                <!-- ✅ كل متجر له بيانات تحويل منفصلة عبر data-conversion -->
                 <a class="store-mini" href="https://play.google.com/store/apps/details?id=com.alwaa.app"
                    target="_blank" rel="noopener noreferrer"
                    data-conversion="m7JCCNbWkPUbEIbHhNtC">
@@ -1514,7 +1508,6 @@
                     <div class="btn-text ku"><small>داگرتن لە</small><span>گووگڵ پلەی</span></div>
                 </a>
 
-                <!-- ⚠️ استبدل قيمة data-conversion بلابل التحويل الخاص بمتجر آبل من Google Ads -->
                 <a class="store-mini" href="https://apps.apple.com/us/app/%D8%B9%D9%84%D9%88%D8%A9/id6766648439"
                    target="_blank" rel="noopener noreferrer"
                    data-conversion="REPLACE_WITH_APP_STORE_CONVERSION_LABEL">
@@ -1530,7 +1523,6 @@
 
     <main id="main">
 
-    <!-- Hero -->
     <section class="hero" aria-labelledby="hero-title">
         <div class="container hero-content">
             <h1 class="ar" id="hero-title">اطلب الخضار و الفواكه <em>من أقرب بقال</em> في منطقتك</h1>
@@ -1564,7 +1556,6 @@
         </div>
     </section>
 
-    <!-- Banner -->
     <section class="banner">
         <div class="container banner-inner">
             <div>
@@ -1596,7 +1587,6 @@
         </div>
     </section>
 
-    <!-- How to Order -->
     <section class="how-section" id="how">
         <div class="container">
             <span class="how-eyebrow ar">كيف تطلب؟</span>
@@ -1639,7 +1629,6 @@
         </div>
     </section>
 
-    <!-- What is Alwa -->
     <section id="what" class="sec sec-soft">
         <div class="container">
             <div class="sec-head">
@@ -1698,7 +1687,6 @@
         </div>
     </section>
 
-    <!-- Accounts -->
     <section id="accounts" class="sec">
         <div class="container">
             <div class="sec-head">
@@ -1791,7 +1779,6 @@
         </div>
     </section>
 
-    <!-- Features -->
     <section id="features" class="sec sec-soft">
         <div class="container">
             <div class="sec-head">
@@ -1898,7 +1885,6 @@
         </div>
     </section>
 
-    <!-- Elaalwa -->
     <section id="elaalwa" class="sec">
         <div class="container">
             <div class="elaalwa-box">
@@ -1957,7 +1943,6 @@
         </div>
     </section>
 
-    <!-- Markets -->
     <section id="markets" class="sec sec-soft">
         <div class="container">
             <div class="sec-head">
@@ -2139,7 +2124,6 @@
         </div>
     </section>
 
-    <!-- Policy -->
     <section id="policy" class="sec">
         <div class="container">
             <div class="sec-head">
@@ -2195,7 +2179,6 @@
         </div>
     </section>
 
-    <!-- Sponsor -->
     <section class="sponsor-sec">
         <div class="container">
             <a href="https://riyada.iq/" target="_blank" rel="noopener noreferrer"
@@ -2213,7 +2196,6 @@
         </div>
     </section>
 
-    <!-- Support -->
     <div class="support-bar">
         <div class="container">
             <i class="fas fa-headset" aria-hidden="true"></i>
@@ -2222,7 +2204,6 @@
         </div>
     </div>
 
-    <!-- FAQ -->
     <section id="faq" class="sec sec-soft">
         <div class="container">
             <div class="sec-head">
@@ -2309,7 +2290,6 @@
         </div>
     </section>
 
-    <!-- SEO Hidden -->
     <section class="seo-hidden" aria-hidden="true">
         <h2>أهم علوات الخضار والفواكه في العراق</h2>
         <ul>
@@ -2323,7 +2303,6 @@
 
     </main>
 
-    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-grid">
@@ -2333,15 +2312,12 @@
                     <p class="ar">أول سوق رقمي متكامل للخضار والفواكه في العراق. اطلب من أقرب بقال، تابع العلاوي المركزية، وتعرّف على شركات التجهيز والتصدير.</p>
                     <p class="ku">یەکەم بازاڕی دیجیتاڵی تەواو بۆ سەوزە و میوە لە عێراق. داواکاری بکە لە نزیکترین بەقال، چاودێری عەلوە ناوەندییەکان بکە، و بزانە دەربارەی کۆمپانیاکانی دابینکردن و هەناردەکردن.</p>
 
-                    <!-- ✅ البريد الإلكتروني للتواصل -->
                     <a href="mailto:alwairaqe@gmail.com" class="footer-email" aria-label="البريد الإلكتروني لعلوة">
                         <i class="fas fa-envelope" aria-hidden="true"></i>
                         <span>alwairaqe@gmail.com</span>
                     </a>
 
-                    <!-- ✅ جميع روابط التواصل الاجتماعي والمراسلة -->
                     <div class="footer-social" aria-label="روابط التواصل الاجتماعي">
-                        <!-- واتساب -->
                         <a href="https://wa.me/9647813130254"
                            class="soc-whatsapp"
                            target="_blank" rel="noopener noreferrer"
@@ -2349,14 +2325,12 @@
                            title="مراسلة علوة عبر واتساب">
                             <i class="fab fa-whatsapp" aria-hidden="true"></i>
                         </a>
-                        <!-- جيميل -->
                         <a href="mailto:alwairaqe@gmail.com"
                            class="soc-gmail"
                            aria-label="البريد الإلكتروني جيميل"
                            title="البريد الإلكتروني جيميل">
                             <i class="fas fa-envelope" aria-hidden="true"></i>
                         </a>
-                        <!-- فيسبوك -->
                         <a href="https://www.facebook.com/share/1SJW6y8CaB/"
                            class="soc-facebook"
                            target="_blank" rel="noopener noreferrer"
@@ -2364,7 +2338,6 @@
                            title="فيسبوك علوة ALWA">
                             <i class="fab fa-facebook-f" aria-hidden="true"></i>
                         </a>
-                        <!-- إنستجرام -->
                         <a href="https://www.instagram.com/alwairaq"
                            class="soc-instagram"
                            target="_blank" rel="noopener noreferrer"
@@ -2372,7 +2345,6 @@
                            title="إنستجرام علوة ALWA">
                             <i class="fab fa-instagram" aria-hidden="true"></i>
                         </a>
-                        <!-- يوتيوب -->
                         <a href="https://youtube.com/@alwairaq"
                            class="soc-youtube"
                            target="_blank" rel="noopener noreferrer"
@@ -2380,7 +2352,6 @@
                            title="قناة علوة ALWA على يوتيوب">
                             <i class="fab fa-youtube" aria-hidden="true"></i>
                         </a>
-                        <!-- تيك توك -->
                         <a href="https://www.tiktok.com/@alwairaq"
                            class="soc-tiktok"
                            target="_blank" rel="noopener noreferrer"
@@ -2388,7 +2359,6 @@
                            title="تيك توك علوة ALWA">
                             <i class="fab fa-tiktok" aria-hidden="true"></i>
                         </a>
-                        <!-- هاتف -->
                         <a href="tel:+9647813130254"
                            class="soc-phone"
                            aria-label="اتصال هاتفي بعلوة ALWA"
@@ -2443,24 +2413,22 @@
         </div>
     </footer>
 
-    <!-- ✅ زر العودة للأعلى الآن في نهاية body (ترتيب صحيح للـ tab) -->
     <button class="back-to-top" id="backToTop" type="button" aria-label="العودة إلى أعلى الصفحة">
         <i class="fas fa-arrow-up" aria-hidden="true"></i>
     </button>
 
+    <!-- ✅ زر الدردشة العائم (جديد) -->
+    <a href="/chat/" class="chat-fab" aria-label="افتح الدردشة">
+        <img src="/chat-icon.svg" alt="">
+    </a>
+
     <script>
-        // ═══════════════════════════════════════════
-        // 1) دوال مساعدة
-        // ═══════════════════════════════════════════
         function safeConvert(label) {
             if (typeof gtag === 'function' && label && label !== 'REPLACE_WITH_APP_STORE_CONVERSION_LABEL') {
                 gtag('event', 'conversion', {'send_to': 'AW-17907655558/' + label});
             }
         }
 
-        // ═══════════════════════════════════════════
-        // 2) نظام تبديل اللغة (نظيف بدون فرض display)
-        // ═══════════════════════════════════════════
         const STORAGE_KEY = 'alwa-lang';
         const loading = document.getElementById('langLoading');
         const letters = ['l1','l2','l3','l4'].map(id => document.getElementById(id));
@@ -2478,7 +2446,6 @@
             btnAr.setAttribute('aria-pressed', String(!isKu));
             btnKu.setAttribute('aria-pressed', String(isKu));
 
-            // ✅ تحديث النصوص الديناميكية حسب اللغة
             if (langToggle) {
                 langToggle.setAttribute('aria-label', isKu ? 'گۆڕینی زمان' : 'تغيير اللغة');
             }
@@ -2488,12 +2455,11 @@
         }
 
         function animateLetters(cb) {
-            // ✅ إعادة تعيين مع إجبار المتصفح على reflow لضمان إعادة تشغيل الأنيميشن
             letters.forEach(l => {
                 if (!l) return;
                 l.style.opacity = '0';
                 l.style.animation = 'none';
-                void l.offsetWidth; // ← reflow trick
+                void l.offsetWidth;
             });
             letters.forEach((l, i) => {
                 if (!l) return;
@@ -2527,9 +2493,6 @@
         } catch (e) {}
         applyLang(initialLang);
 
-        // ═══════════════════════════════════════════
-        // 3) زر العودة للأعلى
-        // ═══════════════════════════════════════════
         let bttTick = false;
         window.addEventListener('scroll', () => {
             if (bttTick) return;
@@ -2544,9 +2507,6 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
-        // ═══════════════════════════════════════════
-        // 4) تمرير سلس للروابط الداخلية
-        // ═══════════════════════════════════════════
         document.querySelectorAll('a[href^="#"]').forEach(a => {
             a.addEventListener('click', e => {
                 const id = a.getAttribute('href');
@@ -2562,18 +2522,12 @@
             });
         });
 
-        // ═══════════════════════════════════════════
-        // 5) أحداث التحويل لمتاجر التطبيقات (بدون onclick inline)
-        // ═══════════════════════════════════════════
         document.querySelectorAll('a[data-conversion]').forEach(a => {
             a.addEventListener('click', () => {
                 safeConvert(a.dataset.conversion);
             });
         });
 
-        // ═══════════════════════════════════════════
-        // 6) حساب ارتفاع الهيدر ديناميكياً لضبط scroll-margin-top
-        // ═══════════════════════════════════════════
         const headerEl = document.querySelector('header');
         function updateHeaderHeight() {
             if (!headerEl) return;
