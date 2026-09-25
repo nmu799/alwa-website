@@ -7,6 +7,7 @@
 <meta name="theme-color" content="#04722b">
 <title>الدردشة | علوة ALWA</title>
 <link rel="icon" type="image/png" href="/alwa.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap">
@@ -467,6 +468,7 @@ body{
 
 </div>
 
+
 <div class="modal" id="nameModal">
 
   <div class="modal-content">
@@ -490,6 +492,7 @@ body{
 
 </div>
 
+
 <div class="preview" id="imgPreview">
 
   <button
@@ -502,11 +505,14 @@ body{
 
 </div>
 
+
 <div class="uploading" id="uploading">
   <div class="spinner"></div>
 </div>
 
+
 <div class="toast" id="toast"></div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -522,7 +528,37 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
   'sb_publishable_qSu4ySI6EUfWIil59P_IHA_WFxVYxvx';
 
-const ROOM = 'general';
+
+/* =========================================
+   PRIVATE DEVICE ROOM
+========================================= */
+
+let deviceId =
+  localStorage.getItem('alwa_device_id');
+
+if (!deviceId) {
+
+  deviceId =
+    'room-' +
+    Date.now().toString(36) +
+    '-' +
+    Math.random()
+      .toString(36)
+      .substring(2, 8);
+
+  localStorage.setItem(
+    'alwa_device_id',
+    deviceId
+  );
+
+}
+
+const ROOM = deviceId;
+
+
+/* =========================================
+   SUPABASE CLIENT
+========================================= */
 
 const sb = supabase.createClient(
   SUPABASE_URL,
@@ -599,7 +635,8 @@ function showToast(msg, ms = 3000) {
 
 function escapeHtml(t) {
 
-  const d = document.createElement('div');
+  const d =
+    document.createElement('div');
 
   d.textContent = t;
 
@@ -815,7 +852,9 @@ async function loadMessages() {
 
 function subscribeRealtime() {
 
-  sb.channel('messages-channel')
+  sb.channel(
+    'messages-channel-' + ROOM
+  )
 
     .on(
       'postgres_changes',
@@ -904,8 +943,6 @@ async function sendMessage(
 
   }
 
-
-  /* عرض الرسالة مباشرة بعد نجاح INSERT */
 
   renderMessage({
 
@@ -1043,7 +1080,7 @@ fileInput.addEventListener(
       return;
 
 
-    /* 5 MB */
+    /* 5 MB LIMIT */
 
     if (
       file.size >
