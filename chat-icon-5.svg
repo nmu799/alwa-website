@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="64" height="64" viewBox="0 0 64 64">
+  <!-- Transparent background and transparent speech bubble -->
+  <path fill="#04722b" fill-rule="evenodd" d="
+    M32 4
+    A28 28 0 1 1 32 60
+    A28 28 0 1 1 32 4
+    M25 15
+    C18.2 15 13 19.6 13 26
+    V32
+    C13 38.1 17.2 42.2 23.1 43.2
+    L18.5 50
+    L28 44
+    H39
+    C45.8 44 51 39.6 51 33
+    V26
+    C51 19.6 45.8 15 39 15
+    Z
+  "/>
+
+  <!-- Three colored chat dots -->
+  <circle cx="24" cy="29.5" r="2.5" fill="#04722b"/>
+  <circle cx="32" cy="29.5" r="2.5" fill="#ff6600"/>
+  <circle cx="40" cy="29.5" r="2.5" fill="#f1c548"/>
+</svg>
