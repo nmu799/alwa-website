@@ -39,6 +39,11 @@ jobs:
           cp privacy-policy.html docs/ 2>/dev/null || true
           cp terms.html docs/ 2>/dev/null || true
           cp robots.txt docs/ 2>/dev/null || true
+
+          # صفحة إدارة الدردشة
+          cp admin-chat.html docs/ 2>/dev/null || true
+
+          # الدردشة
           cp -r chat docs/ 2>/dev/null || true
           cp chat-icon.svg docs/ 2>/dev/null || true
 
