@@ -1,0 +1,2464 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1,maximum-scale=1"
+>
+
+<meta
+  name="robots"
+  content="noindex,nofollow"
+>
+
+<meta
+  name="theme-color"
+  content="#04722b"
+>
+
+<title>إدارة الدردشة | علوة ALWA</title>
+
+<link
+  rel="icon"
+  type="image/png"
+  href="/alwa.png"
+>
+
+<link
+  rel="preconnect"
+  href="https://fonts.googleapis.com"
+>
+
+<link
+  rel="preconnect"
+  href="https://fonts.gstatic.com"
+  crossorigin
+>
+
+<link
+  href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap"
+  rel="stylesheet"
+>
+
+<style>
+
+/* =========================================
+   RESET
+========================================= */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+html,
+body{
+  min-height:100%;
+}
+
+body{
+  font-family:'Cairo',system-ui,sans-serif;
+  background:#f4f6f8;
+  color:#1c1f26;
+}
+
+
+/* =========================================
+   LOGIN
+========================================= */
+
+.login-screen{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:#f4f6f8;
+}
+
+.login-box{
+  width:100%;
+  max-width:420px;
+  background:#fff;
+  border-radius:20px;
+  padding:28px 22px;
+  box-shadow:0 10px 35px rgba(0,0,0,.08);
+}
+
+.logo{
+  width:70px;
+  height:70px;
+  margin:0 auto 16px;
+  display:block;
+  object-fit:contain;
+}
+
+.login-box h1{
+  text-align:center;
+  color:#04722b;
+  font-size:1.35rem;
+  margin-bottom:5px;
+}
+
+.login-box .subtitle{
+  text-align:center;
+  color:#747b87;
+  font-size:.85rem;
+  margin-bottom:24px;
+}
+
+.field{
+  margin-bottom:14px;
+}
+
+.field label{
+  display:block;
+  font-size:.82rem;
+  font-weight:600;
+  margin-bottom:6px;
+}
+
+.field input{
+  width:100%;
+  padding:13px 14px;
+  border:1px solid #dfe4e9;
+  border-radius:11px;
+  font-family:inherit;
+  font-size:.95rem;
+  outline:none;
+  transition:.2s;
+}
+
+.field input:focus{
+  border-color:#04722b;
+  box-shadow:0 0 0 3px rgba(4,114,43,.08);
+}
+
+.login-btn{
+  width:100%;
+  border:0;
+  background:#04722b;
+  color:#fff;
+  padding:13px;
+  border-radius:11px;
+  font-family:inherit;
+  font-size:.95rem;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.login-btn:disabled{
+  opacity:.5;
+}
+
+.login-error{
+  display:none;
+  margin-top:12px;
+  padding:10px 12px;
+  background:#fff0f0;
+  color:#c62828;
+  border-radius:9px;
+  font-size:.8rem;
+  text-align:center;
+}
+
+.login-error.show{
+  display:block;
+}
+
+
+/* =========================================
+   ADMIN APP
+========================================= */
+
+.admin-app{
+  display:none;
+  min-height:100vh;
+}
+
+.admin-app.active{
+  display:block;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.topbar{
+  height:62px;
+  background:#04722b;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  padding:0 16px;
+  gap:12px;
+  position:sticky;
+  top:0;
+  z-index:100;
+  box-shadow:0 2px 10px rgba(0,0,0,.12);
+}
+
+.topbar h1{
+  font-size:1rem;
+  flex:1;
+}
+
+.topbar button{
+  border:0;
+  background:rgba(255,255,255,.13);
+  color:#fff;
+  width:38px;
+  height:38px;
+  border-radius:9px;
+  cursor:pointer;
+  font-size:1rem;
+}
+
+
+/* =========================================
+   CONTAINER
+========================================= */
+
+.container{
+  width:100%;
+  max-width:1200px;
+  margin:auto;
+  padding:16px;
+}
+
+
+/* =========================================
+   STATS
+========================================= */
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-bottom:16px;
+}
+
+.stat{
+  background:#fff;
+  border-radius:14px;
+  padding:14px 10px;
+  box-shadow:0 2px 8px rgba(0,0,0,.04);
+  text-align:center;
+}
+
+.stat-icon{
+  font-size:1.3rem;
+}
+
+.stat-value{
+  font-size:1.3rem;
+  font-weight:700;
+  color:#04722b;
+  margin-top:3px;
+}
+
+.stat-label{
+  font-size:.7rem;
+  color:#7b828d;
+}
+
+
+/* =========================================
+   SEARCH
+========================================= */
+
+.search-box{
+  background:#fff;
+  border-radius:14px;
+  padding:10px;
+  margin-bottom:12px;
+  box-shadow:0 2px 8px rgba(0,0,0,.04);
+}
+
+.search-box input{
+  width:100%;
+  border:1px solid #e1e5e9;
+  border-radius:10px;
+  padding:11px 13px;
+  font-family:inherit;
+  outline:none;
+}
+
+.search-box input:focus{
+  border-color:#04722b;
+}
+
+
+/* =========================================
+   LAYOUT
+========================================= */
+
+.main-grid{
+  display:grid;
+  grid-template-columns:330px 1fr;
+  gap:14px;
+}
+
+
+/* =========================================
+   PANEL
+========================================= */
+
+.panel{
+  background:#fff;
+  border-radius:15px;
+  overflow:hidden;
+  box-shadow:0 2px 8px rgba(0,0,0,.04);
+}
+
+.panel-title{
+  padding:13px 15px;
+  border-bottom:1px solid #edf0f2;
+  font-weight:700;
+  font-size:.9rem;
+}
+
+
+/* =========================================
+   ROOMS
+========================================= */
+
+.rooms{
+  max-height:650px;
+  overflow-y:auto;
+}
+
+.room{
+  padding:13px 14px;
+  border-bottom:1px solid #f0f2f4;
+  cursor:pointer;
+  transition:.15s;
+}
+
+.room:hover{
+  background:#f7faf8;
+}
+
+.room.active{
+  background:#eaf6ef;
+  border-inline-start:4px solid #04722b;
+}
+
+.room-name{
+  font-weight:700;
+  font-size:.85rem;
+}
+
+.room-id{
+  font-size:.65rem;
+  color:#9097a1;
+  direction:ltr;
+  text-align:right;
+  margin-top:2px;
+}
+
+.room-last{
+  font-size:.73rem;
+  color:#6e7580;
+  margin-top:4px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.room-time{
+  font-size:.62rem;
+  color:#9ba1a9;
+  margin-top:3px;
+}
+
+
+/* =========================================
+   CHAT
+========================================= */
+
+.chat-panel{
+  display:flex;
+  flex-direction:column;
+  min-height:650px;
+}
+
+.chat-header{
+  padding:13px 15px;
+  border-bottom:1px solid #edf0f2;
+}
+
+.chat-header strong{
+  font-size:.9rem;
+}
+
+.chat-header small{
+  display:block;
+  color:#9298a1;
+  font-size:.65rem;
+  direction:ltr;
+  text-align:right;
+  margin-top:2px;
+}
+
+.chat-messages{
+  flex:1;
+  padding:15px;
+  background:#f7f8fa;
+  overflow-y:auto;
+  min-height:430px;
+  max-height:570px;
+}
+
+.message{
+  display:flex;
+  margin-bottom:10px;
+}
+
+.message-content{
+  max-width:78%;
+  background:#fff;
+  border-radius:13px;
+  padding:9px 12px;
+  box-shadow:0 1px 3px rgba(0,0,0,.05);
+}
+
+.message.admin-message .message-content{
+  background:#04722b;
+  color:#fff;
+}
+
+.message-user{
+  font-size:.68rem;
+  font-weight:700;
+  color:#04722b;
+  margin-bottom:3px;
+}
+
+.admin-message .message-user{
+  color:#b9e8ca;
+}
+
+.message-text{
+  font-size:.83rem;
+  white-space:pre-wrap;
+  word-break:break-word;
+}
+
+.message-image{
+  max-width:220px;
+  max-height:220px;
+  display:block;
+  margin-top:5px;
+  border-radius:9px;
+  cursor:pointer;
+}
+
+.message-file{
+  display:inline-block;
+  margin-top:5px;
+  color:inherit;
+  text-decoration:underline;
+  font-size:.78rem;
+}
+
+.message-meta{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-top:5px;
+  font-size:.58rem;
+  opacity:.6;
+}
+
+.delete-message{
+  border:0;
+  background:none;
+  color:#d32f2f;
+  font-family:inherit;
+  font-size:.65rem;
+  cursor:pointer;
+}
+
+.admin-message .delete-message{
+  color:#ffd0d0;
+}
+
+
+/* =========================================
+   SEND ADMIN
+========================================= */
+
+.admin-send{
+  padding:10px;
+  border-top:1px solid #e9edf0;
+  background:#fff;
+}
+
+.admin-send form{
+  display:flex;
+  gap:8px;
+}
+
+.admin-send textarea{
+  flex:1;
+  resize:none;
+  min-height:42px;
+  max-height:100px;
+  border:1px solid #dce1e5;
+  border-radius:12px;
+  padding:10px 12px;
+  font-family:inherit;
+  outline:none;
+}
+
+.admin-send textarea:focus{
+  border-color:#04722b;
+}
+
+.admin-send button{
+  width:45px;
+  border:0;
+  border-radius:11px;
+  background:#04722b;
+  color:#fff;
+  font-size:1.1rem;
+  cursor:pointer;
+}
+
+
+/* =========================================
+   DELETE ROOM
+========================================= */
+
+.chat-actions{
+  padding:9px 12px;
+  border-bottom:1px solid #edf0f2;
+  display:flex;
+  gap:7px;
+}
+
+.danger-btn{
+  border:0;
+  background:#fff0f0;
+  color:#c62828;
+  border-radius:9px;
+  padding:7px 10px;
+  font-family:inherit;
+  font-size:.7rem;
+  cursor:pointer;
+}
+
+
+/* =========================================
+   EMPTY
+========================================= */
+
+.empty{
+  padding:45px 20px;
+  text-align:center;
+  color:#8b929c;
+  font-size:.85rem;
+}
+
+.empty-icon{
+  font-size:2.5rem;
+  opacity:.35;
+  margin-bottom:8px;
+}
+
+
+/* =========================================
+   LOADING
+========================================= */
+
+.loading{
+  padding:30px;
+  text-align:center;
+  color:#777;
+  font-size:.8rem;
+}
+
+
+/* =========================================
+   MODAL
+========================================= */
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.5);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:500;
+  padding:20px;
+}
+
+.modal.active{
+  display:flex;
+}
+
+.modal-box{
+  width:100%;
+  max-width:360px;
+  background:#fff;
+  border-radius:16px;
+  padding:22px;
+  text-align:center;
+}
+
+.modal-box h2{
+  font-size:1rem;
+  margin-bottom:8px;
+}
+
+.modal-box p{
+  font-size:.8rem;
+  color:#737a84;
+  margin-bottom:18px;
+}
+
+.modal-buttons{
+  display:flex;
+  gap:8px;
+}
+
+.modal-buttons button{
+  flex:1;
+  padding:10px;
+  border:0;
+  border-radius:9px;
+  font-family:inherit;
+  cursor:pointer;
+}
+
+.confirm-delete{
+  background:#c62828;
+  color:#fff;
+}
+
+.cancel-delete{
+  background:#eef0f2;
+  color:#333;
+}
+
+
+/* =========================================
+   TOAST
+========================================= */
+
+.toast{
+  position:fixed;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#1c1f26;
+  color:#fff;
+  padding:10px 18px;
+  border-radius:20px;
+  font-size:.75rem;
+  z-index:1000;
+  opacity:0;
+  pointer-events:none;
+  transition:.2s;
+  max-width:90%;
+  text-align:center;
+}
+
+.toast.show{
+  opacity:1;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media(max-width:750px){
+
+  .container{
+    padding:10px;
+  }
+
+  .main-grid{
+    grid-template-columns:1fr;
+  }
+
+  .rooms{
+    max-height:280px;
+  }
+
+  .chat-panel{
+    min-height:600px;
+  }
+
+  .chat-messages{
+    min-height:400px;
+    max-height:none;
+  }
+
+}
+
+@media(max-width:400px){
+
+  .stats{
+    gap:6px;
+  }
+
+  .stat{
+    padding:10px 5px;
+  }
+
+  .stat-value{
+    font-size:1.1rem;
+  }
+
+  .stat-label{
+    font-size:.62rem;
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- =========================================
+     LOGIN
+========================================= -->
+
+<section
+  class="login-screen"
+  id="loginScreen"
+>
+
+  <div class="login-box">
+
+    <img
+      src="/alwa.png"
+      class="logo"
+      alt="ALWA"
+    >
+
+    <h1>إدارة دردشة علوة</h1>
+
+    <div class="subtitle">
+      دخول المشرفين فقط
+    </div>
+
+    <form id="loginForm">
+
+      <div class="field">
+
+        <label>
+          البريد الإلكتروني
+        </label>
+
+        <input
+          type="email"
+          id="email"
+          autocomplete="username"
+          required
+          placeholder="admin@example.com"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          كلمة المرور
+        </label>
+
+        <input
+          type="password"
+          id="password"
+          autocomplete="current-password"
+          required
+          placeholder="••••••••"
+        >
+
+      </div>
+
+
+      <button
+        class="login-btn"
+        id="loginBtn"
+        type="submit"
+      >
+        تسجيل الدخول
+      </button>
+
+    </form>
+
+
+    <div
+      class="login-error"
+      id="loginError"
+    ></div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================
+     ADMIN APP
+========================================= -->
+
+<section
+  class="admin-app"
+  id="adminApp"
+>
+
+  <header class="topbar">
+
+    <h1>
+      💬 إدارة دردشة علوة
+    </h1>
+
+    <button
+      id="refreshBtn"
+      title="تحديث"
+    >
+      ↻
+    </button>
+
+    <button
+      id="logoutBtn"
+      title="تسجيل الخروج"
+    >
+      ⇥
+    </button>
+
+  </header>
+
+
+  <main class="container">
+
+
+    <!-- STATS -->
+
+    <section class="stats">
+
+      <div class="stat">
+
+        <div class="stat-icon">
+          💬
+        </div>
+
+        <div
+          class="stat-value"
+          id="totalMessages"
+        >
+          0
+        </div>
+
+        <div class="stat-label">
+          الرسائل
+        </div>
+
+      </div>
+
+
+      <div class="stat">
+
+        <div class="stat-icon">
+          👥
+        </div>
+
+        <div
+          class="stat-value"
+          id="totalUsers"
+        >
+          0
+        </div>
+
+        <div class="stat-label">
+          المستخدمون
+        </div>
+
+      </div>
+
+
+      <div class="stat">
+
+        <div class="stat-icon">
+          🏠
+        </div>
+
+        <div
+          class="stat-value"
+          id="totalRooms"
+        >
+          0
+        </div>
+
+        <div class="stat-label">
+          المحادثات
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- SEARCH -->
+
+    <section class="search-box">
+
+      <input
+        id="searchInput"
+        type="search"
+        placeholder="🔎 ابحث باسم المستخدم أو رقم الغرفة..."
+      >
+
+    </section>
+
+
+    <!-- MAIN -->
+
+    <section class="main-grid">
+
+
+      <!-- ROOMS -->
+
+      <div class="panel">
+
+        <div class="panel-title">
+          المحادثات
+        </div>
+
+        <div
+          class="rooms"
+          id="rooms"
+        >
+
+          <div class="loading">
+            جارٍ تحميل المحادثات...
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- CHAT -->
+
+      <div class="panel chat-panel">
+
+
+        <div
+          class="chat-header"
+          id="chatHeader"
+        >
+
+          <strong>
+            اختر محادثة
+          </strong>
+
+          <small>
+            لم يتم اختيار غرفة
+          </small>
+
+        </div>
+
+
+        <div
+          class="chat-actions"
+          id="chatActions"
+          style="display:none"
+        >
+
+          <button
+            class="danger-btn"
+            id="deleteRoomBtn"
+          >
+            🗑️ حذف المحادثة
+          </button>
+
+        </div>
+
+
+        <div
+          class="chat-messages"
+          id="chatMessages"
+        >
+
+          <div class="empty">
+
+            <div class="empty-icon">
+              💬
+            </div>
+
+            اختر محادثة من القائمة
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="admin-send"
+          id="adminSend"
+          style="display:none"
+        >
+
+          <form id="adminForm">
+
+            <textarea
+              id="adminInput"
+              rows="1"
+              maxlength="1000"
+              placeholder="اكتب رسالة باسم الإدارة..."
+            ></textarea>
+
+            <button
+              type="submit"
+              id="adminSendBtn"
+            >
+              ➤
+            </button>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</section>
+
+
+<!-- =========================================
+     CONFIRM MODAL
+========================================= -->
+
+<div
+  class="modal"
+  id="confirmModal"
+>
+
+  <div class="modal-box">
+
+    <h2 id="confirmTitle">
+      تأكيد الحذف
+    </h2>
+
+    <p id="confirmText">
+      هل أنت متأكد؟
+    </p>
+
+    <div class="modal-buttons">
+
+      <button
+        class="cancel-delete"
+        id="cancelDelete"
+      >
+        إلغاء
+      </button>
+
+      <button
+        class="confirm-delete"
+        id="confirmDelete"
+      >
+        حذف
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<div
+  class="toast"
+  id="toast"
+></div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<script>
+
+/* =========================================
+   SUPABASE
+========================================= */
+
+const SUPABASE_URL =
+  'https://hbcajopnalrpcxmyedem.supabase.co';
+
+const SUPABASE_KEY =
+  'sb_publishable_qSu4ySI6EUfWIil59P_IHA_WFxVYxvx';
+
+const sb =
+  supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+
+/* =========================================
+   ELEMENTS
+========================================= */
+
+const loginScreen =
+  document.getElementById('loginScreen');
+
+const adminApp =
+  document.getElementById('adminApp');
+
+const loginForm =
+  document.getElementById('loginForm');
+
+const emailInput =
+  document.getElementById('email');
+
+const passwordInput =
+  document.getElementById('password');
+
+const loginBtn =
+  document.getElementById('loginBtn');
+
+const loginError =
+  document.getElementById('loginError');
+
+const logoutBtn =
+  document.getElementById('logoutBtn');
+
+const refreshBtn =
+  document.getElementById('refreshBtn');
+
+const roomsEl =
+  document.getElementById('rooms');
+
+const chatHeader =
+  document.getElementById('chatHeader');
+
+const chatMessages =
+  document.getElementById('chatMessages');
+
+const chatActions =
+  document.getElementById('chatActions');
+
+const adminSend =
+  document.getElementById('adminSend');
+
+const adminForm =
+  document.getElementById('adminForm');
+
+const adminInput =
+  document.getElementById('adminInput');
+
+const adminSendBtn =
+  document.getElementById('adminSendBtn');
+
+const deleteRoomBtn =
+  document.getElementById('deleteRoomBtn');
+
+const searchInput =
+  document.getElementById('searchInput');
+
+const totalMessagesEl =
+  document.getElementById('totalMessages');
+
+const totalUsersEl =
+  document.getElementById('totalUsers');
+
+const totalRoomsEl =
+  document.getElementById('totalRooms');
+
+const confirmModal =
+  document.getElementById('confirmModal');
+
+const confirmTitle =
+  document.getElementById('confirmTitle');
+
+const confirmText =
+  document.getElementById('confirmText');
+
+const confirmDelete =
+  document.getElementById('confirmDelete');
+
+const cancelDelete =
+  document.getElementById('cancelDelete');
+
+const toast =
+  document.getElementById('toast');
+
+
+/* =========================================
+   STATE
+========================================= */
+
+let allMessages = [];
+
+let rooms = [];
+
+let selectedRoom = null;
+
+let deleteAction = null;
+
+let realtimeChannel = null;
+
+
+/* =========================================
+   TOAST
+========================================= */
+
+function showToast(
+  message,
+  duration = 3000
+){
+
+  toast.textContent =
+    message;
+
+  toast.classList.add('show');
+
+  setTimeout(() => {
+
+    toast.classList.remove('show');
+
+  }, duration);
+
+}
+
+
+/* =========================================
+   FORMAT DATE
+========================================= */
+
+function formatDate(
+  value
+){
+
+  if (!value)
+    return '';
+
+  const date =
+    new Date(value);
+
+  return date.toLocaleString(
+    'ar-IQ',
+    {
+      year:'numeric',
+      month:'2-digit',
+      day:'2-digit',
+      hour:'2-digit',
+      minute:'2-digit'
+    }
+  );
+
+}
+
+
+/* =========================================
+   ESCAPE HTML
+========================================= */
+
+function escapeHtml(
+  value
+){
+
+  const div =
+    document.createElement('div');
+
+  div.textContent =
+    value || '';
+
+  return div.innerHTML;
+
+}
+
+
+/* =========================================
+   CHECK ADMIN
+========================================= */
+
+async function checkAdmin(){
+
+  const {
+    data:{
+      user
+    }
+  } =
+    await sb.auth.getUser();
+
+
+  if (!user)
+    return false;
+
+
+  const {
+    data,
+    error
+  } =
+    await sb.rpc(
+      'is_admin'
+    );
+
+
+  if (error){
+
+    console.error(
+      'ADMIN CHECK:',
+      error
+    );
+
+    return false;
+
+  }
+
+
+  return data === true;
+
+}
+
+
+/* =========================================
+   SHOW ADMIN
+========================================= */
+
+function showAdmin(){
+
+  loginScreen.style.display =
+    'none';
+
+  adminApp.classList.add(
+    'active'
+  );
+
+}
+
+
+/* =========================================
+   SHOW LOGIN
+========================================= */
+
+function showLogin(){
+
+  loginScreen.style.display =
+    'flex';
+
+  adminApp.classList.remove(
+    'active'
+  );
+
+}
+
+
+/* =========================================
+   LOGIN
+========================================= */
+
+loginForm.addEventListener(
+  'submit',
+  async (event) => {
+
+    event.preventDefault();
+
+    loginError.classList.remove(
+      'show'
+    );
+
+    loginBtn.disabled = true;
+
+    loginBtn.textContent =
+      'جارٍ تسجيل الدخول...';
+
+
+    const {
+      data,
+      error
+    } =
+      await sb.auth.signInWithPassword({
+
+        email:
+          emailInput.value.trim(),
+
+        password:
+          passwordInput.value
+
+      });
+
+
+    if (error){
+
+      loginError.textContent =
+        error.message;
+
+      loginError.classList.add(
+        'show'
+      );
+
+      loginBtn.disabled = false;
+
+      loginBtn.textContent =
+        'تسجيل الدخول';
+
+      return;
+
+    }
+
+
+    const admin =
+      await checkAdmin();
+
+
+    if (!admin){
+
+      await sb.auth.signOut();
+
+      loginError.textContent =
+        'هذا الحساب ليس لديه صلاحية أدمن.';
+
+      loginError.classList.add(
+        'show'
+      );
+
+      loginBtn.disabled = false;
+
+      loginBtn.textContent =
+        'تسجيل الدخول';
+
+      return;
+
+    }
+
+
+    showAdmin();
+
+    await loadMessages();
+
+    subscribeRealtime();
+
+
+    loginBtn.disabled = false;
+
+    loginBtn.textContent =
+      'تسجيل الدخول';
+
+  }
+);
+
+
+/* =========================================
+   LOGOUT
+========================================= */
+
+logoutBtn.addEventListener(
+  'click',
+  async () => {
+
+    if (realtimeChannel){
+
+      await sb.removeChannel(
+        realtimeChannel
+      );
+
+      realtimeChannel = null;
+
+    }
+
+    await sb.auth.signOut();
+
+    allMessages = [];
+
+    rooms = [];
+
+    selectedRoom = null;
+
+    showLogin();
+
+  }
+);
+
+
+/* =========================================
+   LOAD MESSAGES
+========================================= */
+
+async function loadMessages(){
+
+  roomsEl.innerHTML =
+    '<div class="loading">جارٍ التحميل...</div>';
+
+
+  const {
+    data,
+    error
+  } =
+    await sb
+      .from('messages')
+      .select(
+        'id,username,text,image_url,room,created_at'
+      )
+      .order(
+        'created_at',
+        {
+          ascending:false
+        }
+      )
+      .limit(5000);
+
+
+  if (error){
+
+    console.error(
+      error
+    );
+
+    showToast(
+      'فشل تحميل الرسائل: ' +
+      error.message,
+      5000
+    );
+
+    return;
+
+  }
+
+
+  allMessages =
+    data || [];
+
+
+  buildRooms();
+
+  updateStats();
+
+  renderRooms();
+
+  if (selectedRoom){
+
+    renderSelectedRoom();
+
+  }
+
+}
+
+
+/* =========================================
+   BUILD ROOMS
+========================================= */
+
+function buildRooms(){
+
+  const map =
+    new Map();
+
+
+  allMessages.forEach(
+    message => {
+
+      const room =
+        message.room ||
+        'general';
+
+
+      if (!map.has(room)){
+
+        map.set(
+          room,
+          {
+            room,
+            users:new Set(),
+            messages:[],
+            last:null
+          }
+        );
+
+      }
+
+
+      const item =
+        map.get(room);
+
+
+      if (message.username)
+        item.users.add(
+          message.username
+        );
+
+
+      item.messages.push(
+        message
+      );
+
+
+      if (
+        !item.last ||
+        new Date(
+          message.created_at
+        ) >
+        new Date(
+          item.last.created_at
+        )
+      ){
+
+        item.last =
+          message;
+
+      }
+
+    }
+  );
+
+
+  rooms =
+    Array.from(
+      map.values()
+    );
+
+
+  rooms.sort(
+    (a,b) => {
+
+      return new Date(
+        b.last?.created_at || 0
+      )
+      -
+      new Date(
+        a.last?.created_at || 0
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================================
+   STATS
+========================================= */
+
+function updateStats(){
+
+  const users =
+    new Set();
+
+  allMessages.forEach(
+    message => {
+
+      if (message.username)
+        users.add(
+          message.username
+        );
+
+    }
+  );
+
+
+  totalMessagesEl.textContent =
+    allMessages.length;
+
+  totalUsersEl.textContent =
+    users.size;
+
+  totalRoomsEl.textContent =
+    rooms.length;
+
+}
+
+
+/* =========================================
+   RENDER ROOMS
+========================================= */
+
+function renderRooms(){
+
+  const query =
+    searchInput.value
+      .trim()
+      .toLowerCase();
+
+
+  const filtered =
+    rooms.filter(
+      item => {
+
+        if (!query)
+          return true;
+
+        return (
+          item.room
+            .toLowerCase()
+            .includes(query)
+          ||
+          Array.from(
+            item.users
+          )
+          .join(' ')
+          .toLowerCase()
+          .includes(query)
+        );
+
+      }
+    );
+
+
+  if (!filtered.length){
+
+    roomsEl.innerHTML =
+      `
+      <div class="empty">
+        لا توجد محادثات
+      </div>
+      `;
+
+    return;
+
+  }
+
+
+  roomsEl.innerHTML = '';
+
+
+  filtered.forEach(
+    item => {
+
+      const div =
+        document.createElement('div');
+
+      div.className =
+        'room' +
+        (
+          selectedRoom === item.room
+          ? ' active'
+          : ''
+        );
+
+
+      const last =
+        item.last;
+
+
+      let preview =
+        last?.text ||
+        (
+          last?.image_url
+          ? '📎 ملف أو صورة'
+          : ''
+        );
+
+
+      if (!preview)
+        preview =
+          'لا توجد رسالة';
+
+
+      div.innerHTML =
+        `
+        <div class="room-name">
+          ${escapeHtml(
+            Array.from(item.users)
+              .join('، ')
+          )}
+        </div>
+
+        <div class="room-id">
+          ${escapeHtml(item.room)}
+        </div>
+
+        <div class="room-last">
+          ${escapeHtml(preview)}
+        </div>
+
+        <div class="room-time">
+          ${formatDate(
+            last?.created_at
+          )}
+        </div>
+        `;
+
+
+      div.addEventListener(
+        'click',
+        () => {
+
+          selectedRoom =
+            item.room;
+
+          renderRooms();
+
+          renderSelectedRoom();
+
+        }
+      );
+
+
+      roomsEl.appendChild(
+        div
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================================
+   RENDER SELECTED ROOM
+========================================= */
+
+function renderSelectedRoom(){
+
+  if (!selectedRoom){
+
+    chatHeader.innerHTML =
+      `
+      <strong>اختر محادثة</strong>
+      <small>لم يتم اختيار غرفة</small>
+      `;
+
+    chatActions.style.display =
+      'none';
+
+    adminSend.style.display =
+      'none';
+
+    return;
+
+  }
+
+
+  const roomMessages =
+    allMessages
+      .filter(
+        message =>
+          message.room ===
+          selectedRoom
+      )
+      .sort(
+        (a,b) =>
+          new Date(a.created_at)
+          -
+          new Date(b.created_at)
+      );
+
+
+  const users =
+    new Set(
+      roomMessages
+        .map(
+          message =>
+            message.username
+        )
+        .filter(Boolean)
+    );
+
+
+  chatHeader.innerHTML =
+    `
+    <strong>
+      ${escapeHtml(
+        Array.from(users)
+          .join('، ') ||
+        'مستخدم'
+      )}
+    </strong>
+
+    <small>
+      ${escapeHtml(selectedRoom)}
+    </small>
+    `;
+
+
+  chatActions.style.display =
+    'flex';
+
+  adminSend.style.display =
+    'block';
+
+
+  if (!roomMessages.length){
+
+    chatMessages.innerHTML =
+      `
+      <div class="empty">
+        لا توجد رسائل
+      </div>
+      `;
+
+    return;
+
+  }
+
+
+  chatMessages.innerHTML =
+    '';
+
+
+  roomMessages.forEach(
+    message => {
+
+      const div =
+        document.createElement('div');
+
+
+      const isAdmin =
+        message.username ===
+        'إدارة علوة';
+
+
+      div.className =
+        'message' +
+        (
+          isAdmin
+          ? ' admin-message'
+          : ''
+        );
+
+
+      let content = '';
+
+
+      if (message.text){
+
+        content +=
+          `
+          <div class="message-text">
+            ${escapeHtml(
+              message.text
+            )}
+          </div>
+          `;
+
+      }
+
+
+      if (message.image_url){
+
+        const url =
+          message.image_url;
+
+        const lower =
+          url.toLowerCase();
+
+
+        if (
+          lower.includes('.png') ||
+          lower.includes('.jpg') ||
+          lower.includes('.jpeg') ||
+          lower.includes('.webp') ||
+          lower.includes('image')
+        ){
+
+          content +=
+            `
+            <img
+              src="${escapeHtml(url)}"
+              class="message-image"
+              onclick="window.open('${escapeHtml(url)}','_blank')"
+              alt=""
+            >
+            `;
+
+        }else{
+
+          content +=
+            `
+            <a
+              class="message-file"
+              href="${escapeHtml(url)}"
+              target="_blank"
+              rel="noopener"
+            >
+              📄 فتح الملف
+            </a>
+            `;
+
+        }
+
+      }
+
+
+      div.innerHTML =
+        `
+        <div class="message-content">
+
+          <div class="message-user">
+            ${escapeHtml(
+              message.username ||
+              'مستخدم'
+            )}
+          </div>
+
+          ${content}
+
+          <div class="message-meta">
+
+            <span>
+              ${formatDate(
+                message.created_at
+              )}
+            </span>
+
+            <button
+              class="delete-message"
+              data-id="${message.id}"
+            >
+              حذف
+            </button>
+
+          </div>
+
+        </div>
+        `;
+
+
+      const deleteButton =
+        div.querySelector(
+          '.delete-message'
+        );
+
+
+      deleteButton.addEventListener(
+        'click',
+        () => {
+
+          askDeleteMessage(
+            message.id
+          );
+
+        }
+      );
+
+
+      chatMessages.appendChild(
+        div
+      );
+
+    }
+  );
+
+
+  chatMessages.scrollTop =
+    chatMessages.scrollHeight;
+
+}
+
+
+/* =========================================
+   DELETE MESSAGE
+========================================= */
+
+function askDeleteMessage(
+  id
+){
+
+  confirmTitle.textContent =
+    'حذف الرسالة';
+
+  confirmText.textContent =
+    'هل تريد حذف هذه الرسالة نهائيًا؟';
+
+  deleteAction =
+    async () => {
+
+      const {
+        error
+      } =
+        await sb
+          .from('messages')
+          .delete()
+          .eq('id', id);
+
+
+      if (error){
+
+        showToast(
+          'فشل الحذف: ' +
+          error.message,
+          5000
+        );
+
+        return;
+
+      }
+
+
+      showToast(
+        'تم حذف الرسالة'
+      );
+
+      await loadMessages();
+
+    };
+
+
+  confirmModal.classList.add(
+    'active'
+  );
+
+}
+
+
+/* =========================================
+   DELETE ROOM
+========================================= */
+
+deleteRoomBtn.addEventListener(
+  'click',
+  () => {
+
+    if (!selectedRoom)
+      return;
+
+
+    confirmTitle.textContent =
+      'حذف المحادثة';
+
+    confirmText.textContent =
+      'سيتم حذف جميع رسائل هذه الغرفة نهائيًا.';
+
+    deleteAction =
+      async () => {
+
+        const {
+          error
+        } =
+          await sb
+            .from('messages')
+            .delete()
+            .eq(
+              'room',
+              selectedRoom
+            );
+
+
+        if (error){
+
+          showToast(
+            'فشل حذف المحادثة: ' +
+            error.message,
+            5000
+          );
+
+          return;
+
+        }
+
+
+        showToast(
+          'تم حذف المحادثة'
+        );
+
+
+        selectedRoom =
+          null;
+
+
+        await loadMessages();
+
+        renderSelectedRoom();
+
+      };
+
+
+    confirmModal.classList.add(
+      'active'
+    );
+
+  }
+);
+
+
+/* =========================================
+   MODAL
+========================================= */
+
+cancelDelete.addEventListener(
+  'click',
+  () => {
+
+    deleteAction =
+      null;
+
+    confirmModal.classList.remove(
+      'active'
+    );
+
+  }
+);
+
+
+confirmDelete.addEventListener(
+  'click',
+  async () => {
+
+    if (!deleteAction)
+      return;
+
+
+    const action =
+      deleteAction;
+
+
+    deleteAction =
+      null;
+
+    confirmModal.classList.remove(
+      'active'
+    );
+
+
+    await action();
+
+  }
+);
+
+
+/* =========================================
+   ADMIN SEND MESSAGE
+========================================= */
+
+adminForm.addEventListener(
+  'submit',
+  async event => {
+
+    event.preventDefault();
+
+
+    if (!selectedRoom)
+      return;
+
+
+    const text =
+      adminInput.value.trim();
+
+
+    if (!text)
+      return;
+
+
+    adminSendBtn.disabled =
+      true;
+
+
+    const {
+      error
+    } =
+      await sb
+        .from('messages')
+        .insert({
+
+          username:
+            'إدارة علوة',
+
+          text:
+
+            text,
+
+          image_url:
+            null,
+
+          room:
+            selectedRoom
+
+        });
+
+
+    adminSendBtn.disabled =
+      false;
+
+
+    if (error){
+
+      showToast(
+        'فشل إرسال الرسالة: ' +
+        error.message,
+        5000
+      );
+
+      return;
+
+    }
+
+
+    adminInput.value =
+      '';
+
+    adminInput.style.height =
+      'auto';
+
+
+    await loadMessages();
+
+    renderSelectedRoom();
+
+  }
+);
+
+
+/* =========================================
+   AUTO TEXTAREA HEIGHT
+========================================= */
+
+adminInput.addEventListener(
+  'input',
+  () => {
+
+    adminInput.style.height =
+      'auto';
+
+    adminInput.style.height =
+      Math.min(
+        adminInput.scrollHeight,
+        100
+      ) + 'px';
+
+  }
+);
+
+
+/* =========================================
+   SEARCH
+========================================= */
+
+searchInput.addEventListener(
+  'input',
+  () => {
+
+    renderRooms();
+
+  }
+);
+
+
+/* =========================================
+   REFRESH
+========================================= */
+
+refreshBtn.addEventListener(
+  'click',
+  async () => {
+
+    refreshBtn.textContent =
+      '...';
+
+    await loadMessages();
+
+    refreshBtn.textContent =
+      '↻';
+
+  }
+);
+
+
+/* =========================================
+   REALTIME
+========================================= */
+
+function subscribeRealtime(){
+
+  if (realtimeChannel){
+
+    sb.removeChannel(
+      realtimeChannel
+    );
+
+  }
+
+
+  realtimeChannel =
+    sb
+      .channel(
+        'admin-chat-realtime'
+      )
+      .on(
+        'postgres_changes',
+        {
+          event:'*',
+          schema:'public',
+          table:'messages'
+        },
+        async payload => {
+
+          console.log(
+            'Realtime:',
+            payload
+          );
+
+
+          await loadMessages();
+
+        }
+      )
+      .subscribe();
+
+}
+
+
+/* =========================================
+   INITIAL SESSION
+========================================= */
+
+async function init(){
+
+  const {
+    data:{
+      session
+    }
+  } =
+    await sb.auth.getSession();
+
+
+  if (!session){
+
+    showLogin();
+
+    return;
+
+  }
+
+
+  const admin =
+    await checkAdmin();
+
+
+  if (!admin){
+
+    await sb.auth.signOut();
+
+    showLogin();
+
+    return;
+
+  }
+
+
+  showAdmin();
+
+  await loadMessages();
+
+  subscribeRealtime();
+
+}
+
+
+init();
+
+</script>
+
+</body>
+</html>
