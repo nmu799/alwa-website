@@ -11,12 +11,12 @@ permissions:
   id-token: write
 
 jobs:
+
+  # =========================
+  # بناء وتوليد صفحات الموقع
+  # =========================
   build:
     runs-on: ubuntu-latest
-
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
 
@@ -47,6 +47,7 @@ jobs:
           cp -r chat docs/ 2>/dev/null || true
           cp chat-icon.svg docs/ 2>/dev/null || true
 
+          # الصور والملفات
           cp *.png docs/ 2>/dev/null || true
           cp *.jpg docs/ 2>/dev/null || true
           cp *.jpeg docs/ 2>/dev/null || true
@@ -100,6 +101,20 @@ jobs:
         uses: actions/upload-pages-artifact@v4
         with:
           path: './docs'
+
+
+  # =========================
+  # نشر الموقع على GitHub Pages
+  # =========================
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
 
       - name: نشر GitHub Pages
         id: deployment
