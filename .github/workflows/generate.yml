@@ -55,17 +55,6 @@ jobs:
           cp *.pdf docs/ 2>/dev/null || true
           cp *.ico docs/ 2>/dev/null || true
 
-      - name: حفظ الملفات المولدة في المستودع
-        run: |
-          git config user.name "Alwa Bot"
-          git config user.email "bot@alwairaq.com"
-
-          git add docs/
-
-          git commit -m "🤖 توليد صفحات عربية وكردية تلقائياً" || echo "لا تغييرات"
-
-          git push
-
       - name: إصلاح مسارات GitHub Pages
         run: |
           python3 - <<'PY'
