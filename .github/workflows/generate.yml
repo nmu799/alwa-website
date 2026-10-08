@@ -7,21 +7,16 @@ on:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 jobs:
-
-  # =========================
-  # بناء وتوليد صفحات الموقع
-  # =========================
   build:
     runs-on: ubuntu-latest
-
     steps:
 
       - name: تحميل الملفات
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: تجهيز Node.js
         uses: actions/setup-node@v4
@@ -39,72 +34,23 @@ jobs:
           cp privacy-policy.html docs/ 2>/dev/null || true
           cp terms.html docs/ 2>/dev/null || true
           cp robots.txt docs/ 2>/dev/null || true
-
-          # صفحة إدارة الدردشة
           cp admin-chat.html docs/ 2>/dev/null || true
-
-          # الدردشة
           cp -r chat docs/ 2>/dev/null || true
           cp chat-icon.svg docs/ 2>/dev/null || true
 
-          # الصور والملفات
+          # الصور — أضف webp (المهم!)
           cp *.png docs/ 2>/dev/null || true
           cp *.jpg docs/ 2>/dev/null || true
           cp *.jpeg docs/ 2>/dev/null || true
+          cp *.webp docs/ 2>/dev/null || true
           cp *.svg docs/ 2>/dev/null || true
           cp *.pdf docs/ 2>/dev/null || true
           cp *.ico docs/ 2>/dev/null || true
 
-      - name: إصلاح مسارات GitHub Pages
+      - name: حفظ الصفحات المُولّدة في المستودع
         run: |
-          python3 - <<'PY'
-          from pathlib import Path
-          import re
-
-          BASE = "/alwa-website/"
-
-          for file in Path("docs").rglob("*.html"):
-              content = file.read_text(encoding="utf-8")
-
-              content = re.sub(
-                  r'((?:src|href)=["\'])/(?!/|alwa-website/)',
-                  r'\1' + BASE,
-                  content
-              )
-
-              content = re.sub(
-                  r'url\((["\']?)/(?!/|alwa-website/)',
-                  r'url(\1' + BASE,
-                  content
-              )
-
-              file.write_text(content, encoding="utf-8")
-
-          print("✅ تم إصلاح مسارات الصور والأيقونات لـ GitHub Pages")
-          PY
-
-      - name: تجهيز GitHub Pages
-        uses: actions/configure-pages@v5
-
-      - name: رفع ملفات الموقع
-        uses: actions/upload-pages-artifact@v4
-        with:
-          path: './docs'
-
-
-  # =========================
-  # نشر الموقع على GitHub Pages
-  # =========================
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    steps:
-
-      - name: نشر GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/
+          git commit -m "تحديث تلقائي للصفحات [skip ci]" || echo "لا تغييرات"
+          git push
