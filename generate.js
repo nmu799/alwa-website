@@ -1,4 +1,4 @@
-// generate.js — يولّد صفحات عربية + كردية ببيانات حقيقية
+// generate.js — يولّد صفحات عربية + كردية ببيانات حقيقية (محدّث)
 const fs = require('fs');
 const path = require('path');
 const regions = require('./regions.json');
@@ -14,9 +14,6 @@ const GOV_NAMES_KU = {
   halabja: 'هەڵەبجە'
 };
 
-// ═══════════════════════════════════════════════════════
-// 62 منتجاً — بلا أسعار (البقال يحدد السعر)
-// ═══════════════════════════════════════════════════════
 const PRODUCTS = [
   { f:'alwa-iraq-tomato-01.webp',            ar:'طماطم',          ku:'تەماتە' },
   { f:'alwa-iraq-cucumber-01.webp',          ar:'خيار',           ku:'خەیار' },
@@ -82,28 +79,17 @@ const PRODUCTS = [
   { f:'alwa-iraq-sidr-01.webp',              ar:'سدر',            ku:'سیدر' },
 ];
 
-// ═══════════════════════════════════════════════════════
-// العلاوي المركزية الحقيقية حسب المحافظة
-// ═══════════════════════════════════════════════════════
 const CENTRAL_MARKETS = {
-  baghdad: [
-    'علوة بغداد المركزية (الرمل)',
-    'علوة الرشيد النموذجية',
-    'علوة التعاون',
-    'علوة جميلة',
-    'علوة التاجيات',
-    'علوة البالوني',
-    'علوة الزيدان'
-  ],
+  baghdad: ['علوة بغداد المركزية (الرمل)','علوة الرشيد النموذجية','علوة التعاون','علوة جميلة','علوة التاجيات','علوة البالوني','علوة الزيدان'],
   karbala: ['علوة الإمامين - كربلاء'],
   wasit: ['علوة الكوت'],
   'al-muthanna': ['علوة السماوة'],
   basra: ['علوة حمدان - البصرة'],
   kirkuk: ['علوة كركوك النموذجية'],
   erbil: ['علوة عنكاوا - أربيل'],
-  sulaymaniyah: ['علوة السليمانية', 'علوة كلار'],
+  sulaymaniyah: ['علوة السليمانية','علوة كلار'],
   anbar: ['علوة بغداد المركزية (الرمل)'],
-  najaf: ['علوة كربلاء (الإمامين)', 'علوة الحلة'],
+  najaf: ['علوة كربلاء (الإمامين)','علوة الحلة'],
   babil: ['علوة الحلة'],
   'dhi-qar': ['علوة الناصرية'],
   maysan: ['علوة العمارة'],
@@ -112,42 +98,22 @@ const CENTRAL_MARKETS = {
   diyala: ['علوة بعقوبة'],
   duhok: ['علوة دهوك'],
   nineveh: ['علوة الموصل'],
-  halabja: ['علوة السليمانية', 'علوة حلبجة']
+  halabja: ['علوة السليمانية','علوة حلبجة']
 };
 
 const MARKETS_KU = {
   erbil: ['عەلوەی عەنکاوا - هەولێر'],
-  sulaymaniyah: ['عەلوەی سلێمانی', 'عەلوەی کەلار'],
+  sulaymaniyah: ['عەلوەی سلێمانی','عەلوەی کەلار'],
   duhok: ['عەلوەی دهۆک'],
-  halabja: ['عەلوەی سلێمانی', 'عەلوەی هەڵەبجە']
+  halabja: ['عەلوەی سلێمانی','عەلوەی هەڵەبجە']
 };
 
-// ═══════════════════════════════════════════════════════
-// Helpers
-// ═══════════════════════════════════════════════════════
 function hash(s){let h=0;for(let i=0;i<s.length;i++){h=((h<<5)-h+s.charCodeAt(i))|0;}return Math.abs(h);}
-
-function pickN(seed,n,total){
-  const h=hash(seed);const out=new Set();let i=0;
-  while(out.size<n && i<total*4){out.add((h+i*7)%total);i++;}
-  return [...out].slice(0,n);
-}
-
-function pickProducts(seed,n=9){
-  return pickN(seed,n,PRODUCTS.length).map(i=>PRODUCTS[i]);
-}
-
+function pickN(seed,n,total){const h=hash(seed);const out=new Set();let i=0;while(out.size<n&&i<total*4){out.add((h+i*7)%total);i++;}return[...out].slice(0,n);}
+function pickProducts(seed,n=9){return pickN(seed,n,PRODUCTS.length).map(i=>PRODUCTS[i]);}
 function pickOne(seed,arr){return arr[hash(seed)%arr.length];}
+function nearbyAreas(gov,currentSlug,n=5){const others=gov.a.filter(a=>a.s!==currentSlug);if(!others.length)return[];return pickN(currentSlug+gov.g,n,others.length).map(i=>others[i]);}
 
-function nearbyAreas(gov,currentSlug,n=5){
-  const others=gov.a.filter(a=>a.s!==currentSlug);
-  if(!others.length)return[];
-  return pickN(currentSlug+gov.g,n,others.length).map(i=>others[i]);
-}
-
-// ═══════════════════════════════════════════════════════
-// 6 قوالب مقدمة عربية
-// ═══════════════════════════════════════════════════════
 const AR_INTROS=[
   (a,g)=>`اطلب الخضار والفواكه الطازجة في <strong>${a}</strong>، محافظة <strong>${g}</strong>، عبر تطبيق علوة ALWA. يُرسل طلبك تلقائياً لكل البقالين في منطقتك، وتستقبل عروضهم، وتختار الأنسب — بسعر يحدده البقال ويشمل التوصيل.`,
   (a,g)=>`من العلاوي المركزية في <strong>${g}</strong> إلى باب منزلك في <strong>${a}</strong> — علوة ALWA يربطك بأقرب بقال في منطقتك، ويعرض لك العروض المتاحة لتختار الأنسب من حيث السعر ووقت التوصيل.`,
@@ -165,7 +131,6 @@ const KU_INTROS=[
   (a,g)=>`<strong>${a}</strong> — سەوزە و میوەی تازە ڕۆژانە. ئەپی عەلوە داواکاریەکەت بۆ بەقالەکانی ناوچەکەت دەنێرێت، پێشنیارەکانیان پیشان دەدات، و تۆ بە یەک کلیک باشترینیان هەڵدەبژێریت.`,
 ];
 
-// خدمات إضافية فريدة لكل منطقة
 const EXTRA_SERVICES_AR=[
   'تتبّع الطلب مباشرة حتى وصوله إلى باب منزلك',
   'إمكانية استقبال عروض متعددة واختيار الأنسب',
@@ -191,9 +156,6 @@ const EXTRA_SERVICES_KU=[
   'توانای داواکردنی بڕی کەم لە 1 کیلۆگرام و سەرووتر',
 ];
 
-// ═══════════════════════════════════════════════════════
-// FAQ إضافية (واحدة تُختار لكل منطقة)
-// ═══════════════════════════════════════════════════════
 const EXTRA_FAQ_AR=[
   { q:'كيف يتم الدفع في التطبيق؟', a:'الدفع نقداً عند التسليم فقط. علوة لا يتعامل مع أي دفع إلكتروني، ولا يفرض أي رسوم.' },
   { q:'هل تطبيق علوة مجاني؟', a:'نعم، مجاني بالكامل بدون رسوم تسجيل أو عمولة على الطلبات.' },
@@ -214,9 +176,6 @@ const EXTRA_FAQ_KU=[
   { q:'ئایا دەتوانم داواکاری هەڵبوەشێنمەوە؟', a:'بەڵێ لە ماوەی 40٪ ی کاتی ڕێککەوتوو. دوای ئەوە لەوانەیە هەژمارەکە بلۆک بکرێت بۆ پاراستنی مافەکانی بەقال.' },
 ];
 
-// ═══════════════════════════════════════════════════════
-// CSS مشترك
-// ═══════════════════════════════════════════════════════
 const SHARED_CSS=`<style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Cairo',system-ui,sans-serif;background:#fff;color:#1c1f26;line-height:1.75}
@@ -235,7 +194,7 @@ a{color:#04722b}
 .cta:hover{background:#cc5200}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;margin:20px 0}
 .card{background:#f6fbf7;border:1px solid #e2efe5;border-radius:10px;overflow:hidden;text-align:center;padding-bottom:12px}
-.card img{width:100%;height:140px;object-fit:cover;display:block;background:#eaf3ec}
+.card img{width:100%;aspect-ratio:1/1;height:auto;object-fit:contain;display:block;background:#eaf3ec;padding:6px}
 .card .name{font-weight:700;color:#04722b;margin:10px 4px 4px;font-size:.98rem}
 .card .note{font-size:.72rem;color:#888;padding:0 6px}
 .steps{background:#f6fbf7;border:1px solid #e2efe5;border-radius:10px;padding:20px;margin:20px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
@@ -251,28 +210,24 @@ footer a{color:#f1c548}
 .contact a{display:inline-block;margin:4px 10px 4px 0;font-weight:600}
 </style>`;
 
-// ═══════════════════════════════════════════════════════
-// بطاقة منتج (بدون سعر)
-// ═══════════════════════════════════════════════════════
-function cardAr(p,areaName){
+function cardAr(p,areaName,isFirst){
+  const loadAttr = isFirst ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"';
   return `<div class="card">
-  <img src="/${p.f}" alt="${p.ar} طازج في ${areaName} — علوة ALWA" loading="lazy" width="300" height="200">
+  <img src="/${p.f}" alt="${p.ar} في ${areaName} — علوة ALWA" ${loadAttr} width="300" height="300" decoding="async">
   <div class="name">${p.ar}</div>
-  <div class="note">السعر يحدده البقال</div>
+  <div class="note">السعر والتوفر يؤكدهما البقال</div>
 </div>`;
 }
 
-function cardKu(p,areaName){
+function cardKu(p,areaName,isFirst){
+  const loadAttr = isFirst ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"';
   return `<div class="card">
-  <img src="/${p.f}" alt="${p.ku} لە ${areaName} — عەلوە ALWA" loading="lazy" width="300" height="200">
+  <img src="/${p.f}" alt="${p.ku} لە ${areaName} — عەلوە ALWA" ${loadAttr} width="300" height="300" decoding="async">
   <div class="name">${p.ku}</div>
-  <div class="note">نرخ لەلایەن بەقال دیاری دەکرێت</div>
+  <div class="note">نرخ و بەردەستبوون لەلایەن بەقال پشتڕاست دەکرێتەوە</div>
 </div>`;
 }
 
-// ═══════════════════════════════════════════════════════
-// صفحة منطقة عربية
-// ═══════════════════════════════════════════════════════
 function makePage(gov,area){
   const seed=`${gov.g}/${area.s}`;
   const hasKu=KURDISH_GOVS.includes(gov.g);
@@ -284,7 +239,7 @@ function makePage(gov,area){
   const extraService=pickOne(seed+'-svc',EXTRA_SERVICES_AR);
   const extraFaq=pickOne(seed+'-faq',EXTRA_FAQ_AR);
 
-  const gridHtml=products.map(p=>cardAr(p,area.n)).join('\n');
+  const gridHtml=products.map((p,i)=>cardAr(p,area.n,i===0)).join('\n');
   const nearby=nearbyAreas(gov,area.s,5);
   const nearbyHtml=nearby.map(a=>`<li><a href="/iraq/${gov.g}/${a.s}/">خضار وفواكه ${a.n}</a></li>`).join('');
   const markets=CENTRAL_MARKETS[gov.g]||['العلاوي المركزية في بغداد'];
@@ -296,7 +251,7 @@ function makePage(gov,area){
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>خضار وفواكه ${area.n} | توصيل من أقرب بقال خلال 30 دقيقة — علوة ALWA</title>
-<meta name="description" content="اطلب خضار وفواكه طازجة في ${area.n}، ${gov.ga}، عبر تطبيق علوة ALWA. يُرسل طلبك لكل البقالين في منطقتك، وتستقبل عروضهم، وتختار الأنسب. التوصيل من 5 إلى 30 دقيقة. السعر يحدده البقال ويشمل التوصيل.">
+<meta name="description" content="اطلب خضار وفواكه طازجة في ${area.n}، ${gov.ga}، عبر تطبيق علوة ALWA. يُرسل طلبك لكل البقالين في منطقتك، وتستقبل عروضهم، وتختار الأنسب. التوصيل من 5 إلى 30 دقيقة.">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="${SITE}/iraq/${gov.g}/${area.s}/">
 <link rel="alternate" hreflang="ar" href="${SITE}/iraq/${gov.g}/${area.s}/">
@@ -312,14 +267,15 @@ ${kuLink}
 <script type="application/ld+json">
 {
   "@context":"https://schema.org",
-  "@type":"LocalBusiness",
-  "name":"علوة ALWA — توصيل خضار وفواكه في ${area.n}",
+  "@type":"WebPage",
+  "name":"خضار وفواكه ${area.n} — توصيل من أقرب بقال",
+  "description":"اطلب خضار وفواكه في ${area.n}، ${gov.ga}، خلال 5-30 دقيقة عبر تطبيق علوة ALWA.",
   "url":"${SITE}/iraq/${gov.g}/${area.s}/",
-  "image":"${SITE}/${heroProduct.f}",
-  "telephone":"+9647813130254",
-  "email":"alwairaqe@gmail.com",
-  "areaServed":{"@type":"Place","name":"${area.n}، ${gov.ga}، العراق"},
-  "address":{"@type":"PostalAddress","addressLocality":"${area.n}","addressRegion":"${gov.ga}","addressCountry":"IQ"}
+  "inLanguage":"ar",
+  "isPartOf":{"@type":"WebSite","name":"علوة ALWA","url":"${SITE}/"},
+  "publisher":{"@type":"Organization","name":"علوة ALWA","url":"${SITE}/","logo":"${SITE}/alwa.png"},
+  "primaryImageOfPage":{"@type":"ImageObject","url":"${SITE}/${heroProduct.f}"},
+  "about":{"@type":"Place","name":"${area.n}، ${gov.ga}، العراق"}
 }
 </script>
 <script type="application/ld+json">
@@ -368,8 +324,8 @@ ${SHARED_CSS}
     </div>
   </div>
 
-  <h2>تشكيلة من الخضار والفواكه المتوفرة في ${area.n}</h2>
-  <p>هذه أمثلة على المنتجات المتاحة عبر بقالي ${area.n}. السعر النهائي يحدده البقال ويشمل خدمة التوصيل:</p>
+  <h2>منتجات يمكن طلبها في ${area.n}</h2>
+  <p>هذه أمثلة على المنتجات التي يمكن طلبها عبر تطبيق علوة، ويحدد البقال التوفر والسعر عند استلام الطلب:</p>
   <div class="grid">
 ${gridHtml}
   </div>
@@ -429,9 +385,6 @@ ${gridHtml}
 </html>`;
 }
 
-// ═══════════════════════════════════════════════════════
-// صفحة منطقة كردية
-// ═══════════════════════════════════════════════════════
 function makeKuPage(gov,area,govNameKu){
   const seed=`${gov.g}/${area.s}`;
   const products=pickProducts(seed,9);
@@ -440,7 +393,7 @@ function makeKuPage(gov,area,govNameKu){
   const extraService=pickOne(seed+'-svc',EXTRA_SERVICES_KU);
   const extraFaq=pickOne(seed+'-faq',EXTRA_FAQ_KU);
 
-  const gridHtml=products.map(p=>cardKu(p,area.n)).join('\n');
+  const gridHtml=products.map((p,i)=>cardKu(p,area.n,i===0)).join('\n');
   const nearby=nearbyAreas(gov,area.s,5);
   const nearbyHtml=nearby.map(a=>`<li><a href="/ckb/iraq/${gov.g}/${a.s}/">سەوزە و میوە لە ${a.n}</a></li>`).join('');
   const markets=MARKETS_KU[gov.g]||['عەلوە ناوەندییەکانی هەرێم'];
@@ -466,14 +419,15 @@ function makeKuPage(gov,area,govNameKu){
 <script type="application/ld+json">
 {
   "@context":"https://schema.org",
-  "@type":"LocalBusiness",
-  "name":"عەلوە ALWA — گەیاندنی سەوزە و میوە لە ${area.n}",
+  "@type":"WebPage",
+  "name":"سەوزە و میوە لە ${area.n} — گەیاندن لە نزیکترین بەقال",
+  "description":"سەوزە و میوە لە ${area.n}، ${govNameKu}، لە 5-30 خولەکدا بە ئەپی عەلوە ALWA.",
   "url":"${SITE}/ckb/iraq/${gov.g}/${area.s}/",
-  "image":"${SITE}/${heroProduct.f}",
-  "telephone":"+9647813130254",
-  "email":"alwairaqe@gmail.com",
-  "areaServed":{"@type":"Place","name":"${area.n}، ${govNameKu}، عێراق"},
-  "address":{"@type":"PostalAddress","addressLocality":"${area.n}","addressRegion":"${govNameKu}","addressCountry":"IQ"}
+  "inLanguage":"ckb",
+  "isPartOf":{"@type":"WebSite","name":"عەلوە ALWA","url":"${SITE}/"},
+  "publisher":{"@type":"Organization","name":"عەلوە ALWA","url":"${SITE}/","logo":"${SITE}/alwa.png"},
+  "primaryImageOfPage":{"@type":"ImageObject","url":"${SITE}/${heroProduct.f}"},
+  "about":{"@type":"Place","name":"${area.n}، ${govNameKu}، عێراق"}
 }
 </script>
 <script type="application/ld+json">
@@ -522,8 +476,8 @@ ${SHARED_CSS}
     </div>
   </div>
 
-  <h2>هەڵبژاردەیەک لە سەوزە و میوە بەردەستەکان لە ${area.n}</h2>
-  <p>ئەمانە نموونەی بەرهەمە بەردەستەکانن لە ڕێگەی بەقالەکانی ${area.n}. نرخی کۆتایی لەلایەن بەقال دیاری دەکرێت و خزمەتگوزاری گەیاندنیش لەخۆ دەگرێت:</p>
+  <h2>بەرهەمەکان کە دەتوانرێت لە ${area.n} داوا بکرێن</h2>
+  <p>ئەمانە نموونەی ئەو بەرهەمانەن کە دەتوانرێت لە ڕێگەی ئەپی عەلوە داوا بکرێن، و بەقال بەردەستبوون و نرخ لە کاتی وەرگرتنی داواکاریەکە پشتڕاست دەکاتەوە:</p>
   <div class="grid">
 ${gridHtml}
   </div>
@@ -583,9 +537,6 @@ ${gridHtml}
 </html>`;
 }
 
-// ═══════════════════════════════════════════════════════
-// صفحة محافظة عربية + كردية
-// ═══════════════════════════════════════════════════════
 function makeGovPage(gov){
   const list=gov.a.map(a=>`<li><a href="/iraq/${gov.g}/${a.s}/">خضار وفواكه ${a.n}</a></li>`).join('\n');
   const hasKu=KURDISH_GOVS.includes(gov.g);
@@ -654,9 +605,6 @@ ${SHARED_CSS}
 </body></html>`;
 }
 
-// ═══════════════════════════════════════════════════════
-// التوليد
-// ═══════════════════════════════════════════════════════
 if(fs.existsSync(OUT+'/iraq'))fs.rmSync(OUT+'/iraq',{recursive:true});
 if(fs.existsSync(OUT+'/ckb'))fs.rmSync(OUT+'/ckb',{recursive:true});
 
