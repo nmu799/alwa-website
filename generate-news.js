@@ -25,7 +25,7 @@ async function fetchData(endpoint) {
     }
 }
 
-// قالب صفحة المقال الفردي (مع إضافة BreadcrumbList)
+// قالب صفحة المقال الفردي (روابط نظيفة بدون .html)
 function generateArticleHtml(article, categoryName) {
     const date = new Date(article.published_at).toLocaleDateString('ar-IQ', { year: 'numeric', month: 'long', day: 'numeric' });
     const image = article.image_url || `${SITE_URL}/alwa-og.jpg`;
@@ -37,12 +37,12 @@ function generateArticleHtml(article, categoryName) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${article.title} | علوة نيوز</title>
     <meta name="description" content="${article.excerpt || ''}">
-    <link rel="canonical" href="${SITE_URL}/news/${article.slug}.html">
+    <link rel="canonical" href="${SITE_URL}/news/${article.slug}">
     
     <meta property="og:title" content="${article.title}">
     <meta property="og:description" content="${article.excerpt || ''}">
     <meta property="og:image" content="${image}">
-    <meta property="og:url" content="${SITE_URL}/news/${article.slug}.html">
+    <meta property="og:url" content="${SITE_URL}/news/${article.slug}">
     <meta property="og:type" content="article">
     
     <!-- Article Schema -->
@@ -124,17 +124,17 @@ function generateArticleHtml(article, categoryName) {
 </html>`;
 }
 
-// قالب صفحة الأرشيف (مع السلايدر والتصنيفات)
+// قالب صفحة الأرشيف (روابط نظيفة + تصفية دقيقة)
 function generateIndexHtml(articles, categories) {
     let cards = '';
     let sliderHtml = '';
 
-    // بناء السلايدر (أحدث 5 مقالات)
+    // بناء السلايدر
     if (articles.length > 0) {
         const sliderArticles = articles.slice(0, 5);
         sliderArticles.forEach((a, index) => {
             sliderHtml += `
-            <a href="${SITE_URL}/news/${a.slug}.html" class="slide ${index === 0 ? 'active' : ''}">
+            <a href="${SITE_URL}/news/${a.slug}" class="slide ${index === 0 ? 'active' : ''}">
                 <img src="${a.image_url || SITE_URL + '/alwa-og.jpg'}" alt="${a.title}" class="slide-img">
                 <div class="slide-content">
                     <h2>${a.title}</h2>
@@ -148,9 +148,11 @@ function generateIndexHtml(articles, categories) {
         const date = new Date(a.published_at).toLocaleDateString('ar-IQ');
         const cat = categories.find(c => c.id === a.category_id);
         const catName = cat ? cat.name : 'عام';
+        // إذا لم يكن هناك تصنيف، نضع له تصنيف افتراضي 'no-cat' لسهولة التصفية
+        const catId = a.category_id || 'no-cat'; 
         
         cards += `
-        <a href="${SITE_URL}/news/${a.slug}.html" class="card" data-category="${a.category_id || 'all'}">
+        <a href="${SITE_URL}/news/${a.slug}" class="card" data-category="${catId}">
             ${a.image_url ? `<img src="${a.image_url}" alt="${a.title}">` : ''}
             <div class="card-body">
                 <span class="cat-badge">${catName}</span>
@@ -180,7 +182,6 @@ function generateIndexHtml(articles, categories) {
         header h1 { margin: 0; font-size: 2rem; }
         header p { margin: 5px 0 0; color: #d4edda; }
         
-        /* تنسيق السلايدر */
         .slider-wrapper { max-width: 1200px; margin: 20px auto 0; padding: 0 15px; }
         .slider { position: relative; width: 100%; height: 350px; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
         .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.8s ease-in-out; text-decoration: none; display: flex; align-items: flex-end; }
@@ -239,7 +240,6 @@ function generateIndexHtml(articles, categories) {
     </footer>
 
     <script>
-        // حركة السلايدر التلقائية (كل 3 ثواني)
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slide');
         
@@ -251,13 +251,13 @@ function generateIndexHtml(articles, categories) {
             }, 3000);
         }
 
-        // دالة تصفية المقالات
         function filterNews(categoryId, btn) {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
 
             const cards = document.querySelectorAll('.card');
             cards.forEach(card => {
+                // إذا اختار "كل الأخبار" أو كان تصنيف البطاقة يطابق الزر، أظهرها
                 if(categoryId === 'all' || card.getAttribute('data-category') === categoryId) {
                     card.style.display = 'flex';
                 } else {
