@@ -11,16 +11,36 @@
         header { background: var(--primary); color: #fff; padding: 20px; text-align: center; }
         header h1 { margin: 0; font-size: 2rem; }
         header p { margin: 5px 0 0; color: #d4edda; }
-        .container { max-width: 1200px; margin: 30px auto; padding: 0 15px; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        
+        /* تنسيق السلايدر */
+        .slider-wrapper { max-width: 1200px; margin: 20px auto 0; padding: 0 15px; }
+        .slider { position: relative; width: 100%; height: 350px; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
+        .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; transition: opacity 0.8s ease-in-out; text-decoration: none; display: flex; align-items: flex-end; }
+        .slide.active { opacity: 1; z-index: 2; }
+        .slide-content { background: linear-gradient(transparent, rgba(0,0,0,0.85)); width: 100%; padding: 20px; color: #fff; box-sizing: border-box; }
+        .slide-content h2 { margin: 0; font-size: 1.5rem; line-height: 1.4; color: #fff; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); }
+
+        .filters { text-align: center; margin: 30px auto 20px; max-width: 1200px; padding: 0 15px; }
+        .filter-btn { background: #fff; border: 1px solid #ccc; padding: 8px 16px; margin: 5px; border-radius: 20px; cursor: pointer; font-family: 'Cairo'; font-weight: 600; color: #555; transition: 0.2s; }
+        .filter-btn:hover { border-color: var(--primary); color: var(--primary); }
+        .filter-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+        .container { max-width: 1200px; margin: 0 auto 30px; padding: 0 15px; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
         .card { background: #fff; border-radius: 8px; overflow: hidden; text-decoration: none; color: inherit; box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: transform 0.2s; display: flex; flex-direction: column; }
         .card:hover { transform: translateY(-5px); }
         .card img { width: 100%; height: 200px; object-fit: cover; }
         .card-body { padding: 15px; flex-grow: 1; display: flex; flex-direction: column; }
+        .cat-badge { display: inline-block; background: #fff0e6; color: var(--orange); padding: 2px 10px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; margin-bottom: 10px; width: fit-content; }
         .card h3 { margin: 0 0 10px; color: var(--primary); font-size: 1.2rem; }
         .card p { margin: 0 0 15px; color: #666; font-size: 0.9rem; flex-grow: 1; }
         .card-meta { font-size: 0.8rem; color: #999; margin-top: auto; }
         footer { text-align: center; padding: 30px; background: #023d17; color: #aaa; margin-top: 40px; }
         footer a { color: var(--orange); text-decoration: none; }
+
+        @media (max-width: 768px) {
+            .slider { height: 250px; }
+            .slide-content h2 { font-size: 1.2rem; }
+        }
     </style>
 </head>
 <body>
@@ -28,19 +48,68 @@
         <h1>علوة نيوز</h1>
         <p>أخبار وأسواق الخضار والفواكه في العراق</p>
     </header>
-    <div class="container">
+
+    
+    <div class="slider-wrapper">
+        <div class="slider">
+            
+            <a href="https://alwairaq.com/news/egypt-onion-prices-iraq-market-2026.html" class="slide active" style="background-image: url('https://biaasenkbydtmyqbtvzx.supabase.co/storage/v1/object/public/news-images/1793421997923.png');">
+                <div class="slide-content">
+                    <h2>عشرات الأطنان من البصل المصري تواجه خطر التلف.. بسبب تقلبات السوق العراقي!</h2>
+                </div>
+            </a>
+        </div>
+    </div>
+    
+
+    <div class="filters">
+        <button class="filter-btn active" onclick="filterNews('all', this)">كل الأخبار</button><button class="filter-btn" onclick="filterNews('96291831-ca7d-4e59-8a85-33308e9e2fc2', this)">أخبار السوق</button><button class="filter-btn" onclick="filterNews('1b14ad20-8342-4f4d-8cf9-488fbe95c56f', this)">أسعار الخضار والفواكه</button><button class="filter-btn" onclick="filterNews('042151a2-567a-4fd5-bc67-2385383473c0', this)">أخبار الشركات والمستوردين</button><button class="filter-btn" onclick="filterNews('094193bb-3de6-40f0-8b93-b5870962b3c2', this)">تقارير ومواسم زراعية</button><button class="filter-btn" onclick="filterNews('43585874-ab9f-4e59-94c1-ddd70c0ec272', this)">مقالات تثقيفية</button>
+    </div>
+
+    <div class="container" id="news-container">
         
-        <a href="https://alwairaq.com/news/egypt-onion-prices-iraq-market-2026.html" class="card">
+        <a href="https://alwairaq.com/news/egypt-onion-prices-iraq-market-2026.html" class="card" data-category="all">
             <img src="https://biaasenkbydtmyqbtvzx.supabase.co/storage/v1/object/public/news-images/1793421997923.png" alt="عشرات الأطنان من البصل المصري تواجه خطر التلف.. بسبب تقلبات السوق العراقي!">
             <div class="card-body">
+                <span class="cat-badge">عام</span>
                 <h3>عشرات الأطنان من البصل المصري تواجه خطر التلف.. بسبب تقلبات السوق العراقي!</h3>
                 <p></p>
-                <div class="card-meta">📅 ٣١‏/١٠‏/٢٠٢٦ | ✍️ إدارة علوة</div>
+                <div class="card-meta">📅 ٣١‏/١٠‏/٢٠٢٦</div>
             </div>
         </a>
     </div>
+
     <footer>
         <p>تابعنا على تطبيق <a href="https://alwairaq.com">علوة ALWA</a></p>
     </footer>
+
+    <script>
+        // حركة السلايدر التلقائية (كل 3 ثواني)
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        
+        if (slides.length > 1) {
+            setInterval(() => {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }, 3000);
+        }
+
+        // دالة تصفية المقالات
+        function filterNews(categoryId, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                if(categoryId === 'all' || card.getAttribute('data-category') === categoryId) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
 </body>
 </html>
