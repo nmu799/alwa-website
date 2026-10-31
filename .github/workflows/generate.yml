@@ -55,6 +55,5 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add docs/
           git commit -m "تحديث تلقائي للصفحات [skip actions]" || echo "لا تغييرات"
-          # سحب التحديثات قبل الرفع لتجنب خطأ non-fast-forward
           git pull origin main --rebase
-          git push
+          git push origin main
