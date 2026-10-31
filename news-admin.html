@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>لوحة تحكم علوة نيوز</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
     <style>
         :root { --primary: #04722b; --orange: #ff6600; --bg: #f6f7f9; --ink: #1c1f26; }
         body { font-family: 'Cairo', sans-serif; background: var(--bg); color: var(--ink); margin: 0; padding: 15px; }
@@ -13,14 +13,10 @@
         h2 { color: var(--primary); margin-top: 0; text-align: center; }
         input, textarea, select { width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #ccc; border-radius: 4px; font-family: 'Cairo', sans-serif; box-sizing: border-box; }
         button { width: 100%; padding: 12px; background: var(--primary); color: #fff; border: none; border-radius: 4px; font-weight: bold; font-size: 16px; cursor: pointer; margin-top: 10px; }
-        button:hover { background: #035a22; }
         .btn-orange { background: var(--orange); }
-        .btn-orange:hover { background: #cc5200; }
         .hidden { display: none !important; }
         .article-item { border-bottom: 1px solid #eee; padding: 10px 0; display: flex; justify-content: space-between; align-items: center; }
-        .article-item h4 { margin: 0; font-size: 14px; }
-        .article-item button { width: auto; padding: 5px 10px; font-size: 12px; margin: 0 5px; }
-        .msg { text-align: center; padding: 10px; border-radius: 4px; margin-bottom: 10px; display: none; }
+        .msg { text-align: center; padding: 10px; border-radius: 4px; margin-bottom: 10px; display: none; font-weight: bold; }
         .msg.success { background: #d4edda; color: #155724; display: block; }
         .msg.error { background: #f8d7da; color: #721c24; display: block; }
     </style>
@@ -32,13 +28,13 @@
         <div id="loginMsg" class="msg"></div>
         <input type="email" id="email" placeholder="البريد الإلكتروني (الإيميل)">
         <input type="password" id="password" placeholder="كلمة المرور">
-        <button onclick="login()">دخول</button>
+        <button type="button" onclick="login()">دخول</button>
     </div>
 
     <div id="dashboardView" class="hidden">
         <div class="card" style="display: flex; justify-content: space-between; align-items: center;">
             <b>مرحباً بك في لوحة تحكم الأخبار</b>
-            <button onclick="logout()" style="width: auto; padding: 5px 15px; background: #dc3545;">خروج</button>
+            <button type="button" onclick="logout()" style="width: auto; padding: 5px 15px; background: #dc3545;">خروج</button>
         </div>
 
         <div class="card">
@@ -46,21 +42,19 @@
             <div id="formMsg" class="msg"></div>
             <input type="hidden" id="articleId">
             <input type="text" id="title" placeholder="عنوان المقال (إلزامي)">
-            <input type="text" id="slug" placeholder="رابط المقال (إنجليزي، مثال: alwa-news-1)">
+            <input type="text" id="slug" placeholder="رابط المقال (إنجليزي)">
             <textarea id="excerpt" rows="2" placeholder="وصف قصير (Meta Description)"></textarea>
             <textarea id="content" rows="8" placeholder="محتوى المقال (يدعم HTML)"></textarea>
             <label>التصنيف:</label>
-            <select id="category"><option value="">جاري تحميل التصنيفات...</option></select>
+            <select id="category"></select>
             <label>صورة رئيسية:</label>
             <input type="file" id="image" accept="image/*">
-            <input type="text" id="author" placeholder="اسم الكاتب" value="إدارة علوة">
             <label>الحالة:</label>
             <select id="status">
                 <option value="draft">مسودة</option>
                 <option value="published">نشر</option>
             </select>
-            <button onclick="saveArticle()" class="btn-orange">حفظ المقال</button>
-            <button onclick="resetForm()" style="background: #6c757d;">إفراغ الحقول</button>
+            <button type="button" onclick="saveArticle()" class="btn-orange">حفظ المقال</button>
         </div>
 
         <div class="card">
@@ -70,169 +64,123 @@
     </div>
 
     <script>
-        // ✅ المفاتيح الخاصة بمشروع علوة نيوز
+        if (typeof supabase === 'undefined') {
+            const msg = document.getElementById('loginMsg');
+            msg.innerText = "خطأ: فشل تحميل مكتبة الاتصال. تأكد من اتصالك بالإنترنت وجرب شبكة أخرى.";
+            msg.className = 'msg error';
+        }
+
         const SUPABASE_URL = 'https://biaasenkbydtmyqbtvzx.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable__aROsRno3ozsTymS1KTuGg_yazb3C_U';
-
-        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        let currentUser = null;
+        let supabaseClient;
+        
+        if (typeof supabase !== 'undefined') {
+            supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        }
 
         function showMsg(id, text, type) {
             const el = document.getElementById(id);
             el.innerText = text;
             el.className = 'msg ' + type;
-            setTimeout(() => el.style.display = 'none', 4000);
+            setTimeout(() => el.style.display = 'none', 5000);
         }
 
         async function login() {
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-            const { data, error } = await supabase.auth.signInWithPassword({ email, password });
             
-            if (error) {
-                showMsg('loginMsg', 'خطأ في الدخول: ' + error.message, 'error');
-            } else {
-                currentUser = data.user;
-                document.getElementById('loginView').classList.add('hidden');
-                document.getElementById('dashboardView').classList.remove('hidden');
-                loadCategories();
-                loadArticles();
+            if(!email || !password) return showMsg('loginMsg', 'الرجاء كتابة البريد وكلمة المرور', 'error');
+            if(!supabaseClient) return showMsg('loginMsg', 'المكتبة غير محملة، جرب تحديث الصفحة', 'error');
+
+            showMsg('loginMsg', 'جاري الاتصال بالسيرفر...', 'success');
+            
+            try {
+                const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+                if (error) {
+                    showMsg('loginMsg', 'خطأ: ' + error.message, 'error');
+                } else {
+                    document.getElementById('loginView').classList.add('hidden');
+                    document.getElementById('dashboardView').classList.remove('hidden');
+                    loadCategories();
+                    loadArticles();
+                }
+            } catch (err) {
+                showMsg('loginMsg', 'خطأ غير متوقع: ' + err.message, 'error');
             }
         }
 
-        async function logout() {
-            await supabase.auth.signOut();
-            location.reload();
-        }
+        async function logout() { await supabaseClient.auth.signOut(); location.reload(); }
 
         async function checkSession() {
-            const { data: { session } } = await supabase.auth.getSession();
+            if(!supabaseClient) return;
+            const { data: { session } } = await supabaseClient.auth.getSession();
             if (session) {
-                currentUser = session.user;
                 document.getElementById('loginView').classList.add('hidden');
                 document.getElementById('dashboardView').classList.remove('hidden');
-                loadCategories();
-                loadArticles();
+                loadCategories(); loadArticles();
             }
         }
 
         async function loadCategories() {
-            const { data } = await supabase.from('categories').select('*');
+            const { data } = await supabaseClient.from('categories').select('*');
             const select = document.getElementById('category');
             select.innerHTML = '<option value="">اختر التصنيف...</option>';
-            if (data) {
-                data.forEach(c => {
-                    select.innerHTML += `<option value="${c.id}">${c.name}</option>`;
-                });
-            }
+            if (data) data.forEach(c => select.innerHTML += `<option value="${c.id}">${c.name}</option>`);
         }
 
         async function loadArticles() {
-            const { data } = await supabase.from('articles').select('*').order('created_at', { ascending: false });
+            const { data } = await supabaseClient.from('articles').select('*').order('created_at', { ascending: false });
             const list = document.getElementById('articlesList');
             list.innerHTML = '';
             if (data && data.length > 0) {
                 data.forEach(a => {
                     list.innerHTML += `
                         <div class="article-item">
-                            <div>
-                                <h4>${a.title}</h4>
-                                <small style="color:${a.status === 'published' ? 'green' : 'orange'}">${a.status === 'published' ? 'منشور' : 'مسودة'}</small>
-                            </div>
-                            <div>
-                                <button onclick="editArticle('${a.id}')" style="background:#04722b;">تعديل</button>
-                                <button onclick="deleteArticle('${a.id}')" style="background:#dc3545;">حذف</button>
-                            </div>
-                        </div>
-                    `;
+                            <div><b>${a.title}</b><br><small style="color:${a.status === 'published' ? 'green' : 'orange'}">${a.status === 'published' ? 'منشور' : 'مسودة'}</small></div>
+                            <div><button type="button" onclick="deleteArticle('${a.id}')" style="background:#dc3545; width:auto; padding:5px;">حذف</button></div>
+                        </div>`;
                 });
-            } else {
-                list.innerHTML = 'لا توجد مقالات بعد.';
-            }
+            } else { list.innerHTML = 'لا توجد مقالات.'; }
         }
 
         async function saveArticle() {
-            const id = document.getElementById('articleId').value;
             const title = document.getElementById('title').value;
             const slug = document.getElementById('slug').value;
-            const excerpt = document.getElementById('excerpt').value;
             const content = document.getElementById('content').value;
-            const category_id = document.getElementById('category').value;
-            const author_name = document.getElementById('author').value;
             const status = document.getElementById('status').value;
             const imageFile = document.getElementById('image').files[0];
 
-            if (!title || !slug || !content) {
-                return showMsg('formMsg', 'العنوان، الرابط، والمحتوى إلزامية!', 'error');
-            }
-
+            if (!title || !slug || !content) return showMsg('formMsg', 'العنوان، الرابط، والمحتوى إلزامية!', 'error');
+            
+            showMsg('formMsg', 'جاري الحفظ...', 'success');
             let image_url = null;
 
             if (imageFile) {
-                const fileExt = imageFile.name.split('.').pop();
-                const fileName = `${Date.now()}.${fileExt}`;
-                const { error: uploadError } = await supabase.storage.from('news-images').upload(fileName, imageFile);
-                
-                if (uploadError) return showMsg('formMsg', 'خطأ في رفع الصورة: ' + uploadError.message, 'error');
-                
-                const { data: publicUrl } = supabase.storage.from('news-images').getPublicUrl(fileName);
-                image_url = publicUrl.publicUrl;
+                const fileName = `${Date.now()}.${imageFile.name.split('.').pop()}`;
+                const { error: uploadError } = await supabaseClient.storage.from('news-images').upload(fileName, imageFile);
+                if (uploadError) return showMsg('formMsg', 'خطأ في الصورة: ' + uploadError.message, 'error');
+                image_url = supabaseClient.storage.from('news-images').getPublicUrl(fileName).data.publicUrl;
             }
 
             const articleData = {
-                title, slug, excerpt, content, category_id, author_name, status,
-                published_at: status === 'published' ? new Date().toISOString() : null,
-                ...(image_url && { image_url })
+                title, slug, content, status, image_url,
+                published_at: status === 'published' ? new Date().toISOString() : null
             };
 
-            let error;
-            if (id) {
-                const res = await supabase.from('articles').update(articleData).eq('id', id);
-                error = res.error;
-            } else {
-                const res = await supabase.from('articles').insert([articleData]);
-                error = res.error;
-            }
-
+            const { error } = await supabaseClient.from('articles').insert([articleData]);
             if (error) {
                 showMsg('formMsg', 'خطأ في الحفظ: ' + error.message, 'error');
             } else {
-                showMsg('formMsg', 'تم الحفظ بنجاح!', 'success');
-                resetForm();
+                showMsg('formMsg', 'تم الحفظ بنجاح! سيظهر في الموقع بعد دقيقة.', 'success');
+                document.getElementById('title').value = '';
+                document.getElementById('slug').value = '';
+                document.getElementById('content').value = '';
                 loadArticles();
-            }
-        }
-
-        async function editArticle(id) {
-            const { data } = await supabase.from('articles').select('*').eq('id', id).single();
-            if (data) {
-                document.getElementById('articleId').value = data.id;
-                document.getElementById('title').value = data.title;
-                document.getElementById('slug').value = data.slug;
-                document.getElementById('excerpt').value = data.excerpt || '';
-                document.getElementById('content').value = data.content;
-                document.getElementById('category').value = data.category_id || '';
-                document.getElementById('author').value = data.author_name;
-                document.getElementById('status').value = data.status;
-                window.scrollTo(0, 0);
             }
         }
 
         async function deleteArticle(id) {
-            if (confirm('هل أنت متأكد من حذف هذا المقال؟')) {
-                await supabase.from('articles').delete().eq('id', id);
-                loadArticles();
-            }
-        }
-
-        function resetForm() {
-            document.getElementById('articleId').value = '';
-            document.getElementById('title').value = '';
-            document.getElementById('slug').value = '';
-            document.getElementById('excerpt').value = '';
-            document.getElementById('content').value = '';
-            document.getElementById('category').value = '';
-            document.getElementById('status').value = 'draft';
+            if (confirm('حذف المقال؟')) { await supabaseClient.from('articles').delete().eq('id', id); loadArticles(); }
         }
 
         checkSession();
