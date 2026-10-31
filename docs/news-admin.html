@@ -41,19 +41,31 @@
             <h2 id="formTitle">إضافة مقال جديد</h2>
             <div id="formMsg" class="msg"></div>
             <input type="hidden" id="articleId">
-            <input type="text" id="title" placeholder="عنوان المقال (إلزامي)">
-            <input type="text" id="slug" placeholder="رابط المقال (إنجليزي، مثال: alwa-news-1)">
-            <textarea id="excerpt" rows="2" placeholder="وصف قصير (Meta Description)"></textarea>
-            <textarea id="content" rows="8" placeholder="محتوى المقال (يدعم HTML)"></textarea>
+            
+            <label>عنوان المقال (إلزامي):</label>
+            <input type="text" id="title" placeholder="اكتب عنوان الخبر هنا...">
+            
+            <label>الرابط (Slug) - إلزامي بالإنجليزية:</label>
+            <input type="text" id="slug" placeholder="مثال: iraq-onion-prices (بدون مسافات وبدون .html)">
+            
+            <label>الوصف القصير (Meta Description):</label>
+            <textarea id="excerpt" rows="2" placeholder="اكتب وصفاً قصيراً للخبر (يفضل 150 حرف)..."></textarea>
+            
+            <label>محتوى المقال:</label>
+            <textarea id="content" rows="8" placeholder="اكتب تفاصيل الخبر هنا..."></textarea>
+            
             <label>التصنيف:</label>
             <select id="category"></select>
+            
             <label>صورة رئيسية:</label>
             <input type="file" id="image" accept="image/*">
+            
             <label>الحالة:</label>
             <select id="status">
-                <option value="draft">مسودة</option>
-                <option value="published">نشر</option>
+                <option value="draft">مسودة (لن تظهر للزوار)</option>
+                <option value="published">نشر (ستظهر في الموقع)</option>
             </select>
+            
             <button type="button" onclick="saveArticle()" class="btn-orange">حفظ المقال</button>
             <button type="button" onclick="resetForm()" style="background: #6c757d;">إفراغ الحقول (مقال جديد)</button>
         </div>
@@ -147,14 +159,21 @@
         async function saveArticle() {
             const id = document.getElementById('articleId').value;
             const title = document.getElementById('title').value;
-            const slug = document.getElementById('slug').value;
+            const slug = document.getElementById('slug').value.trim();
             const excerpt = document.getElementById('excerpt').value;
             const content = document.getElementById('content').value;
             const category_id = document.getElementById('category').value || null;
             const status = document.getElementById('status').value;
             const imageFile = document.getElementById('image').files[0];
 
-            if (!title || !slug || !content) return showMsg('formMsg', 'العنوان، الرابط، والمحتوى إلزامية!', 'error');
+            if (!title || !slug || !content) {
+                return showMsg('formMsg', 'العنوان، الرابط (slug)، والمحتوى إلزامية!', 'error');
+            }
+
+            // التحقق من أن الرابط لا يحتوي على مسافات أو أحرف عربية
+            if (/[\u0600-\u06FF\s]/.test(slug)) {
+                return showMsg('formMsg', 'الرابط (slug) يجب أن يكون بالإنجليزية وبدون مسافات!', 'error');
+            }
             
             showMsg('formMsg', 'جاري الحفظ...', 'success');
             let image_url = null;
@@ -174,11 +193,9 @@
 
             let error;
             if (id) {
-                // تعديل مقال موجود
                 const res = await supabaseClient.from('articles').update(articleData).eq('id', id);
                 error = res.error;
             } else {
-                // إضافة مقال جديد
                 const res = await supabaseClient.from('articles').insert([articleData]);
                 error = res.error;
             }
