@@ -38,11 +38,11 @@
         </div>
 
         <div class="card">
-            <h2>إضافة / تعديل مقال</h2>
+            <h2 id="formTitle">إضافة مقال جديد</h2>
             <div id="formMsg" class="msg"></div>
             <input type="hidden" id="articleId">
             <input type="text" id="title" placeholder="عنوان المقال (إلزامي)">
-            <input type="text" id="slug" placeholder="رابط المقال (إنجليزي)">
+            <input type="text" id="slug" placeholder="رابط المقال (إنجليزي، مثال: alwa-news-1)">
             <textarea id="excerpt" rows="2" placeholder="وصف قصير (Meta Description)"></textarea>
             <textarea id="content" rows="8" placeholder="محتوى المقال (يدعم HTML)"></textarea>
             <label>التصنيف:</label>
@@ -55,6 +55,7 @@
                 <option value="published">نشر</option>
             </select>
             <button type="button" onclick="saveArticle()" class="btn-orange">حفظ المقال</button>
+            <button type="button" onclick="resetForm()" style="background: #6c757d;">إفراغ الحقول (مقال جديد)</button>
         </div>
 
         <div class="card">
@@ -64,16 +65,10 @@
     </div>
 
     <script>
-        if (typeof supabase === 'undefined') {
-            const msg = document.getElementById('loginMsg');
-            msg.innerText = "خطأ: فشل تحميل مكتبة الاتصال. تأكد من اتصالك بالإنترنت وجرب شبكة أخرى.";
-            msg.className = 'msg error';
-        }
-
         const SUPABASE_URL = 'https://biaasenkbydtmyqbtvzx.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable__aROsRno3ozsTymS1KTuGg_yazb3C_U';
-        let supabaseClient;
         
+        let supabaseClient;
         if (typeof supabase !== 'undefined') {
             supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         }
@@ -92,7 +87,7 @@
             if(!email || !password) return showMsg('loginMsg', 'الرجاء كتابة البريد وكلمة المرور', 'error');
             if(!supabaseClient) return showMsg('loginMsg', 'المكتبة غير محملة، جرب تحديث الصفحة', 'error');
 
-            showMsg('loginMsg', 'جاري الاتصال بالسيرفر...', 'success');
+            showMsg('loginMsg', 'جاري الاتصال...', 'success');
             
             try {
                 const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
@@ -136,17 +131,26 @@
                 data.forEach(a => {
                     list.innerHTML += `
                         <div class="article-item">
-                            <div><b>${a.title}</b><br><small style="color:${a.status === 'published' ? 'green' : 'orange'}">${a.status === 'published' ? 'منشور' : 'مسودة'}</small></div>
-                            <div><button type="button" onclick="deleteArticle('${a.id}')" style="background:#dc3545; width:auto; padding:5px;">حذف</button></div>
+                            <div>
+                                <b>${a.title}</b><br>
+                                <small style="color:${a.status === 'published' ? 'green' : 'orange'}">${a.status === 'published' ? 'منشور' : 'مسودة'}</small>
+                            </div>
+                            <div>
+                                <button type="button" onclick="editArticle('${a.id}')" style="background:#04722b;">تعديل</button>
+                                <button type="button" onclick="deleteArticle('${a.id}')" style="background:#dc3545;">حذف</button>
+                            </div>
                         </div>`;
                 });
             } else { list.innerHTML = 'لا توجد مقالات.'; }
         }
 
         async function saveArticle() {
+            const id = document.getElementById('articleId').value;
             const title = document.getElementById('title').value;
             const slug = document.getElementById('slug').value;
+            const excerpt = document.getElementById('excerpt').value;
             const content = document.getElementById('content').value;
+            const category_id = document.getElementById('category').value || null;
             const status = document.getElementById('status').value;
             const imageFile = document.getElementById('image').files[0];
 
@@ -163,24 +167,62 @@
             }
 
             const articleData = {
-                title, slug, content, status, image_url,
-                published_at: status === 'published' ? new Date().toISOString() : null
+                title, slug, excerpt, content, category_id, status,
+                published_at: status === 'published' ? new Date().toISOString() : null,
+                ...(image_url && { image_url })
             };
 
-            const { error } = await supabaseClient.from('articles').insert([articleData]);
+            let error;
+            if (id) {
+                // تعديل مقال موجود
+                const res = await supabaseClient.from('articles').update(articleData).eq('id', id);
+                error = res.error;
+            } else {
+                // إضافة مقال جديد
+                const res = await supabaseClient.from('articles').insert([articleData]);
+                error = res.error;
+            }
+
             if (error) {
                 showMsg('formMsg', 'خطأ في الحفظ: ' + error.message, 'error');
             } else {
                 showMsg('formMsg', 'تم الحفظ بنجاح! سيظهر في الموقع بعد دقيقة.', 'success');
-                document.getElementById('title').value = '';
-                document.getElementById('slug').value = '';
-                document.getElementById('content').value = '';
+                resetForm();
                 loadArticles();
             }
         }
 
+        async function editArticle(id) {
+            const { data } = await supabaseClient.from('articles').select('*').eq('id', id).single();
+            if (data) {
+                document.getElementById('articleId').value = data.id;
+                document.getElementById('title').value = data.title;
+                document.getElementById('slug').value = data.slug;
+                document.getElementById('excerpt').value = data.excerpt || '';
+                document.getElementById('content').value = data.content;
+                document.getElementById('category').value = data.category_id || '';
+                document.getElementById('status').value = data.status;
+                document.getElementById('formTitle').innerText = 'تعديل المقال';
+                window.scrollTo(0, 0);
+            }
+        }
+
         async function deleteArticle(id) {
-            if (confirm('حذف المقال؟')) { await supabaseClient.from('articles').delete().eq('id', id); loadArticles(); }
+            if (confirm('هل أنت متأكد من حذف هذا المقال؟')) { 
+                await supabaseClient.from('articles').delete().eq('id', id); 
+                loadArticles(); 
+            }
+        }
+
+        function resetForm() {
+            document.getElementById('articleId').value = '';
+            document.getElementById('title').value = '';
+            document.getElementById('slug').value = '';
+            document.getElementById('excerpt').value = '';
+            document.getElementById('content').value = '';
+            document.getElementById('category').value = '';
+            document.getElementById('status').value = 'draft';
+            document.getElementById('formTitle').innerText = 'إضافة مقال جديد';
         }
 
         checkSession();
