@@ -102,7 +102,6 @@
 
             const cards = document.querySelectorAll('.card');
             cards.forEach(card => {
-                // إذا اختار "كل الأخبار" أو كان تصنيف البطاقة يطابق الزر، أظهرها
                 if(categoryId === 'all' || card.getAttribute('data-category') === categoryId) {
                     card.style.display = 'flex';
                 } else {
