@@ -70,7 +70,6 @@
     </div>
 
     <script>
-        // ✅ المفاتيح الخاصة بمشروع علوة نيوز
         const SUPABASE_URL = 'https://biaasenkbydtmyqbtvzx.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable__aROsRno3ozsTymS1KTuGg_yazb3C_U';
 
@@ -84,19 +83,36 @@
             setTimeout(() => el.style.display = 'none', 4000);
         }
 
+        // دالة تسجيل الدخول مع رسائل التشخيص
         async function login() {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-            
-            if (error) {
-                showMsg('loginMsg', 'خطأ في الدخول: ' + error.message, 'error');
-            } else {
-                currentUser = data.user;
-                document.getElementById('loginView').classList.add('hidden');
-                document.getElementById('dashboardView').classList.remove('hidden');
-                loadCategories();
-                loadArticles();
+            try {
+                alert("1. تم الضغط على زر الدخول بنجاح.");
+                
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                
+                if(!email || !password) {
+                    alert("2. تنبيه: لم تقم بكتابة البريد أو كلمة المرور!");
+                    return;
+                }
+
+                alert("3. جاري الاتصال بـ Supabase... انتظر قليلاً.");
+                
+                const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+                
+                if (error) {
+                    alert("4. خطأ من Supabase: " + error.message);
+                    showMsg('loginMsg', 'خطأ في الدخول: ' + error.message, 'error');
+                } else {
+                    alert("5. تم تسجيل الدخول بنجاح! جاري فتح لوحة التحكم.");
+                    currentUser = data.user;
+                    document.getElementById('loginView').classList.add('hidden');
+                    document.getElementById('dashboardView').classList.remove('hidden');
+                    loadCategories();
+                    loadArticles();
+                }
+            } catch (err) {
+                alert("حدث خطأ غير متوقع في المتصفح: " + err.message);
             }
         }
 
