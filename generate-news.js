@@ -7,15 +7,40 @@ const SUPABASE_ANON_KEY = 'sb_publishable__aROsRno3ozsTymS1KTuGg_yazb3C_U';
 const SITE_URL = 'https://alwairaq.com';
 const NEWS_DIR = './docs/news';
 
-// دالة لجلب المقالات من Supabase
+// دالة لجلب المقالات من Supabase بشكل آمن
 async function fetchArticles() {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/articles?status=eq.published&select=*`, {
-        headers: {
-            'apikey': SUPABASE_ANON_KEY,
-            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+    console.log("جاري الاتصال بـ Supabase...");
+    try {
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/articles?status=eq.published&select=*`, {
+            method: 'GET',
+            headers: {
+                'apikey': SUPABASE_ANON_KEY,
+                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        
+        if (!res.ok) {
+            console.error("خطأ من السيرفر:", res.status, res.statusText);
+            const errorText = await res.text();
+            console.error("تفاصيل الخطأ:", errorText);
+            return [];
         }
-    });
-    return await res.json();
+
+        const data = await res.json();
+        
+        // التحقق من أن البيانات عبارة عن مصفوفة (Array)
+        if (!Array.isArray(data)) {
+            console.error("تنبيه: البيانات المستلمة ليست مصفوفة. البيانات هي:", data);
+            return [];
+        }
+        
+        return data;
+
+    } catch (error) {
+        console.error("فشل الاتصال تماماً:", error.message);
+        return [];
+    }
 }
 
 // دالة لإنشاء صفحة المقال
@@ -152,16 +177,19 @@ function generateIndexHtml(articles) {
 
 // التشغيل الرئيسي
 async function main() {
-    console.log('جاري جلب المقالات من Supabase...');
+    console.log('بدء العملية...');
     const articles = await fetchArticles();
     
-    // إنشاء مجلد الأخبار إذا لم يكن موجوداً
+    if (articles.length === 0) {
+        console.log('لم يتم العثور على مقالات منشورة أو حدث خطأ في الجلب. سيتم إنشاء صفحة فارغة.');
+    } else {
+        console.log(`تم العثور على ${articles.length} مقال منشور.`);
+    }
+    
     if (!fs.existsSync(NEWS_DIR)) {
         fs.mkdirSync(NEWS_DIR, { recursive: true });
     }
 
-    console.log(`تم العثور على ${articles.length} مقال منشور.`);
-    
     // إنشاء صفحة لكل مقال
     articles.forEach(article => {
         const html = generateArticleHtml(article);
