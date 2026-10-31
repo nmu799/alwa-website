@@ -12,7 +12,6 @@
         header h1 { margin: 0; font-size: 2rem; }
         header p { margin: 5px 0 0; color: #d4edda; }
         
-        /* تنسيق السلايدر */
         .slider-wrapper { max-width: 1200px; margin: 20px auto 0; padding: 0 15px; }
         .slider { position: relative; width: 100%; height: 350px; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
         .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.8s ease-in-out; text-decoration: none; display: flex; align-items: flex-end; }
@@ -54,7 +53,7 @@
     <div class="slider-wrapper">
         <div class="slider">
             
-            <a href="https://alwairaq.com/news/egypt-onion-prices-iraq-market-2026.html" class="slide active">
+            <a href="https://alwairaq.com/news/egypt-onion-prices-iraq-market-2026" class="slide active">
                 <img src="https://biaasenkbydtmyqbtvzx.supabase.co/storage/v1/object/public/news-images/1793421997923.png" alt="عشرات الأطنان من البصل المصري تواجه خطر التلف.. بسبب تقلبات السوق العراقي!" class="slide-img">
                 <div class="slide-content">
                     <h2>عشرات الأطنان من البصل المصري تواجه خطر التلف.. بسبب تقلبات السوق العراقي!</h2>
@@ -70,7 +69,7 @@
 
     <div class="container" id="news-container">
         
-        <a href="https://alwairaq.com/news/egypt-onion-prices-iraq-market-2026.html" class="card" data-category="96291831-ca7d-4e59-8a85-33308e9e2fc2">
+        <a href="https://alwairaq.com/news/egypt-onion-prices-iraq-market-2026" class="card" data-category="96291831-ca7d-4e59-8a85-33308e9e2fc2">
             <img src="https://biaasenkbydtmyqbtvzx.supabase.co/storage/v1/object/public/news-images/1793421997923.png" alt="عشرات الأطنان من البصل المصري تواجه خطر التلف.. بسبب تقلبات السوق العراقي!">
             <div class="card-body">
                 <span class="cat-badge">أخبار السوق</span>
@@ -86,7 +85,6 @@
     </footer>
 
     <script>
-        // حركة السلايدر التلقائية (كل 3 ثواني)
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slide');
         
@@ -98,13 +96,13 @@
             }, 3000);
         }
 
-        // دالة تصفية المقالات
         function filterNews(categoryId, btn) {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
 
             const cards = document.querySelectorAll('.card');
             cards.forEach(card => {
+                // إذا اختار "كل الأخبار" أو كان تصنيف البطاقة يطابق الزر، أظهرها
                 if(categoryId === 'all' || card.getAttribute('data-category') === categoryId) {
                     card.style.display = 'flex';
                 } else {
