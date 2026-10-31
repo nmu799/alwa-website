@@ -148,7 +148,6 @@ function generateIndexHtml(articles, categories) {
         const date = new Date(a.published_at).toLocaleDateString('ar-IQ');
         const cat = categories.find(c => c.id === a.category_id);
         const catName = cat ? cat.name : 'عام';
-        // إذا لم يكن هناك تصنيف، نضع له تصنيف افتراضي 'no-cat' لسهولة التصفية
         const catId = a.category_id || 'no-cat'; 
         
         cards += `
@@ -257,7 +256,6 @@ function generateIndexHtml(articles, categories) {
 
             const cards = document.querySelectorAll('.card');
             cards.forEach(card => {
-                // إذا اختار "كل الأخبار" أو كان تصنيف البطاقة يطابق الزر، أظهرها
                 if(categoryId === 'all' || card.getAttribute('data-category') === categoryId) {
                     card.style.display = 'flex';
                 } else {
@@ -279,6 +277,14 @@ async function main() {
     
     if (!fs.existsSync(NEWS_DIR)) {
         fs.mkdirSync(NEWS_DIR, { recursive: true });
+    }
+
+    // 🧹 تنظيف الملفات القديمة قبل البناء (لحذف المقالات التي تم مسحها من لوحة التحكم)
+    const files = fs.readdirSync(NEWS_DIR);
+    for (const file of files) {
+        if (file.endsWith('.html')) {
+            fs.unlinkSync(path.join(NEWS_DIR, file));
+        }
     }
 
     articles.forEach(article => {
