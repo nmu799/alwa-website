@@ -134,7 +134,8 @@ function generateIndexHtml(articles, categories) {
         const sliderArticles = articles.slice(0, 5);
         sliderArticles.forEach((a, index) => {
             sliderHtml += `
-            <a href="${SITE_URL}/news/${a.slug}.html" class="slide ${index === 0 ? 'active' : ''}" style="background-image: url('${a.image_url || SITE_URL + '/alwa-og.jpg'}');">
+            <a href="${SITE_URL}/news/${a.slug}.html" class="slide ${index === 0 ? 'active' : ''}">
+                <img src="${a.image_url || SITE_URL + '/alwa-og.jpg'}" alt="${a.title}" class="slide-img">
                 <div class="slide-content">
                     <h2>${a.title}</h2>
                 </div>
@@ -182,9 +183,10 @@ function generateIndexHtml(articles, categories) {
         /* تنسيق السلايدر */
         .slider-wrapper { max-width: 1200px; margin: 20px auto 0; padding: 0 15px; }
         .slider { position: relative; width: 100%; height: 350px; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
-        .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; transition: opacity 0.8s ease-in-out; text-decoration: none; display: flex; align-items: flex-end; }
+        .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.8s ease-in-out; text-decoration: none; display: flex; align-items: flex-end; }
         .slide.active { opacity: 1; z-index: 2; }
-        .slide-content { background: linear-gradient(transparent, rgba(0,0,0,0.85)); width: 100%; padding: 20px; color: #fff; box-sizing: border-box; }
+        .slide-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+        .slide-content { position: relative; z-index: 2; background: linear-gradient(transparent, rgba(0,0,0,0.85)); width: 100%; padding: 20px; color: #fff; box-sizing: border-box; }
         .slide-content h2 { margin: 0; font-size: 1.5rem; line-height: 1.4; color: #fff; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); }
 
         .filters { text-align: center; margin: 30px auto 20px; max-width: 1200px; padding: 0 15px; }
