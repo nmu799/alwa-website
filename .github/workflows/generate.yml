@@ -27,6 +27,7 @@ jobs:
         run: |
           node generate.js
           node sitemap.js
+          node generate-news.js
 
       - name: نسخ ملفات الموقع الرئيسية إلى docs
         run: |
