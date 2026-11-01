@@ -1322,6 +1322,34 @@
             opacity: 0;
         }
 
+
+        /* علوة نيوز: نقطة حمراء نابضة + أيقونة أخبار */
+        a.news-link { position: relative; display: inline-block; }
+        
+        a.news-link::after {
+            content: "";
+            position: absolute;
+            top: 2px;
+            inset-inline-start: -5px;
+            width: 8px;
+            height: 8px;
+            background: #e53935;
+            border-radius: 50%;
+            box-shadow: 0 0 0 0 rgba(229, 57, 53, 0.7);
+            animation: newsPulse 1.6s infinite;
+        }
+        /* ضبط موضع النقطة داخل القائمة العلوية (الروابط فيها padding) */
+        nav ul li a.news-link::after { top: 5px; inset-inline-start: 10px; }
+        @media (max-width: 768px) {
+            nav ul li a.news-link::after { top: 4px; inset-inline-start: 6px; }
+        }
+        @keyframes newsPulse {
+            0% { box-shadow: 0 0 0 0 rgba(229, 57, 53, 0.7); }
+            70% { box-shadow: 0 0 0 7px rgba(229, 57, 53, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(229, 57, 53, 0); }
+        }
+        @media (prefers-reduced-motion: reduce) { a.news-link::after { animation: none; } }
+
         @keyframes letterAnim {
             0% { opacity: 0; }
             100% { opacity: 1; }
@@ -1484,8 +1512,8 @@
             <nav aria-label="القائمة الرئيسية">
                 <ul>
                     <li><a href="#what" class="ar">ما هو علوة</a><a href="#what" class="ku">عەلوە چییە</a></li>
+                    <li><a href="/news/" class="ar news-link" style="color: #ff6600; font-weight: bold;">علوة نيوز</a><a href="/news/" class="ku news-link" style="color: #ff6600; font-weight: bold;">عەلوە نیوز</a></li>
                     <li><a href="/about-alwa/" class="ar">عن علوة</a><a href="/about-alwa/" class="ku">دەربارەی عەلوە</a></li>
-                    <li><a href="/news/" class="ar" style="color: #ff6600; font-weight: bold;">علوة نيوز</a><a href="/news/" class="ku" style="color: #ff6600; font-weight: bold;">عەلوە نیوز</a></li>
                     <li><a href="#how" class="ar">كيف يعمل</a><a href="#how" class="ku">چۆن کار دەکات</a></li>
                     <li><a href="#accounts" class="ar">الحسابات</a><a href="#accounts" class="ku">هەژمارەکان</a></li>
                     <li><a href="#features" class="ar">المزايا</a><a href="#features" class="ku">تایبەتمەندی</a></li>
@@ -2375,8 +2403,8 @@
                     <h4 class="ku">ئەپی عەلوە</h4>
                     <ul>
                         <li><a href="#what" class="ar">ما هو علوة</a><a href="#what" class="ku">عەلوە چییە</a></li>
+                        <li><a href="/news/" class="ar news-link" style="color: #f1c548; font-weight: bold;">علوة نيوز (أخبار السوق)</a><a href="/news/" class="ku news-link" style="color: #f1c548; font-weight: bold;">عەلوە نیوز (هەواڵی بازاڕ)</a></li>
                         <li><a href="/about-alwa/" class="ar">عن علوة ALWA</a><a href="/about-alwa/" class="ku">دەربارەی عەلوە ALWA</a></li>
-                        <li><a href="/news/" class="ar" style="color: #f1c548; font-weight: bold;">علوة نيوز (أخبار السوق)</a><a href="/news/" class="ku" style="color: #f1c548; font-weight: bold;">عەلوە نیوز (هەواڵی بازاڕ)</a></li>
                         <li><a href="#how" class="ar">كيف يعمل</a><a href="#how" class="ku">چۆن کار دەکات</a></li>
                         <li><a href="#accounts" class="ar">أنواع الحسابات</a><a href="#accounts" class="ku">هەژمارەکان</a></li>
                         <li><a href="#features" class="ar">مزايا التطبيق</a><a href="#features" class="ku">تایبەتمەندییەکان</a></li>
