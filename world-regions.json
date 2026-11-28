@@ -404,6 +404,53 @@
         {"slug":"yucatan","name":"Yucatán","fruits":[{"key":null,"name":"Mamey"},{"key":null,"name":"Coco"}],"vegetables":[{"key":"chili","name":"Chile habanero"},{"key":"cucumber","name":"Pepino"},{"key":"tomato","name":"Tomate"}]},
         {"slug":"zacatecas","name":"Zacatecas","fruits":[{"key":null,"name":"Tuna"},{"key":"peach","name":"Durazno"}],"vegetables":[{"key":"chili","name":"Chile"},{"key":"garlic","name":"Ajo"},{"key":"onion","name":"Cebolla"}]}
       ]
+    },
+    {
+      "code": "EG", "name": "مصر",
+      "regions": [
+        {"slug":"sharqia","name":"الشرقية","fruits":[{"key":"orange","name":"برتقال"},{"key":"grape","name":"عنب"},{"key":"mango","name":"مانجو"},{"key":"watermelon","name":"بطيخ"}],"vegetables":[{"key":"tomato","name":"طماطم"},{"key":"potato","name":"بطاطس"}]},
+        {"slug":"beheira","name":"البحيرة","fruits":[{"key":"strawberry","name":"فراولة"},{"key":"grape","name":"عنب"}],"vegetables":[{"key":"potato","name":"بطاطس"},{"key":"tomato","name":"طماطم"},{"key":"green-beans","name":"لوبيا"}]},
+        {"slug":"minya","name":"المنيا","fruits":[],"vegetables":[{"key":"potato","name":"بطاطس"},{"key":"onion","name":"بصل"},{"key":"tomato","name":"طماطم"},{"key":"garlic","name":"ثوم"},{"key":"green-beans","name":"لوبيا"}]},
+        {"slug":"sohag","name":"سوهاج","fruits":[{"key":"pomegranate","name":"رمان"}],"vegetables":[{"key":"onion","name":"بصل"},{"key":"tomato","name":"طماطم"}]},
+        {"slug":"asyut","name":"أسيوط","fruits":[{"key":"pomegranate","name":"رمان"},{"key":"mango","name":"مانجو"},{"key":"orange","name":"برتقال"},{"key":"grape","name":"عنب"}],"vegetables":[]},
+        {"slug":"ismailia","name":"الإسماعيلية","fruits":[{"key":"mango","name":"مانجو"},{"key":"orange","name":"برتقال"},{"key":"tangerine","name":"يوسفي"},{"key":"strawberry","name":"فراولة"},{"key":"guava","name":"جوافة"}],"vegetables":[]},
+        {"slug":"aswan","name":"أسوان","fruits":[{"key":"dates","name":"تمر"},{"key":"mango","name":"مانجو"}],"vegetables":[]},
+        {"slug":"new-valley","name":"الوادي الجديد","fruits":[{"key":"dates","name":"تمر"}],"vegetables":[{"key":null,"name":"زيتون"}]},
+        {"slug":"matrouh","name":"مطروح","fruits":[{"key":"fig","name":"تين"}],"vegetables":[{"key":null,"name":"زيتون"}]},
+        {"slug":"beni-suef","name":"بني سويف","fruits":[{"key":"orange","name":"برتقال"},{"key":"tangerine","name":"يوسفي"}],"vegetables":[{"key":"potato","name":"بطاطس"}]},
+        {"slug":"dakahlia","name":"الدقهلية","fruits":[],"vegetables":[{"key":"tomato","name":"طماطم"},{"key":"potato","name":"بطاطس"},{"key":"garlic","name":"ثوم"},{"key":"onion","name":"بصل"}]},
+        {"slug":"gharbia","name":"الغربية","fruits":[{"key":"strawberry","name":"فراولة"}],"vegetables":[{"key":"tomato","name":"طماطم"},{"key":"cucumber","name":"خيار"}]},
+        {"slug":"kafr-el-sheikh","name":"كفر الشيخ","fruits":[],"vegetables":[{"key":"tomato","name":"طماطم"},{"key":"potato","name":"بطاطس"}]},
+        {"slug":"north-sinai","name":"شمال سيناء","fruits":[{"key":"fig","name":"تين"},{"key":"peach","name":"خوخ"}],"vegetables":[{"key":null,"name":"زيتون"}]},
+        {"slug":"fayoum","name":"الفيوم","fruits":[{"key":"orange","name":"برتقال"},{"key":"grape","name":"عنب"}],"vegetables":[{"key":"tomato","name":"طماطم"}]},
+        {"slug":"giza","name":"الجيزة","fruits":[{"key":"strawberry","name":"فراولة"},{"key":"grape","name":"عنب"}],"vegetables":[{"key":"tomato","name":"طماطم"},{"key":"cucumber","name":"خيار"}]},
+        {"slug":"monufia","name":"المنوفية","fruits":[],"vegetables":[{"key":"tomato","name":"طماطم"},{"key":"potato","name":"بطاطس"},{"key":"onion","name":"بصل"}]},
+        {"slug":"qalyubia","name":"القليوبية","fruits":[],"vegetables":[{"key":"tomato","name":"طماطم"},{"key":"cucumber","name":"خيار"}]},
+        {"slug":"alexandria","name":"الإسكندرية","fruits":[{"key":"orange","name":"برتقال"}],"vegetables":[{"key":"tomato","name":"طماطم"},{"key":"cucumber","name":"خيار"}]},
+        {"slug":"damietta","name":"دمياط","fruits":[{"key":"watermelon","name":"بطيخ"}],"vegetables":[{"key":"potato","name":"بطاطس"},{"key":"tomato","name":"طماطم"}]},
+        {"slug":"luxor","name":"الأقصر","fruits":[{"key":"banana","name":"موز"}],"vegetables":[{"key":"tomato","name":"طماطم"}]},
+        {"slug":"qena","name":"قنا","fruits":[{"key":"banana","name":"موز"}],"vegetables":[{"key":"tomato","name":"طماطم"},{"key":"okra","name":"بامية"}]},
+        {"slug":"red-sea","name":"البحر الأحمر","fruits":[{"key":"mango","name":"مانجو"},{"key":"dates","name":"تمر"}],"vegetables":[]}
+      ]
+    },
+    {
+      "code": "SY", "name": "سوريا",
+      "regions": [
+        {"slug":"aleppo","name":"حلب","fruits":[{"key":"cherry","name":"كرز"},{"key":"fig","name":"تين"},{"key":"grape","name":"عنب"}],"vegetables":[{"key":null,"name":"زيتون"},{"key":null,"name":"فستق حلبي"}]},
+        {"slug":"hama","name":"حماة","fruits":[{"key":"grape","name":"عنب"}],"vegetables":[{"key":null,"name":"فستق حلبي"},{"key":null,"name":"زيتون"}]},
+        {"slug":"homs","name":"حمص","fruits":[{"key":"grape","name":"عنب"},{"key":"pomegranate","name":"رمان"}],"vegetables":[{"key":null,"name":"زيتون"}]},
+        {"slug":"idlib","name":"إدلب","fruits":[{"key":"cherry","name":"كرز"},{"key":"fig","name":"تين"}],"vegetables":[{"key":null,"name":"زيتون"}]},
+        {"slug":"latakia","name":"اللاذقية","fruits":[{"key":"orange","name":"برتقال"},{"key":"tangerine","name":"يوسفي"}],"vegetables":[{"key":null,"name":"زيتون"}]},
+        {"slug":"tartus","name":"طرطوس","fruits":[{"key":"orange","name":"برتقال"},{"key":"lemon","name":"ليمون"}],"vegetables":[{"key":null,"name":"زيتون"}]},
+        {"slug":"as-suwayda","name":"السويداء","fruits":[{"key":"grape","name":"عنب"}],"vegetables":[{"key":null,"name":"زيتون"}]},
+        {"slug":"daraa","name":"درعا","fruits":[],"vegetables":[{"key":"tomato","name":"طماطم"},{"key":null,"name":"زيتون"}]},
+        {"slug":"quneitra","name":"القنيطرة","fruits":[{"key":"peach","name":"خوخ"}],"vegetables":[{"key":null,"name":"زيتون"}]},
+        {"slug":"rif-dimashq","name":"ريف دمشق","fruits":[{"key":"strawberry","name":"فراولة"},{"key":"grape","name":"عنب"}],"vegetables":[{"key":"tomato","name":"طماطم"},{"key":"cucumber","name":"خيار"}]},
+        {"slug":"hasakah","name":"الحسكة","fruits":[],"vegetables":[{"key":null,"name":"قمح"},{"key":null,"name":"عدس"}]},
+        {"slug":"deir-ez-zor","name":"دير الزور","fruits":[{"key":"grape","name":"عنب"}],"vegetables":[{"key":"tomato","name":"طماطم"},{"key":"okra","name":"بامية"},{"key":"cucumber","name":"خيار"}]},
+        {"slug":"raqqa","name":"الرقة","fruits":[],"vegetables":[{"key":null,"name":"قطن"},{"key":null,"name":"قمح"}]},
+        {"slug":"rif-aleppo","name":"ريف حلب","fruits":[{"key":"grape","name":"عنب"},{"key":"cherry","name":"كرز"},{"key":"fig","name":"تين"}],"vegetables":[{"key":null,"name":"زيتون"}]}
+      ]
     }
   ]
 }
