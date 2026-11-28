@@ -28,6 +28,7 @@ jobs:
       - name: توليد الصفحات
         run: |
           node generate.js
+          node generate-world.js
           node sitemap.js
           node generate-news.js
 
