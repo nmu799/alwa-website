@@ -1,12 +1,18 @@
-
-// sitemap.js — يولّد sitemap.xml (عربية + كردية + مقالات + هوية علوة)
-
+// sitemap.js — يولّد sitemap.xml (عربية + كردية + مقالات + هوية علوة + تصدير)
 const fs = require('fs');
 const regions = require('./regions.json');
+const worldRegions = require('./world-regions.json'); // ملف الدول الجديدة
 
 const SITE = 'https://alwairaq.com';
 const today = new Date().toISOString().split('T')[0];
 const KURDISH_GOVS = ['erbil', 'sulaymaniyah', 'duhok', 'halabja'];
+
+// خريطة ربط رمز الدولة برابطها في المتصفح
+const COUNTRY_SLUG = {
+  TH:'thailand', CA:'canada', TR:'turkey', BE:'belgium', IT:'italy',
+  ES:'spain', CN:'china', US:'usa', NL:'netherlands', MX:'mexico',
+  EG:'egypt', SY:'syria'
+};
 
 // مفاتيح Supabase لجلب المقالات
 const SUPABASE_URL = 'https://biaasenkbydtmyqbtvzx.supabase.co';
@@ -67,6 +73,22 @@ async function generateSitemap() {
         }
     });
 
+    // --- إضافة صفحات الدول الجديدة (التصدير) ---
+    worldRegions.countries.forEach(country => {
+        const slug = COUNTRY_SLUG[country.code];
+        if (!slug) return;
+
+        // صفحة الدولة الرئيسية
+        xml += `<url><loc>${SITE}/${slug}/</loc><lastmod>${today}</lastmod><priority>0.9</priority></url>\n`;
+        total++;
+
+        // صفحات المناطق داخل الدولة
+        country.regions.forEach(region => {
+            xml += `<url><loc>${SITE}/${slug}/${region.slug}/</loc><lastmod>${today}</lastmod><priority>0.8</priority></url>\n`;
+            total++;
+        });
+    });
+
     // جلب المقالات المنشورة من Supabase وإضافتها إلى خريطة الموقع
     try {
 
@@ -123,7 +145,7 @@ async function generateSitemap() {
     fs.writeFileSync('./docs/sitemap.xml', xml, 'utf8');
 
     console.log(
-        `✅ sitemap.xml يحتوي الآن على ${total} رابط (عربية + كردية + مقالات + هوية علوة)`
+        `✅ sitemap.xml يحتوي الآن على ${total} رابط (عراق + كردي + تصدير + مقالات + هوية علوة)`
     );
 }
 
