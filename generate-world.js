@@ -22,14 +22,13 @@ const LANG = {
 const T = {
   ar: {
     lang:'ar', dir:'rtl',
-    title: (r) => `تصدير خضار وفواكه من ${r} إلى الخليج وأوروبا وأمريكا | علوة ALWA`,
-    meta: (r) => `صدّر خضار وفواكه من ${r} إلى العراق والخليج وأوروبا وأمريكا عبر تطبيق علوة. أنشئ حساب شركة تصدير في دقائق.`,
-    h1: (r) => `تصدير خضار وفواكه من ${r}`,
+    title: (r, p) => `تصدير ${p} من ${r} للخليج وأوروبا بأفضل أسعار الجملة | علوة ALWA`,
+    meta: (r, p) => `هل تبحث عن طريقة لتصدير ${p} من ${r}؟ علوة ALWA يربطك بمستوردي العراق والخليج مباشرة. سجل شركتك الآن.`,
+    h1: (r) => `تصدير الخضار والفواكه من ${r}`,
     intros: [
-      (r) => `من ${r} إلى أسواق العراق والخليج وأوروبا وأمريكا — تطبيق علوة يفتح باب التصدير الرقمي. سجّل شركتك، وانشر منتجاتك، وتواصل مع المشترين مباشرة.`,
-      (r) => `هل تبحث عن طريقة لتصدير خضار وفواكه من ${r}؟ تطبيق علوة يربطك بمستوردي العراق والخليج بدون وسطاء. أنشئ حساب شركة خلال دقائق.`,
-      (r) => `${r} تمتلك منتجات زراعية تستحق أن تصل إلى العالم. علوة ALWA يمنحك منصة تصدير كاملة: حساب شركة، نشر المنتجات، وتواصل مباشر مع المشترين.`,
-      (r) => `صدّر من ${r} إلى الخليج وأمريكا وأوروبا بضغطة زر. علوة ALWA يجمع المصدرين والمشترين في منصة واحدة — بدون وسطاء، وبدون رسوم.`
+      (r, p) => `تشتهر ${r} بإنتاج ${p} عالي الجودة. من خلال تطبيق علوة، يمكنك الآن تصدير هذا المنتج وغيره إلى العراق، الخليج، أوروبا وأمريكا بضغطة زر وبدون وسطاء.`,
+      (r, p) => `هل تبحث عن طريقة لتصدير ${p} من ${r}؟ تطبيق علوة يفتح لك أسواق العراق والخليج مباشرة. سجّل شركتك، وانشر منتجاتك، وتواصل مع المشترين فوراً.`,
+      (r, p) => `${r} تمتلك منتجات زراعية ممتازة مثل ${p} تستحق الوصول للعالم. علوة يمنحك منصة تصدير كاملة: حساب شركة، نشر المنتجات، وتسويق مباشر.`
     ],
     dest: [
       'تصدير إلى العراق — السوق الأكبر والأقرب جغرافياً',
@@ -38,7 +37,9 @@ const T = {
       'تصدير إلى أمريكا الشمالية — سوق واسع للمنتجات الاستوائية والموسمية',
       'تصدير إلى آسيا الوسطى وروسيا — فرص نمو كبيرة'
     ],
-    prodTitle: (r) => `منتجات التصدير من ${r}`,
+    specialtiesTitle: (r) => `بماذا تشتهر ${r}؟`,
+    specialtiesDesc: (r) => `أبرز المنتجات الزراعية التي يمكن تصديرها من ${r}:`,
+    otherRegionsTitle: (c) => `مناطق أخرى للتصدير في ${c}`,
     regTitle: 'كيف تنشئ حساب شركة تصدير في علوة؟',
     regIntro: 'اتبع الخطوات التالية لإنشاء حساب شركة تصدير جاهز للنشر:',
     steps: [
@@ -57,11 +58,11 @@ const T = {
       { l:'رقم واتساب', h:'مع رمز الدولة' }
     ],
     faqs: [
-      { q:'هل التسجيل في علوة مجاني؟', a:'نعم، التسجيل مجاني بالكامل. لا رسوم اشتراك ولا عمولة على الصفقات.' },
-      { q:'كم يستغرق إنشاء حساب شركة؟', a:'أقل من 5 دقائق. بعد تحميل التطبيق، تنشئ حساب مكتب ثم حساب شركة وتملأ البيانات الأربعة.' },
-      { q:'إلى أي دول يمكنني التصدير؟', a:'العراق، السعودية، الإمارات، الكويت، قطر، عُمان، البحرين، ودول الاتحاد الأوروبي وأمريكا الشمالية.' },
-      { q:'هل أحتاج شركة مسجلة رسمياً؟', a:'يُفضّل ذلك لزيادة الثقة، لكن يمكنك البدء كتاجر فرد والتوسع لاحقاً.' },
-      { q:'كيف يتواصل معي المشترون؟', a:'عبر رقم واتساب والبريد الإلكتروني المسجلين في حساب شركتك.' }
+      (r) => ({ q:`هل التسجيل في علوة مجاني للمصدرين في ${r}؟`, a:'نعم، التسجيل مجاني بالكامل. لا رسوم اشتراك ولا عمولة على الصفقات.' }),
+      (r) => ({ q:'كم يستغرق إنشاء حساب شركة؟', a:'أقل من 5 دقائق. بعد تحميل التطبيق، تنشئ حساب مكتب ثم حساب شركة وتملأ البيانات الأربعة.' }),
+      (r) => ({ q:`إلى أي دول يمكنني تصدير المنتجات من ${r}؟`, a:'العراق، السعودية، الإمارات، الكويت، قطر، عُمان، البحرين، ودول الاتحاد الأوروبي وأمريكا الشمالية.' }),
+      (r) => ({ q:'هل أحتاج شركة مسجلة رسمياً؟', a:'يُفضّل ذلك لزيادة الثقة، لكن يمكنك البدء كتاجر فرد والتوسع لاحقاً.' }),
+      (r) => ({ q:'كيف يتواصل معي المشترون؟', a:'عبر رقم واتساب والبريد الإلكتروني المسجلين في حساب شركتك.' })
     ],
     cta:'حمّل التطبيق وابدأ التصدير',
     contact:'تواصل مع فريق علوة',
@@ -74,14 +75,13 @@ const T = {
 
   en: {
     lang:'en', dir:'ltr',
-    title: (r) => `Export Fruits & Vegetables from ${r} to the Gulf, EU & USA | ALWA`,
-    meta: (r) => `Export fresh fruits and vegetables from ${r} to Iraq, the Gulf, Europe and North America via ALWA. Create an export company account in minutes.`,
+    title: (r, p) => `Export ${p} from ${r} to Gulf & EU - Wholesale Prices | ALWA`,
+    meta: (r, p) => `Looking to export ${p} from ${r}? ALWA connects you with importers in Iraq and the Gulf directly. Register your company now.`,
     h1: (r) => `Export Fruits & Vegetables from ${r}`,
     intros: [
-      (r) => `From ${r} to markets in Iraq, the Gulf, Europe and North America — ALWA opens the door to digital export. Register your company, publish your products, and connect directly with buyers.`,
-      (r) => `Looking for a way to export fruits and vegetables from ${r}? ALWA connects you with importers in Iraq and the Gulf — no middlemen. Create a company account in minutes.`,
-      (r) => `${r} produces premium agricultural goods that deserve global markets. ALWA gives you a complete export platform: company account, product publishing, and direct buyer contact.`,
-      (r) => `Export from ${r} to the Gulf, America and Europe with one click. ALWA brings exporters and buyers together — no middlemen, no fees.`
+      (r, p) => `${r} is famous for producing high-quality ${p}. Through ALWA, you can now export this and other products to Iraq, the Gulf, Europe, and the USA with one click and no middlemen.`,
+      (r, p) => `Looking for a way to export ${p} from ${r}? ALWA opens the markets of Iraq and the Gulf directly to you. Register your company, publish products, and connect with buyers instantly.`,
+      (r, p) => `${r} has excellent agricultural products like ${p} that deserve global reach. ALWA gives you a complete export platform: company account, product publishing, and direct marketing.`
     ],
     dest: [
       'Export to Iraq — the largest and closest market',
@@ -90,7 +90,9 @@ const T = {
       'Export to North America — vast market for tropical and seasonal products',
       'Export to Central Asia and Russia — significant growth opportunities'
     ],
-    prodTitle: (r) => `Export products from ${r}`,
+    specialtiesTitle: (r) => `What is ${r} famous for?`,
+    specialtiesDesc: (r) => `Top agricultural products available for export from ${r}:`,
+    otherRegionsTitle: (c) => `Other export regions in ${c}`,
     regTitle: 'How to create an export company account on ALWA',
     regIntro: 'Follow these steps to set up a company account ready for publishing:',
     steps: [
@@ -109,11 +111,11 @@ const T = {
       { l:'WhatsApp number', h:'With country code' }
     ],
     faqs: [
-      { q:'Is registration on ALWA free?', a:'Yes, completely free. No subscription fees, no commission on deals.' },
-      { q:'How long does it take to create a company account?', a:'Less than 5 minutes: create an Office Account, then a Company Account, then fill in the four fields.' },
-      { q:'Which countries can I export to?', a:'Iraq, Saudi Arabia, UAE, Kuwait, Qatar, Oman, Bahrain, plus EU and North America.' },
-      { q:'Do I need a formally registered company?', a:'Recommended for trust, but you can start as an individual trader and expand later.' },
-      { q:'How will buyers contact me?', a:'Via the WhatsApp number and email registered in your company account.' }
+      (r) => ({ q:`Is registration on ALWA free for exporters in ${r}?`, a:'Yes, completely free. No subscription fees, no commission on deals.' }),
+      (r) => ({ q:'How long does it take to create a company account?', a:'Less than 5 minutes: create an Office Account, then a Company Account, then fill in the four fields.' }),
+      (r) => ({ q:`Which countries can I export to from ${r}?`, a:'Iraq, Saudi Arabia, UAE, Kuwait, Qatar, Oman, Bahrain, plus EU and North America.' }),
+      (r) => ({ q:'Do I need a formally registered company?', a:'Recommended for trust, but you can start as an individual trader and expand later.' }),
+      (r) => ({ q:'How will buyers contact me?', a:'Via the WhatsApp number and email registered in your company account.' })
     ],
     cta:'Download the app and start exporting',
     contact:'Contact the ALWA team',
@@ -126,14 +128,13 @@ const T = {
 
   tr: {
     lang:'tr', dir:'ltr',
-    title: (r) => `${r}'dan Körfez, AB ve ABD'ye Meyve Sebze İhracatı | ALWA`,
-    meta: (r) => `${r}'dan Irak, Körfez, Avrupa ve Kuzey Amerika'ya taze meyve sebze ihracatı. ALWA ile dakikalar içinde ihracat şirket hesabı açın.`,
+    title: (r, p) => `${r}'dan ${p} İhracatı - Körfez ve AB'ye Toptan Fiyatlar | ALWA`,
+    meta: (r, p) => `${r}'dan ${p} ihraç etmek mi istiyorsunuz? ALWA sizi Irak ve Körfez'deki ithalatçılarla doğrudan buluşturur.`,
     h1: (r) => `${r}'dan Meyve Sebze İhracatı`,
     intros: [
-      (r) => `${r}'dan Irak, Körfez, Avrupa ve Kuzey Amerika pazarlarına — ALWA dijital ihracat kapısını açıyor. Şirketinizi kaydedin, ürünlerinizi yayınlayın, alıcılarla doğrudan iletişim kurun.`,
-      (r) => `${r}'dan meyve sebze ihraç etmenin bir yolunu mu arıyorsunuz? ALWA sizi Irak ve Körfez ithalatçılarıyla aracısız buluşturur. Dakikalar içinde şirket hesabı oluşturun.`,
-      (r) => `${r} dünya pazarlarına ulaşmayı hak eden premium tarım ürünleri üretiyor. ALWA tam bir ihracat platformu sunar: şirket hesabı, ürün yayınlama, doğrudan alıcı iletişimi.`,
-      (r) => `${r}'dan Körfez, Amerika ve Avrupa'ya tek tıkla ihracat. ALWA ihracatçıları ve alıcıları bir araya getirir — aracısız, ücretsiz.`
+      (r, p) => `${r} yüksek kaliteli ${p} üretimiyle ünlüdür. ALWA aracılığıyla bu ve diğer ürünleri Irak, Körfez, Avrupa ve ABD'ye tek tıkla ve aracısız ihraç edebilirsiniz.`,
+      (r, p) => `${r}'dan ${p} ihraç etmenin bir yolunu mu arıyorsunuz? ALWA size Irak ve Körfez pazarlarını doğrudan açar. Şirketinizi kaydedin, ürünlerinizi yayınlayın.`,
+      (r, p) => `${r}, ${p} gibi dünya pazarına ulaşmayı hak eden mükemmel tarım ürünlerine sahiptir. ALWA size tam bir ihracat platformu sunar.`
     ],
     dest: [
       'Irak\'a ihracat — en büyük ve en yakın pazar',
@@ -142,7 +143,9 @@ const T = {
       'Kuzey Amerika\'ya ihracat — tropikal ve mevsimlik ürünler için geniş pazar',
       'Orta Asya ve Rusya\'ya ihracat — önemli büyüme fırsatları'
     ],
-    prodTitle: (r) => `${r}'dan ihracat ürünleri`,
+    specialtiesTitle: (r) => `${r} neyle ünlüdür?`,
+    specialtiesDesc: (r) => `${r}'dan ihraç edilebilecek en önemli tarım ürünleri:`,
+    otherRegionsTitle: (c) => `${c} bölgesindeki diğer ihracat bölgeleri`,
     regTitle: 'ALWA\'da ihracat şirket hesabı nasıl açılır',
     regIntro: 'Yayına hazır bir şirket hesabı oluşturmak için şu adımları izleyin:',
     steps: [
@@ -161,11 +164,11 @@ const T = {
       { l:'WhatsApp numarası', h:'Ülke koduyla' }
     ],
     faqs: [
-      { q:'ALWA\'ya kayıt ücretsiz mi?', a:'Evet, tamamen ücretsiz. Abonelik ücreti yok, işlemlerden komisyon alınmaz.' },
-      { q:'Şirket hesabı açmak ne kadar sürer?', a:'5 dakikadan az: Ofis Hesabı oluşturun, ardından Şirket Hesabı açın, dört alanı doldurun.' },
-      { q:'Hangi ülkelere ihracat yapabilirim?', a:'Irak, Suudi Arabistan, BAE, Kuveyt, Katar, Umman, Bahreyn, AB ve Kuzey Amerika.' },
-      { q:'Resmi kayıtlı bir şirket gerekli mi?', a:'Güven için önerilir, ancak bireysel tüccar olarak başlayıp sonra büyüyebilirsiniz.' },
-      { q:'Alıcılar benimle nasıl iletişim kuracak?', a:'Şirket hesabınıza kayıtlı WhatsApp numarası ve e-posta üzerinden.' }
+      (r) => ({ q:`${r}'da ALWA'ya kayıt ücretsiz mi?`, a:'Evet, tamamen ücretsiz. Abonelik ücreti yok, işlemlerden komisyon alınmaz.' }),
+      (r) => ({ q:'Şirket hesabı açmak ne kadar sürer?', a:'5 dakikadan az: Ofis Hesabı oluşturun, ardından Şirket Hesabı açın.' }),
+      (r) => ({ q:`${r}'dan hangi ülkelere ihracat yapabilirim?`, a:'Irak, Suudi Arabistan, BAE, Kuveyt, Katar, Umman, Bahreyn, AB ve Kuzey Amerika.' }),
+      (r) => ({ q:'Resmi kayıtlı bir şirket gerekli mi?', a:'Güven için önerilir, ancak bireysel tüccar olarak başlayıp sonra büyüyebilirsiniz.' }),
+      (r) => ({ q:'Alıcılar benimle nasıl iletişim kuracak?', a:'Şirket hesabınıza kayıtlı WhatsApp numarası ve e-posta üzerinden.' })
     ],
     cta:'Uygulamayı indir ve ihracata başla',
     contact:'ALWA ekibiyle iletişime geçin',
@@ -178,14 +181,13 @@ const T = {
 
   nl: {
     lang:'nl', dir:'ltr',
-    title: (r) => `Export groenten en fruit uit ${r} naar Golf, EU en VS | ALWA`,
-    meta: (r) => `Exporteer verse groenten en fruit uit ${r} naar Irak, de Golf, Europa en Noord-Amerika via ALWA. Open een exporthandelsaccount in minuten.`,
+    title: (r, p) => `Export ${p} uit ${r} naar Golf & EU - Groothandelsprijzen | ALWA`,
+    meta: (r, p) => `Wilt u ${p} exporteren uit ${r}? ALWA verbindt u rechtstreeks met importeurs in Irak en de Golf.`,
     h1: (r) => `Export groenten en fruit uit ${r}`,
     intros: [
-      (r) => `Van ${r} naar markten in Irak, de Golf, Europa en Noord-Amerika — ALWA opent de deur naar digitale export. Registreer uw bedrijf, publiceer uw producten en communiceer rechtstreeks met kopers.`,
-      (r) => `Op zoek naar een manier om groenten en fruit uit ${r} te exporteren? ALWA verbindt u met importeurs in Irak en de Golf — zonder tussenpersonen.`,
-      (r) => `${r} produceert premium landbouwproducten die wereldmarkten verdienen. ALWA biedt een compleet exportplatform: bedrijfsaccount, productpublicatie en directe contacten met kopers.`,
-      (r) => `Exporteer uit ${r} naar de Golf, Amerika en Europa met één klik. ALWA brengt exporteurs en kopers samen — zonder tussenpersonen, zonder kosten.`
+      (r, p) => `${r} is beroemd om de productie van hoogwaardige ${p}. Via ALWA kunt u dit en andere producten met één klik exporteren naar Irak, de Golf, Europa en de VS.`,
+      (r, p) => `Op zoek naar een manier om ${p} uit ${r} te exporteren? ALWA opent de markten van Irak en de Golf direct voor u.`,
+      (r, p) => `${r} heeft uitstekende landbouwproducten zoals ${p} die wereldwijde aandacht verdienen. ALWA biedt een compleet exportplatform.`
     ],
     dest: [
       'Export naar Irak — de grootste en dichtstbijzijnde markt',
@@ -194,7 +196,9 @@ const T = {
       'Export naar Noord-Amerika — enorme markt voor tropische en seizoensproducten',
       'Export naar Centraal-Azië en Rusland — aanzienlijke groeikansen'
     ],
-    prodTitle: (r) => `Exportproducten uit ${r}`,
+    specialtiesTitle: (r) => `Waar is ${r} beroemd om?`,
+    specialtiesDesc: (r) => `Belangrijkste landbouwproducten die beschikbaar zijn voor export uit ${r}:`,
+    otherRegionsTitle: (c) => `Andere exportregio's in ${c}`,
     regTitle: 'Hoe maak je een exporthandelsaccount op ALWA',
     regIntro: 'Volg deze stappen om een klaar-voor-publicatie bedrijfsaccount aan te maken:',
     steps: [
@@ -213,11 +217,11 @@ const T = {
       { l:'WhatsApp-nummer', h:'Met landcode' }
     ],
     faqs: [
-      { q:'Is registratie op ALWA gratis?', a:'Ja, volledig gratis. Geen abonnementskosten, geen commissie op transacties.' },
-      { q:'Hoe lang duurt het om een bedrijfsaccount aan te maken?', a:'Minder dan 5 minuten: Office-account, dan Company-account, dan de vier velden invullen.' },
-      { q:'Naar welke landen kan ik exporteren?', a:'Irak, Saoedi-Arabië, VAE, Koeweit, Qatar, Oman, Bahrein, plus de EU en Noord-Amerika.' },
-      { q:'Heb ik een formeel geregistreerd bedrijf nodig?', a:'Aanbevolen voor vertrouwen, maar u kunt als individuele handelaar beginnen en later uitbreiden.' },
-      { q:'Hoe nemen kopers contact met mij op?', a:'Via het WhatsApp-nummer en e-mailadres dat in uw bedrijfsaccount is geregistreerd.' }
+      (r) => ({ q:`Is registratie op ALWA gratis voor exporteurs in ${r}?`, a:'Ja, volledig gratis. Geen abonnementskosten, geen commissie.' }),
+      (r) => ({ q:'Hoe lang duurt het om een bedrijfsaccount aan te maken?', a:'Minder dan 5 minuten: Office-account, dan Company-account.' }),
+      (r) => ({ q:`Naar welke landen kan ik exporteren vanuit ${r}?`, a:'Irak, Saoedi-Arabië, VAE, Koeweit, Qatar, Oman, Bahrein, plus de EU en Noord-Amerika.' }),
+      (r) => ({ q:'Heb ik een formeel geregistreerd bedrijf nodig?', a:'Aanbevolen voor vertrouwen, maar u kunt als individuele handelaar beginnen.' }),
+      (r) => ({ q:'Hoe nemen kopers contact met mij op?', a:'Via het WhatsApp-nummer en e-mailadres in uw bedrijfsaccount.' })
     ],
     cta:'Download de app en begin met exporteren',
     contact:'Neem contact op met het ALWA-team',
@@ -225,36 +229,37 @@ const T = {
     fFruits:'Fruit',
     fVeg:'Groenten',
     footer:'ALWA — Groenten & Fruit Exportplatform',
-    empty:'Gedetailleerde producten voor deze regio worden binnenkort toegevoegd. Neem contact met ons op voor beschikbare exportproducten.'
+    empty:'Gedetailleerde producten voor deze regio worden binnenkort toegevoegd.'
   },
 
   it: {
     lang:'it', dir:'ltr',
-    title: (r) => `Esporta frutta e verdura da ${r} verso Golfo, UE e USA | ALWA`,
-    meta: (r) => `Esporta frutta e verdura fresca da ${r} verso Iraq, Golfo, Europa e Nord America tramite ALWA. Crea un conto aziendale per l'export in pochi minuti.`,
+    title: (r, p) => `Esporta ${p} da ${r} verso Golfo e UE - Prezzi all'ingrosso | ALWA`,
+    meta: (r, p) => `Vuoi esportare ${p} da ${r}? ALWA ti collega direttamente con gli importatori in Iraq e nel Golfo.`,
     h1: (r) => `Esporta frutta e verdura da ${r}`,
     intros: [
-      (r) => `Da ${r} ai mercati di Iraq, Golfo, Europa e Nord America — ALWA apre la porta all'export digitale. Registra la tua azienda, pubblica i tuoi prodotti e comunica direttamente con gli acquirenti.`,
-      (r) => `Cerchi un modo per esportare frutta e verdura da ${r}? ALWA ti collega con importatori in Iraq e nel Golfo — senza intermediari.`,
-      (r) => `${r} produce prodotti agricoli premium che meritano i mercati globali. ALWA offre una piattaforma completa: conto aziendale, pubblicazione prodotti e contatto diretto con gli acquirenti.`,
-      (r) => `Esporta da ${r} verso Golfo, America ed Europa con un clic. ALWA unisce esportatori e acquirenti — senza intermediari, senza commissioni.`
+      (r, p) => `${r} è famosa per la produzione di ${p} di alta qualità. Tramite ALWA, ora puoi esportare questo e altri prodotti in Iraq, Golfo, Europa e USA con un clic.`,
+      (r, p) => `Cerchi un modo per esportare ${p} da ${r}? ALWA apre direttamente i mercati di Iraq e Golfo.`,
+      (r, p) => `${r} ha prodotti agricoli eccellenti come ${p} che meritano di raggiungere il mondo. ALWA ti offre una piattaforma di esportazione completa.`
     ],
     dest: [
       'Export verso l\'Iraq — il mercato più grande e vicino',
-      'Export verso Arabia Saudita, EAU, Kuwait e Qatar — domanda crescente di prodotti freschi',
-      'Export verso l\'Unione Europea — elevati standard qualitativi e prezzi premium',
-      'Export verso il Nord America — vasto mercato per prodotti tropicali e stagionali',
-      'Export verso Asia Centrale e Russia — significative opportunità di crescita'
+      'Export verso Arabia Saudita, EAU, Kuwait e Qatar — domanda crescente',
+      'Export verso l\'Unione Europea — elevati standard qualitativi',
+      'Export verso il Nord America — vasto mercato per prodotti tropicali',
+      'Export verso Asia Centrale e Russia — significative opportunità'
     ],
-    prodTitle: (r) => `Prodotti da esportazione da ${r}`,
+    specialtiesTitle: (r) => `Per cosa è famosa ${r}?`,
+    specialtiesDesc: (r) => `I principali prodotti agricoli disponibili per l'esportazione da ${r}:`,
+    otherRegionsTitle: (c) => `Altre regioni di esportazione in ${c}`,
     regTitle: 'Come creare un conto aziendale per l\'export su ALWA',
-    regIntro: 'Segui questi passaggi per creare un conto aziendale pronto per la pubblicazione:',
+    regIntro: 'Segui questi passaggi per creare un conto aziendale pronto:',
     steps: [
       'Scarica l\'app ALWA da Google Play o App Store',
       'Crea un Office Account — l\'Office gestisce le tue aziende',
       'All\'interno dell\'Office, crea un Company Account',
-      'Compila i dati aziendali: nome, paese, Gmail, numero WhatsApp',
-      'Pubblica i tuoi prodotti da esportazione con foto e quantità disponibili',
+      'Compila i dati: nome, paese, Gmail, numero WhatsApp',
+      'Pubblica i tuoi prodotti da esportazione',
       'Connettiti con acquirenti in Iraq, Golfo, Europa e Nord America'
     ],
     fieldsTitle: 'Dati di registrazione aziendale',
@@ -265,11 +270,11 @@ const T = {
       { l:'Numero WhatsApp', h:'Con prefisso internazionale' }
     ],
     faqs: [
-      { q:'La registrazione su ALWA è gratuita?', a:'Sì, completamente gratuita. Nessun costo di abbonamento, nessuna commissione sulle transazioni.' },
-      { q:'Quanto tempo serve per creare un conto aziendale?', a:'Meno di 5 minuti: crea Office Account, poi Company Account, poi compila i quattro campi.' },
-      { q:'Verso quali paesi posso esportare?', a:'Iraq, Arabia Saudita, EAU, Kuwait, Qatar, Oman, Bahrein, più UE e Nord America.' },
-      { q:'Serve un\'azienda formalmente registrata?', a:'Raccomandato per la fiducia, ma puoi iniziare come commerciante individuale ed espanderti.' },
-      { q:'Come mi contatteranno gli acquirenti?', a:'Tramite il numero WhatsApp e l\'email registrati nel tuo conto aziendale.' }
+      (r) => ({ q:`La registrazione su ALWA è gratuita per gli esportatori in ${r}?`, a:'Sì, completamente gratuita. Nessun costo.' }),
+      (r) => ({ q:'Quanto tempo serve per creare un conto aziendale?', a:'Meno di 5 minuti: crea Office Account, poi Company Account.' }),
+      (r) => ({ q:`Verso quali paesi posso esportare da ${r}?`, a:'Iraq, Arabia Saudita, EAU, Kuwait, Qatar, Oman, Bahrein, più UE e Nord America.' }),
+      (r) => ({ q:'Serve un\'azienda formalmente registrata?', a:'Raccomandato, ma puoi iniziare come commerciante individuale.' }),
+      (r) => ({ q:'Come mi contatteranno gli acquirenti?', a:'Tramite il numero WhatsApp e l\'email registrati.' })
     ],
     cta:'Scarica l\'app e inizia a esportare',
     contact:'Contatta il team ALWA',
@@ -277,36 +282,37 @@ const T = {
     fFruits:'Frutta',
     fVeg:'Verdura',
     footer:'ALWA — Piattaforma di Export Frutta e Verdura',
-    empty:'I prodotti dettagliati per questa regione saranno aggiunti presto. Contattaci per conoscere i prodotti disponibili.'
+    empty:'I prodotti dettagliati per questa regione saranno aggiunti presto.'
   },
 
   es: {
     lang:'es', dir:'ltr',
-    title: (r) => `Exportar frutas y verduras desde ${r} al Golfo, UE y EE.UU. | ALWA`,
-    meta: (r) => `Exporta frutas y verduras frescas desde ${r} a Irak, el Golfo, Europa y Norteamérica mediante ALWA. Crea una cuenta de empresa exportadora en minutos.`,
+    title: (r, p) => `Exportar ${p} desde ${r} al Golfo y UE - Precios al por mayor | ALWA`,
+    meta: (r, p) => `¿Buscas exportar ${p} desde ${r}? ALWA te conecta directamente con importadores en Irak y el Golfo.`,
     h1: (r) => `Exportar frutas y verduras desde ${r}`,
     intros: [
-      (r) => `Desde ${r} a los mercados de Irak, el Golfo, Europa y Norteamérica — ALWA abre la puerta a la exportación digital. Registra tu empresa, publica tus productos y comunícate directamente con compradores.`,
-      (r) => `¿Buscas una forma de exportar frutas y verduras desde ${r}? ALWA te conecta con importadores en Irak y el Golfo — sin intermediarios.`,
-      (r) => `${r} produce productos agrícolas premium que merecen los mercados globales. ALWA ofrece una plataforma completa: cuenta de empresa, publicación de productos y contacto directo con compradores.`,
-      (r) => `Exporta desde ${r} al Golfo, América y Europa con un clic. ALWA une exportadores y compradores — sin intermediarios, sin comisiones.`
+      (r, p) => `${r} es famosa por producir ${p} de alta calidad. A través de ALWA, ahora puedes exportar este y otros productos a Irak, el Golfo, Europa y EE.UU.`,
+      (r, p) => `¿Buscas una forma de exportar ${p} desde ${r}? ALWA te abre los mercados de Irak y el Golfo directamente.`,
+      (r, p) => `${r} tiene excelentes productos agrícolas como ${p} que merecen llegar al mundo. ALWA te ofrece una plataforma completa.`
     ],
     dest: [
       'Exportar a Irak — el mercado más grande y cercano',
-      'Exportar a Arabia Saudita, EAU, Kuwait y Catar — demanda creciente de productos frescos',
-      'Exportar a la Unión Europea — altos estándares de calidad y precios premium',
-      'Exportar a Norteamérica — vasto mercado para productos tropicales y de temporada',
-      'Exportar a Asia Central y Rusia — importantes oportunidades de crecimiento'
+      'Exportar a Arabia Saudita, EAU, Kuwait y Catar — demanda creciente',
+      'Exportar a la Unión Europea — altos estándares de calidad',
+      'Exportar a Norteamérica — vasto mercado para productos tropicales',
+      'Exportar a Asia Central y Rusia — oportunidades de crecimiento'
     ],
-    prodTitle: (r) => `Productos de exportación desde ${r}`,
+    specialtiesTitle: (r) => `¿Por qué es famosa ${r}?`,
+    specialtiesDesc: (r) => `Principales productos agrícolas disponibles para exportación desde ${r}:`,
+    otherRegionsTitle: (c) => `Otras regiones de exportación en ${c}`,
     regTitle: 'Cómo crear una cuenta de empresa exportadora en ALWA',
-    regIntro: 'Sigue estos pasos para crear una cuenta de empresa lista para publicar:',
+    regIntro: 'Sigue estos pasos para crear una cuenta de empresa lista:',
     steps: [
       'Descarga la app ALWA desde Google Play o App Store',
       'Crea una Office Account — la Office gestiona tus empresas',
       'Dentro de la Office, crea una Company Account',
-      'Completa los datos de la empresa: nombre, país, Gmail, número de WhatsApp',
-      'Publica tus productos de exportación con fotos y cantidades disponibles',
+      'Completa los datos: nombre, país, Gmail, número de WhatsApp',
+      'Publica tus productos de exportación',
       'Conéctate con compradores en Irak, el Golfo, Europa y Norteamérica'
     ],
     fieldsTitle: 'Datos de registro de la empresa',
@@ -317,11 +323,11 @@ const T = {
       { l:'Número de WhatsApp', h:'Con código de país' }
     ],
     faqs: [
-      { q:'¿Es gratis registrarse en ALWA?', a:'Sí, totalmente gratis. Sin cuotas de suscripción, sin comisiones en transacciones.' },
-      { q:'¿Cuánto tarda crear una cuenta de empresa?', a:'Menos de 5 minutos: crea Office Account, luego Company Account, luego rellena los cuatro campos.' },
-      { q:'¿A qué países puedo exportar?', a:'Irak, Arabia Saudita, EAU, Kuwait, Catar, Omán, Baréin, más UE y Norteamérica.' },
-      { q:'¿Necesito una empresa registrada formalmente?', a:'Recomendado para generar confianza, pero puedes empezar como comerciante individual y ampliar.' },
-      { q:'¿Cómo me contactarán los compradores?', a:'Mediante el número de WhatsApp y el correo registrados en tu cuenta de empresa.' }
+      (r) => ({ q:`¿Es gratis registrarse en ALWA para exportadores en ${r}?`, a:'Sí, totalmente gratis. Sin cuotas ni comisiones.' }),
+      (r) => ({ q:'¿Cuánto tarda crear una cuenta de empresa?', a:'Menos de 5 minutos: crea Office Account, luego Company Account.' }),
+      (r) => ({ q:`¿A qué países puedo exportar desde ${r}?`, a:'Irak, Arabia Saudita, EAU, Kuwait, Catar, Omán, Baréin, más UE y Norteamérica.' }),
+      (r) => ({ q:'¿Necesito una empresa registrada formalmente?', a:'Recomendado, pero puedes empezar como comerciante individual.' }),
+      (r) => ({ q:'¿Cómo me contactarán los compradores?', a:'Mediante el número de WhatsApp y el correo registrados.' })
     ],
     cta:'Descarga la app y comienza a exportar',
     contact:'Contacta con el equipo de ALWA',
@@ -329,36 +335,37 @@ const T = {
     fFruits:'Frutas',
     fVeg:'Verduras',
     footer:'ALWA — Plataforma de Exportación de Frutas y Verduras',
-    empty:'Los productos detallados de esta región se añadirán pronto. Contáctanos para conocer los productos disponibles.'
+    empty:'Los productos detallados para esta región se añadirán pronto.'
   },
 
   zh: {
     lang:'zh', dir:'ltr',
-    title: (r) => `从${r}出口水果蔬菜到海湾、欧盟和美国 | ALWA`,
-    meta: (r) => `通过ALWA应用从${r}向伊拉克、海湾、欧洲和北美出口新鲜水果和蔬菜。几分钟内创建出口公司账户。`,
+    title: (r, p) => `从${r}出口${p}到海湾和欧盟 - 批发价格 | ALWA`,
+    meta: (r, p) => `寻找从${r}出口${p}的方法？ALWA将您与伊拉克和海湾的进口商直接联系起来。`,
     h1: (r) => `从${r}出口水果和蔬菜`,
     intros: [
-      (r) => `从${r}到伊拉克、海湾、欧洲和北美市场——ALWA打开数字出口的大门。注册您的公司，发布产品，直接与买家沟通。`,
-      (r) => `正在寻找从${r}出口水果和蔬菜的方法？ALWA将您与伊拉克和海湾的进口商联系起来——没有中间商。`,
-      (r) => `${r}生产优质的农产品，应该进入全球市场。ALWA提供完整的出口平台：公司账户、产品发布和直接与买家联系。`,
-      (r) => `从${r}一键出口到海湾、美国和欧洲。ALWA将出口商和买家聚集在一起——无中间商，无费用。`
+      (r, p) => `${r}以生产高品质的${p}而闻名。通过ALWA，您现在可以一键将这种产品和其他产品出口到伊拉克、海湾、欧洲和美国。`,
+      (r, p) => `正在寻找从${r}出口${p}的方法？ALWA直接为您打开伊拉克和海湾市场。`,
+      (r, p) => `${r}拥有像${p}这样优秀的农产品，应该走向世界。ALWA为您提供完整的出口平台。`
     ],
     dest: [
       '出口到伊拉克——最大且最近的市场',
-      '出口到沙特、阿联酋、科威特和卡塔尔——对新鲜产品需求旺盛',
-      '出口到欧盟——高质量标准和溢价',
-      '出口到北美——热带和季节性产品的巨大市场',
-      '出口到中亚和俄罗斯——重大增长机会'
+      '出口到沙特、阿联酋、科威特和卡塔尔——需求旺盛',
+      '出口到欧盟——高质量标准',
+      '出口到北美——热带产品的巨大市场',
+      '出口到中亚和俄罗斯——增长机会'
     ],
-    prodTitle: (r) => `${r}出口产品`,
+    specialtiesTitle: (r) => `${r}以什么闻名？`,
+    specialtiesDesc: (r) => `可从${r}出口的主要农产品：`,
+    otherRegionsTitle: (c) => `${c}的其他出口地区`,
     regTitle: '如何在ALWA上创建出口公司账户',
     regIntro: '按照以下步骤创建可发布的公司账户：',
     steps: [
       '从Google Play或App Store下载ALWA应用',
       '创建Office Account——Office管理您的公司',
       '在Office中创建Company Account',
-      '填写公司信息：名称、国家、Gmail、WhatsApp号码',
-      '发布您的出口产品，附上照片和可用数量',
+      '填写信息：名称、国家、Gmail、WhatsApp号码',
+      '发布您的出口产品',
       '与伊拉克、海湾、欧洲和北美的买家联系'
     ],
     fieldsTitle: '公司注册信息',
@@ -369,11 +376,11 @@ const T = {
       { l:'WhatsApp号码', h:'含国家代码' }
     ],
     faqs: [
-      { q:'在ALWA注册是免费的吗？', a:'是的，完全免费。没有订阅费，没有交易佣金。' },
-      { q:'创建公司账户需要多长时间？', a:'不到5分钟：先创建Office Account，再创建Company Account，然后填写四项信息。' },
-      { q:'我可以向哪些国家出口？', a:'伊拉克、沙特、阿联酋、科威特、卡塔尔、阿曼、巴林，以及欧盟和北美。' },
-      { q:'我需要正式注册的公司吗？', a:'建议注册以建立信任，但可以先以个体商人身份开始，之后扩展。' },
-      { q:'买家如何联系我？', a:'通过您公司账户注册的WhatsApp号码和邮箱。' }
+      (r) => ({ q:`在${r}注册ALWA免费吗？`, a:'是的，完全免费。没有订阅费，没有佣金。' }),
+      (r) => ({ q:'创建公司账户需要多长时间？', a:'不到5分钟：先创建Office Account，再创建Company Account。' }),
+      (r) => ({ q:`我可以从${r}向哪些国家出口？`, a:'伊拉克、沙特、阿联酋、科威特、卡塔尔、阿曼、巴林，以及欧盟和北美。' }),
+      (r) => ({ q:'我需要正式注册的公司吗？', a:'建议注册以建立信任，但可以先以个体商人身份开始。' }),
+      (r) => ({ q:'买家如何联系我？', a:'通过您公司账户注册的WhatsApp号码和邮箱。' })
     ],
     cta:'下载应用开始出口',
     contact:'联系ALWA团队',
@@ -381,36 +388,37 @@ const T = {
     fFruits:'水果',
     fVeg:'蔬菜',
     footer:'ALWA——水果蔬菜出口平台',
-    empty:'该地区的详细产品即将添加。请与我们联系了解可出口的产品。'
+    empty:'该地区的详细产品即将添加。'
   },
 
   th: {
     lang:'th', dir:'ltr',
-    title: (r) => `ส่งออกผักและผลไม้จาก${r}ไปอ่าว ยุโรป และสหรัฐฯ | ALWA`,
-    meta: (r) => `ส่งออกผักและผลไม้สดจาก${r}ไปยังอิรัก อ่าวเปอร์เซีย ยุโรป และอเมริกาเหนือผ่านแอป ALWA สร้างบัญชีบริษัทส่งออกได้ในไม่กี่นาที`,
+    title: (r, p) => `ส่งออก${p}จาก${r}ไปอ่าวและสหภาพยุโรป - ราคาขายส่ง | ALWA`,
+    meta: (r, p) => `กำลังมองหาวิธีส่งออก${p}จาก${r}ใช่หรือไม่? ALWA เชื่อมต่อคุณกับผู้นำเข้าในอิรักและอ่าวเปอร์เซียโดยตรง`,
     h1: (r) => `ส่งออกผักและผลไม้จาก${r}`,
     intros: [
-      (r) => `จาก${r}ไปยังตลาดในอิรัก อ่าวเปอร์เซีย ยุโรป และอเมริกาเหนือ — ALWA เปิดประตูสู่การส่งออกดิจิทัล ลงทะเบียนบริษัท เผยแพร่สินค้า และติดต่อผู้ซื้อโดยตรง`,
-      (r) => `กำลังมองหาวิธีส่งออกผักและผลไม้จาก${r}อยู่หรือไม่? ALWA เชื่อมคุณกับผู้นำเข้าในอิรักและอ่าวเปอร์เซีย — ไม่มีคนกลาง`,
-      (r) => `${r}ผลิตสินค้าเกษตรคุณภาพพรีเมียมที่สมควรเข้าสู่ตลาดโลก ALWA มอบแพลตฟอร์มส่งออกครบวงจร: บัญชีบริษัท การเผยแพร่สินค้า และการติดต่อผู้ซื้อโดยตรง`,
-      (r) => `ส่งออกจาก${r}ไปยังอ่าว อเมริกา และยุโรปด้วยคลิกเดียว ALWA รวมผู้ส่งออกและผู้ซื้อไว้ในแพลตฟอร์มเดียว — ไม่มีคนกลาง ไม่มีค่าธรรมเนียม`
+      (r, p) => `${r}มีชื่อเสียงในด้านการผลิต${p}คุณภาพสูง ผ่าน ALWA คุณสามารถส่งออกสินค้านี้และอื่น ๆ ไปยังอิรัก อ่าวเปอร์เซีย ยุโรป และสหรัฐฯ ได้ด้วยคลิกเดียว`,
+      (r, p) => `กำลังมองหาวิธีส่งออก${p}จาก${r}อยู่หรือไม่? ALWA เปิดตลาดอิรักและอ่าวเปอร์เซียให้คุณโดยตรง`,
+      (r, p) => `${r}มีผลิตภัณฑ์ทางการเกษตรที่ยอดเยี่ยมเช่น${p}ที่สมควรไปสู่ตลาดโลก ALWA มอบแพลตฟอร์มการส่งออกที่สมบูรณ์แบบ`
     ],
     dest: [
       'ส่งออกไปยังอิรัก — ตลาดที่ใหญ่ที่สุดและใกล้ที่สุด',
-      'ส่งออกไปยังซาอุดีอาระเบีย สหรัฐอาหรับเอมิเรตส์ คูเวต และกาตาร์ — ความต้องการสินค้าสดเพิ่มขึ้น',
-      'ส่งออกไปยังสหภาพยุโรป — มาตรฐานคุณภาพสูงและราคาพรีเมียม',
-      'ส่งออกไปยังอเมริกาเหนือ — ตลาดขนาดใหญ่สำหรับสินค้าเขตร้อนและตามฤดูกาล',
-      'ส่งออกไปยังเอเชียกลางและรัสเซีย — โอกาสเติบโตที่สำคัญ'
+      'ส่งออกไปยังซาอุดีอาระเบีย สหรัฐอาหรับเอมิเรตส์ คูเวต และกาตาร์',
+      'ส่งออกไปยังสหภาพยุโรป — มาตรฐานคุณภาพสูง',
+      'ส่งออกไปยังอเมริกาเหนือ — ตลาดขนาดใหญ่',
+      'ส่งออกไปยังเอเชียกลางและรัสเซีย — โอกาสเติบโต'
     ],
-    prodTitle: (r) => `สินค้าส่งออกจาก${r}`,
+    specialtiesTitle: (r) => `${r}มีชื่อเสียงในเรื่องอะไร?`,
+    specialtiesDesc: (r) => `ผลิตภัณฑ์ทางการเกษตรที่สำคัญสำหรับการส่งออกจาก${r}:`,
+    otherRegionsTitle: (c) => `ภูมิภาคส่งออกอื่นๆ ใน${c}`,
     regTitle: 'วิธีสร้างบัญชีบริษัทส่งออกบน ALWA',
-    regIntro: 'ทำตามขั้นตอนเหล่านี้เพื่อสร้างบัญชีบริษัทพร้อมเผยแพร่:',
+    regIntro: 'ทำตามขั้นตอนเหล่านี้เพื่อสร้างบัญชีบริษัท:',
     steps: [
       'ดาวน์โหลดแอป ALWA จาก Google Play หรือ App Store',
       'สร้าง Office Account — Office จัดการบริษัทของคุณ',
       'ภายใน Office สร้าง Company Account',
-      'กรอกข้อมูลบริษัท: ชื่อ ประเทศ Gmail หมายเลข WhatsApp',
-      'เผยแพร่สินค้าส่งออกพร้อมรูปภาพและปริมาณที่มี',
+      'กรอกข้อมูลบริษัท: ชื่อ ประเทศ Gmail WhatsApp',
+      'เผยแพร่สินค้าส่งออกของคุณ',
       'ติดต่อผู้ซื้อในอิรัก อ่าวเปอร์เซีย ยุโรป และอเมริกาเหนือ'
     ],
     fieldsTitle: 'ข้อมูลการลงทะเบียนบริษัท',
@@ -421,11 +429,11 @@ const T = {
       { l:'หมายเลข WhatsApp', h:'พร้อมรหัสประเทศ' }
     ],
     faqs: [
-      { q:'การลงทะเบียนบน ALWA ฟรีหรือไม่?', a:'ใช่ ฟรีทั้งหมด ไม่มีค่าสมาชิก ไม่มีค่าคอมมิชชั่นจากธุรกรรม' },
-      { q:'ใช้เวลานานเท่าไรในการสร้างบัญชีบริษัท?', a:'น้อยกว่า 5 นาที: สร้าง Office Account จากนั้น Company Account แล้วกรอกสี่ช่อง' },
-      { q:'ฉันสามารถส่งออกไปยังประเทศใดได้บ้าง?', a:'อิรัก ซาอุดีอาระเบีย สหรัฐอาหรับเอมิเรตส์ คูเวต กาตาร์ โอมาน บาห์เรน รวมถึงสหภาพยุโรปและอเมริกาเหนือ' },
-      { q:'ต้องมีบริษัทจดทะเบียนอย่างเป็นทางการหรือไม่?', a:'แนะนำเพื่อสร้างความน่าเชื่อถือ แต่สามารถเริ่มเป็นพ่อค้ารายบุคคลและขยายในภายหลังได้' },
-      { q:'ผู้ซื้อจะติดต่อฉันได้อย่างไร?', a:'ผ่านหมายเลข WhatsApp และอีเมลที่ลงทะเบียนในบัญชีบริษัทของคุณ' }
+      (r) => ({ q:`การลงทะเบียนบน ALWA ฟรีสำหรับผู้ส่งออกใน${r}หรือไม่?`, a:'ใช่ ฟรีทั้งหมด ไม่มีค่าสมาชิก' }),
+      (r) => ({ q:'ใช้เวลานานเท่าไรในการสร้างบัญชีบริษัท?', a:'น้อยกว่า 5 นาที' }),
+      (r) => ({ q:`ฉันสามารถส่งออกจาก${r}ไปยังประเทศใดได้บ้าง?`, a:'อิรัก ซาอุดีอาระเบีย สหรัฐอาหรับเอมิเรตส์ คูเวต กาตาร์ โอมาน บาห์เรน สหภาพยุโรป และอเมริกาเหนือ' }),
+      (r) => ({ q:'ต้องมีบริษัทจดทะเบียนหรือไม่?', a:'แนะนำ แต่สามารถเริ่มเป็นพ่อค้ารายบุคคลได้' }),
+      (r) => ({ q:'ผู้ซื้อจะติดต่อฉันได้อย่างไร?', a:'ผ่านหมายเลข WhatsApp และอีเมลที่ลงทะเบียน' })
     ],
     cta:'ดาวน์โหลดแอปและเริ่มส่งออก',
     contact:'ติดต่อทีม ALWA',
@@ -433,7 +441,7 @@ const T = {
     fFruits:'ผลไม้',
     fVeg:'ผัก',
     footer:'ALWA — แพลตฟอร์มส่งออกผักและผลไม้',
-    empty:'สินค้าโดยละเอียดสำหรับภูมิภาคนี้จะถูกเพิ่มในเร็วๆ นี้ ติดต่อเราเพื่อทราบสินค้าที่พร้อมส่งออก'
+    empty:'สินค้าโดยละเอียดสำหรับภูมิภาคนี้จะถูกเพิ่มในเร็วๆ นี้'
   }
 };
 
@@ -453,6 +461,7 @@ a{color:#04722b}
 .stores a{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:700;font-size:.95rem;color:#fff;background:#04722b;transition:opacity .2s}
 .stores a.apple{background:#000}
 .stores a:hover{opacity:.85}
+.stores svg{width:20px;height:20px;fill:currentColor}
 .dest{background:#f6fbf7;border:1px solid #e2efe5;border-radius:10px;padding:16px 20px;margin:20px 0}
 .dest li{color:#035a22;padding:6px 0;list-style:none;position:relative;padding-left:22px}
 .dest li:before{content:'✓';position:absolute;left:0;color:#04722b;font-weight:700}
@@ -475,6 +484,9 @@ a{color:#04722b}
 .contact a{display:inline-block;margin:4px 10px 4px 0;font-weight:600}
 .regions{columns:2;list-style:none;padding:0;margin:20px 0}
 .regions li{padding:6px 0;break-inside:avoid}
+.other-areas{background:#fff;border:1px solid #e2efe5;border-radius:10px;padding:16px 20px;margin:20px 0;list-style:none}
+.other-areas li{padding:8px 0;border-bottom:1px dashed #eee;margin:0}
+.other-areas li:last-child{border:none}
 footer{background:#023d17;color:#fff;text-align:center;padding:20px;margin-top:48px;font-size:.9rem}
 footer p{margin:4px 0;color:#fff}
 </style>`;
@@ -506,32 +518,49 @@ function makeRegionPage(country, region, t) {
   const slug = COUNTRY_SLUG[country.code];
   const url = `${SITE}/${slug}/${region.slug}/`;
   const seed = `${slug}/${region.slug}`;
+  
   const fruits = region.fruits || [];
   const vegetables = region.vegetables || [];
-  const intro = pick(seed+'-i', t.intros)(region.name);
+  
+  // اختيار "أشهر منتج" للاستخدام في العنوان
+  let topProduct = "المنتجات الزراعية";
+  if (fruits.length > 0) topProduct = fruits[0].name;
+  else if (vegetables.length > 0) topProduct = vegetables[0].name;
+
+  const intro = pick(seed+'-i', t.intros)(region.name, topProduct);
   const destinationsHtml = t.dest.map(d => `<li>${d}</li>`).join('');
   const fieldsHtml = t.fields.map(f => `<div class="row"><span class="lbl">${f.l}</span><span class="hint">${f.h}</span></div>`).join('');
   const stepsHtml = t.steps.map(s => `<li>${s}</li>`).join('');
-  const faqsHtml = t.faqs.map(f => `<h3>${f.q}</h3><p>${f.a}</p>`).join('');
+  
+  // أسئلة شائعة ديناميكية
+  const faqsHtml = t.faqs.map(fn => {
+    const f = fn(region.name);
+    return `<h3>${f.q}</h3><p>${f.a}</p>`;
+  }).join('');
+
   const fruitsHtml = fruits.length ? `<h2>${t.fFruits} — ${region.name}</h2><div class="grid">${fruits.map(p=>card(p)).join('')}</div>` : '';
   const vegHtml = vegetables.length ? `<h2>${t.fVeg} — ${region.name}</h2><div class="grid">${vegetables.map(p=>card(p)).join('')}</div>` : '';
   const emptyHtml = (!fruits.length && !vegetables.length) ? `<p style="background:#fff8f0;border:1px solid #ffe2cc;padding:14px;border-radius:8px">${t.empty}</p>` : '';
+
+  // مناطق أخرى في نفس الدولة للربط الداخلي
+  const otherRegions = country.regions.filter(r => r.slug !== region.slug).slice(0, 4);
+  const otherRegionsHtml = otherRegions.map(r => `<li><a href="/${slug}/${r.slug}/">تصدير من ${r.name}</a></li>`).join('');
 
   return `<!DOCTYPE html>
 <html lang="${t.lang}" dir="${t.dir}">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>${t.title(region.name)}</title>
-<meta name="description" content="${t.meta(region.name)}">
+<title>${t.title(region.name, topProduct)}</title>
+<meta name="description" content="${t.meta(region.name, topProduct)}">
 <link rel="canonical" href="${url}">
 <link rel="icon" type="image/png" href="/alwa.png">
 <meta property="og:type" content="website">
-<meta property="og:title" content="${t.h1(region.name)}">
-<meta property="og:description" content="${t.meta(region.name)}">
+<meta property="og:title" content="${t.title(region.name, topProduct)}">
+<meta property="og:description" content="${t.meta(region.name, topProduct)}">
 <meta property="og:url" content="${url}">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","name":"${t.h1(region.name)}","url":"${url}","inLanguage":"${t.lang}","isPartOf":{"@type":"WebSite","name":"ALWA","url":"${SITE}/"}}
+{"@context":"https://schema.org","@type":"WebPage","name":"${t.title(region.name, topProduct)}","url":"${url}","inLanguage":"${t.lang}","isPartOf":{"@type":"WebSite","name":"ALWA","url":"${SITE}/"}}
 </script>
 ${CSS}
 </head>
@@ -542,6 +571,14 @@ ${CSS}
 <p>${intro}</p>
 ${storesBlock()}
 
+<h2>${t.specialtiesTitle(region.name)}</h2>
+<p>${t.specialtiesDesc(region.name)}</p>
+${fruitsHtml}
+${vegHtml}
+${emptyHtml}
+
+<ul class="dest">${destinationsHtml}</ul>
+
 <h2>${t.regTitle}</h2>
 <p>${t.regIntro}</p>
 <ol class="steps">${stepsHtml}</ol>
@@ -549,11 +586,8 @@ ${storesBlock()}
 <h2>${t.fieldsTitle}</h2>
 <div class="fields">${fieldsHtml}</div>
 
-<ul class="dest">${destinationsHtml}</ul>
-
-${fruitsHtml}
-${vegHtml}
-${emptyHtml}
+<h2>${t.otherRegionsTitle(country.name)}</h2>
+<ul class="other-areas">${otherRegionsHtml}</ul>
 
 <div class="faq">
 ${faqsHtml}
@@ -574,15 +608,15 @@ ${storesBlock()}
 function makeCountryPage(country, t) {
   const slug = COUNTRY_SLUG[country.code];
   const url = `${SITE}/${slug}/`;
-  const list = country.regions.map(r => `<li><a href="/${slug}/${r.slug}/">${r.name}</a></li>`).join('');
+  const list = country.regions.map(r => `<li><a href="/${slug}/${r.slug}/">تصدير من ${r.name}</a></li>`).join('');
 
   return `<!DOCTYPE html>
 <html lang="${t.lang}" dir="${t.dir}">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>${t.title(country.name)}</title>
-<meta name="description" content="${t.meta(country.name)}">
+<title>${t.title(country.name, 'المنتجات الزراعية')}</title>
+<meta name="description" content="${t.meta(country.name, 'المنتجات الزراعية')}">
 <link rel="canonical" href="${url}">
 <link rel="icon" type="image/png" href="/alwa.png">
 ${CSS}
@@ -591,7 +625,7 @@ ${CSS}
 <header><div class="wrap"><a href="/">ALWA</a> › <span>${country.name}</span></div></header>
 <main class="wrap">
 <h1>${t.h1(country.name)}</h1>
-<p>${pick(country.code+'-i', t.intros)(country.name)}</p>
+<p>${t.intros[0](country.name, 'المنتجات الزراعية')}</p>
 ${storesBlock()}
 <h2>${t.regTitle}</h2>
 <ol class="steps">${t.steps.map(s => `<li>${s}</li>`).join('')}</ol>
